@@ -1,112 +1,137 @@
 /* ==========================================================================
-   AUFSTIEGSCODE – Landingpage Stylesheet
+   AUFSTIEGSCODE – Landingpage Stylesheet (Redesign: Premium Author Site)
    ==========================================================================
 
    Inhaltsverzeichnis:
-   1. CSS Custom Properties (Variablen / Design Tokens)
-   2. Reset & Base
-   3. Typografie
-   4. Utility-Klassen
-   5. Buttons
-   6. Layout-Hilfsmittel (Container, Grid, Section)
-   7. Navigation / Header
-   8. Hero Section
-   9. Vorteile Section
-   10. Leseprobe Section
-   11. SCIL Profile Section
-   12. Bundle Section
-   13. Testimonials Section
-   14. Autoren Section
-   15. Events Section
-   16. Footer
-   17. Media Queries (Responsive)
+    1.  CSS Custom Properties (Design Tokens)
+    2.  Reset & Base
+    3.  Typografie
+    4.  Utility-Klassen
+    5.  Buttons
+    6.  Layout  (Container, Section, Divider)
+    7.  Navigation / Site Header
+    8.  Hero Section
+    9.  Buchcover-Mockup
+   10.  Vorteile Section
+   11.  Leseprobe Section
+   12.  SCIL Profile Section
+   13.  Bundle Section
+   14.  Testimonials (CSS-only Infinite Ticker)
+   15.  Autoren Section
+   16.  Events Section
+   17.  Abschluss-CTA Section
+   18.  Footer
+   19.  Keyframe-Animationen
+   20.  Media Queries (Responsive)
+   21.  Reduced Motion (Barrierefreiheit)
    ========================================================================== */
 
 
 /* ==========================================================================
    1. CSS CUSTOM PROPERTIES
-   Zentraler Ort für alle Farben, Abstände und Schriftgrößen.
-   Änderungen hier wirken sich auf die gesamte Seite aus.
+   Alle Design-Tokens zentral – Änderungen hier gelten überall.
    ========================================================================== */
 :root {
-  /* Markenfarben */
-  --color-blue:       #1a5276;   /* Hauptfarbe – Dunkelblau aus dem Buchcover */
-  --color-accent:     #200FCA;   /* SCIL-Akzentfarbe – leuchtendes Blau-Violett */
-  --color-gray:       #9c9c9c;   /* SCIL Grau – für Nebentext, Borders */
-  --color-gray-light: #f4f6f8;   /* Sehr helles Grau – Sektionshintergrund */
-  --color-white:      #ffffff;
+  /* ── Markenfarben ── */
+  --color-blue:        #1a5276;   /* Hauptfarbe – Dunkelblau */
+  --color-blue-dark:   #0d2f45;   /* Noch dunkleres Blau für Footer / CTAs */
+  --color-accent:      #200FCA;   /* Akzentfarbe – leuchtendes Blau-Violett */
+  --color-accent-dark: #1a0da8;   /* Hover-Zustand für Accent-Buttons */
+  --color-gray:        #9c9c9c;   /* Sekundärtext, Borders */
+  --color-gray-light:  #f5f6f8;   /* Abwechselnder Sektionshintergrund */
+  --color-gray-line:   #e8eaed;   /* Dünne Trennlinien */
+  --color-text:        #1c1c1e;   /* Haupttext – fast schwarz */
+  --color-text-muted:  #6b7280;   /* Sekundärtext */
+  --color-white:       #ffffff;
 
-  /* Typografie */
-  --font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
-  --font-size-xs:   0.75rem;   /*  12px */
-  --font-size-sm:   0.875rem;  /*  14px */
-  --font-size-base: 1rem;      /*  16px */
-  --font-size-md:   1.125rem;  /*  18px */
-  --font-size-lg:   1.375rem;  /*  22px */
-  --font-size-xl:   1.75rem;   /*  28px */
-  --font-size-2xl:  2.25rem;   /*  36px */
-  --font-size-3xl:  3rem;      /*  48px */
+  /* ── Typografie ── */
+  --font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif;
 
-  /* 8px Spacing-System
-     Alle Abstände sind Vielfache von 8px für ein konsistentes Raster */
-  --space-1:  8px;
-  --space-2:  16px;
-  --space-3:  24px;
-  --space-4:  32px;
-  --space-5:  40px;
-  --space-6:  48px;
-  --space-8:  64px;
-  --space-10: 80px;
-  --space-12: 96px;
-  --space-16: 128px;
+  /* Schriftgrößen-Skala (rem-basiert, 1rem = 16px) */
+  --text-xs:   0.75rem;    /*  12px */
+  --text-sm:   0.875rem;   /*  14px */
+  --text-base: 1rem;       /*  16px */
+  --text-md:   1.125rem;   /*  18px */
+  --text-lg:   1.375rem;   /*  22px */
+  --text-xl:   1.75rem;    /*  28px */
+  --text-2xl:  2.25rem;    /*  36px */
+  --text-3xl:  3rem;       /*  48px */
+  --text-4xl:  3.75rem;    /*  60px */
 
-  /* Border-Radius */
-  --radius-sm: 4px;
-  --radius-md: 8px;
-  --radius-lg: 16px;
+  /* ── 8px Spacing-System ──
+     Alle Abstände sind Vielfache von 8px. Das erzeugt ein
+     konsistentes visuelles Raster über die gesamte Seite. */
+  --sp-1:   8px;
+  --sp-2:  16px;
+  --sp-3:  24px;
+  --sp-4:  32px;
+  --sp-5:  40px;
+  --sp-6:  48px;
+  --sp-8:  64px;
+  --sp-10: 80px;
+  --sp-12: 96px;
+  --sp-16: 128px;
+
+  /* ── Border-Radius ── */
+  --radius-sm:   4px;
+  --radius-md:   8px;
+  --radius-lg:  16px;
+  --radius-xl:  24px;
   --radius-full: 9999px;
 
-  /* Schatten */
-  --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.08);
-  --shadow-md: 0 4px 16px rgba(0, 0, 0, 0.10);
-  --shadow-lg: 0 8px 32px rgba(0, 0, 0, 0.14);
+  /* ── Schatten ──
+     Mehrere Ebenen für ein realistisches Tiefen-System */
+  --shadow-sm:  0 1px 2px rgba(0,0,0,0.06), 0 1px 3px rgba(0,0,0,0.07);
+  --shadow-md:  0 4px 6px rgba(0,0,0,0.05), 0 10px 15px rgba(0,0,0,0.07);
+  --shadow-lg:  0 10px 25px rgba(0,0,0,0.08), 0 20px 48px rgba(0,0,0,0.10);
+  --shadow-xl:  0 20px 60px rgba(0,0,0,0.15);
 
-  /* Übergänge */
-  --transition: 0.2s ease;
+  /* ── Übergänge ── */
+  --ease:          0.22s cubic-bezier(0.4, 0, 0.2, 1);
+  --ease-spring:   0.35s cubic-bezier(0.34, 1.56, 0.64, 1);
 
-  /* Maximale Inhaltsbreite */
-  --max-width: 1100px;
+  /* ── Layout ── */
+  --max-width:       1140px;
+  --max-width-narrow: 720px;
+  --header-height:   68px;
 }
 
 
 /* ==========================================================================
    2. RESET & BASE
-   Setzt Browser-Defaults zurück, damit alles überall gleich aussieht.
+   Browser-Defaults normalisieren.
    ========================================================================== */
 *,
 *::before,
 *::after {
-  box-sizing: border-box; /* Padding/Border werden in die Breite eingerechnet */
+  /* Padding und Border werden in Breitenberechnung einbezogen */
+  box-sizing: border-box;
   margin: 0;
   padding: 0;
 }
 
 html {
-  scroll-behavior: smooth; /* Sanftes Scrollen bei Anker-Links */
+  /* Sanftes Scrollen für alle Anker-Links (<a href="#..."> ) */
+  scroll-behavior: smooth;
+  /* Verhindert horizontalen Überlauf durch breite Elemente */
+  overflow-x: hidden;
 }
 
 body {
   font-family: var(--font-family);
-  font-size: var(--font-size-base);
+  font-size: var(--text-base);
   line-height: 1.7;
-  color: #222;
+  color: var(--color-text);
   background-color: var(--color-white);
+  /* Schriftglättung auf macOS/iOS für scharfere Darstellung */
   -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  overflow-x: hidden;
 }
 
 img {
   max-width: 100%;
-  display: block;
+  display: block;  /* Entfernt Standard-Inline-Gap unter Bildern */
 }
 
 a {
@@ -114,557 +139,672 @@ a {
   text-decoration: none;
 }
 
-ul {
-  list-style: none;
+/* Entfernt Standard-Listenpunkte */
+ul { list-style: none; }
+
+/* Einheitliches Fokus-Styling für Tastaturnavigation (Barrierefreiheit) */
+:focus-visible {
+  outline: 3px solid var(--color-accent);
+  outline-offset: 3px;
+  border-radius: var(--radius-sm);
 }
 
 
 /* ==========================================================================
    3. TYPOGRAFIE
-   Globale Schriftstile für Überschriften und Fließtext.
+   Starke, kontrastreiche Hierarchie wie auf professionellen Autoren-Seiten.
    ========================================================================== */
 h1, h2, h3, h4 {
-  line-height: 1.25;
-  font-weight: 700;
+  line-height: 1.15;
+  font-weight: 800;  /* Extra-Bold für Impact */
   color: var(--color-blue);
+  letter-spacing: -0.02em;  /* Leichtes Tracking bei großen Fonts */
 }
 
-h1 { font-size: var(--font-size-2xl); }
-h2 { font-size: var(--font-size-xl); }
-h3 { font-size: var(--font-size-lg); }
-h4 { font-size: var(--font-size-md); }
+/* Basis-Größen (werden in Media Queries skaliert) */
+h1 { font-size: var(--text-2xl); }
+h2 { font-size: var(--text-xl);  }
+h3 { font-size: var(--text-lg);  }
+h4 { font-size: var(--text-md);  }
 
 p {
-  margin-bottom: var(--space-2);
+  margin-bottom: var(--sp-2);
+  color: var(--color-text-muted);
+  line-height: 1.75;
 }
 
-p:last-child {
-  margin-bottom: 0;
-}
+p:last-child { margin-bottom: 0; }
 
-/* Obertitel über Hauptüberschriften – z.B. "NEU ERSCHIENEN" */
+/* ── Eyebrow Label ──
+   Kleiner, kursiver Obertitel über Sektionsüberschriften.
+   Typisch für Premium-Publishingseiten. */
 .eyebrow {
   display: inline-block;
-  font-size: var(--font-size-xs);
-  font-weight: 700;
-  letter-spacing: 0.12em;
+  font-size: var(--text-xs);
+  font-weight: 600;
+  letter-spacing: 0.14em;
   text-transform: uppercase;
   color: var(--color-accent);
-  margin-bottom: var(--space-1);
+  margin-bottom: var(--sp-1);
 }
 
+/* ── Lead-Text ──
+   Etwas größerer Einleitungstext direkt unter dem Sektions-H2 */
+.lead {
+  font-size: var(--text-md);
+  color: var(--color-text-muted);
+  line-height: 1.7;
+}
 
-/* ==========================================================================
-   4. UTILITY-KLASSEN
-   Kleine Helfer-Klassen, die man direkt im HTML verwenden kann.
-   ========================================================================== */
-
-/* Text-Ausrichtung */
-.text-center { text-align: center; }
-.text-left   { text-align: left; }
-
-/* Farb-Utilities */
-.text-blue   { color: var(--color-blue); }
-.text-accent { color: var(--color-accent); }
-.text-gray   { color: var(--color-gray); }
-.text-white  { color: var(--color-white); }
-
-/* Abstands-Utilities (margin-bottom) */
-.mb-1 { margin-bottom: var(--space-1); }
-.mb-2 { margin-bottom: var(--space-2); }
-.mb-3 { margin-bottom: var(--space-3); }
-.mb-4 { margin-bottom: var(--space-4); }
-.mb-6 { margin-bottom: var(--space-6); }
-
-/* Verstecktes Element (zugänglich für Screen Reader) */
+/* Verstecktes Element – nur für Screen Reader sichtbar */
 .sr-only {
   position: absolute;
   width: 1px;
   height: 1px;
   overflow: hidden;
-  clip: rect(0, 0, 0, 0);
+  clip: rect(0,0,0,0);
   white-space: nowrap;
 }
 
 
 /* ==========================================================================
+   4. UTILITY-KLASSEN
+   ========================================================================== */
+.text-center { text-align: center; }
+.text-white  { color: var(--color-white) !important; }
+.text-accent { color: var(--color-accent); }
+.text-blue   { color: var(--color-blue); }
+.text-muted  { color: var(--color-text-muted); }
+
+.mb-2 { margin-bottom: var(--sp-2); }
+.mb-3 { margin-bottom: var(--sp-3); }
+.mb-4 { margin-bottom: var(--sp-4); }
+.mb-6 { margin-bottom: var(--sp-6); }
+
+
+/* ==========================================================================
    5. BUTTONS
-   Zwei Varianten: Primär (gefüllt) und Sekundär (Outline).
-   Mobile First: volle Breite auf kleinen Screens.
+   Drei Varianten: Primary (Akzent-Farbe), Outline (Blau), Ghost (Weiß).
    ========================================================================== */
 
-/* Basis aller Buttons */
+/* ── Basis aller Buttons ── */
 .btn {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  gap: var(--space-1);
-  padding: var(--space-2) var(--space-4);   /* 16px oben/unten, 32px links/rechts */
-  font-size: var(--font-size-base);
-  font-weight: 600;
-  border-radius: var(--radius-md);
+  gap: 8px;
+  /* Padding: komfortabel, aber nicht zu wuchtig */
+  padding: 14px 28px;
+  font-size: var(--text-sm);
+  font-weight: 700;
+  letter-spacing: 0.02em;
+  border-radius: var(--radius-full);   /* Pillen-Form – typisch für moderne Autoren-Sites */
   border: 2px solid transparent;
   cursor: pointer;
-  transition: background-color var(--transition),
-              color var(--transition),
-              border-color var(--transition),
-              transform var(--transition);
+  transition:
+    background-color var(--ease),
+    color            var(--ease),
+    border-color     var(--ease),
+    transform        var(--ease-spring),
+    box-shadow       var(--ease);
   text-decoration: none;
   white-space: nowrap;
 }
 
-.btn:hover {
-  transform: translateY(-2px); /* Leichter Hebe-Effekt beim Hover */
-}
+.btn:hover { transform: translateY(-2px); }
+.btn:active { transform: translateY(0); }
 
-/* Primär-Button: gefüllter Hintergrund */
+/* ── Primär: gefüllt, Akzentfarbe ── */
 .btn-primary {
   background-color: var(--color-accent);
   color: var(--color-white);
   border-color: var(--color-accent);
+  box-shadow: 0 4px 14px rgba(32, 15, 202, 0.3);
 }
 
 .btn-primary:hover {
-  background-color: #1a0da8; /* Etwas dunkleres Accent-Blau */
-  border-color: #1a0da8;
+  background-color: var(--color-accent-dark);
+  border-color:     var(--color-accent-dark);
+  box-shadow: 0 6px 20px rgba(32, 15, 202, 0.4);
 }
 
-/* Sekundär-Button: transparenter Hintergrund mit Rahmen */
-.btn-secondary {
+/* ── Outline: Rahmen, transparenter Hintergrund ── */
+.btn-outline {
   background-color: transparent;
   color: var(--color-blue);
   border-color: var(--color-blue);
 }
 
-.btn-secondary:hover {
+.btn-outline:hover {
   background-color: var(--color-blue);
   color: var(--color-white);
 }
 
-/* Ghost-Variante für dunkle Hintergründe */
-.btn-ghost-white {
+/* ── Ghost-Weiß: für dunkle Hintergründe ── */
+.btn-ghost {
   background-color: transparent;
   color: var(--color-white);
+  border-color: rgba(255, 255, 255, 0.6);
+}
+
+.btn-ghost:hover {
+  background-color: var(--color-white);
+  color: var(--color-blue);
   border-color: var(--color-white);
 }
 
-.btn-ghost-white:hover {
-  background-color: var(--color-white);
-  color: var(--color-blue);
+/* ── Klein: kompakter Button für Header oder Karten ── */
+.btn-sm {
+  padding: 10px 20px;
+  font-size: var(--text-xs);
 }
 
-/* Gruppen mit mehreren Buttons nebeneinander */
+/* ── Button-Gruppe: Buttons nebeneinander ── */
 .btn-group {
   display: flex;
   flex-wrap: wrap;
-  gap: var(--space-2);
+  gap: var(--sp-2);
   align-items: center;
 }
 
 
 /* ==========================================================================
-   6. LAYOUT-HILFSMITTEL
-   Container, Sektionen, Grid-Systeme.
+   6. LAYOUT
    ========================================================================== */
 
-/* Zentrierter Inhaltsbereich mit Seitenabstand */
+/* ── Container: zentriert, max-width, Seitenpading ── */
 .container {
   width: 100%;
   max-width: var(--max-width);
   margin-left: auto;
   margin-right: auto;
-  padding-left: var(--space-3);
-  padding-right: var(--space-3);
+  padding-left: var(--sp-3);
+  padding-right: var(--sp-3);
 }
 
-/* Standard-Sektion: vertikale Abstände */
-.section {
-  padding-top: var(--space-10);
-  padding-bottom: var(--space-10);
-}
-
-/* Abwechselnder heller Sektionshintergrund */
-.section--gray {
-  background-color: var(--color-gray-light);
-}
-
-/* Dunkler Sektionshintergrund */
-.section--dark {
-  background-color: var(--color-blue);
-  color: var(--color-white);
-}
-
-/* Sektion mit Akzent-Farbe */
-.section--accent {
-  background-color: var(--color-accent);
-  color: var(--color-white);
-}
-
-/* Sektionskopf: zentrierter Titel-Block */
-.section-header {
-  text-align: center;
-  max-width: 640px;
+/* ── Schmaler Container für Lesebreite ── */
+.container-narrow {
+  max-width: var(--max-width-narrow);
   margin-left: auto;
   margin-right: auto;
-  margin-bottom: var(--space-8);
 }
 
-.section-header h2 {
-  margin-bottom: var(--space-2);
+/* ── Standard-Sektion: großzügige vertikale Abstände ──
+   Viel Weißraum ist das Kennzeichen professioneller Buchseiten. */
+.section {
+  padding-top: var(--sp-12);
+  padding-bottom: var(--sp-12);
 }
 
-.section-header p {
-  color: var(--color-gray);
-  font-size: var(--font-size-md);
+/* ── Hintergrund-Varianten für Sektionen ── */
+.section--gray   { background-color: var(--color-gray-light); }
+.section--dark   { background-color: var(--color-blue-dark); color: var(--color-white); }
+.section--accent { background-color: var(--color-accent);    color: var(--color-white); }
+.section--blue   { background-color: var(--color-blue);      color: var(--color-white); }
+
+/* ── Sektionskopf: zentriert, mit Obertitel + Überschrift ── */
+.section-header {
+  text-align: center;
+  max-width: 600px;
+  margin-left: auto;
+  margin-right: auto;
+  margin-bottom: var(--sp-8);
 }
 
-/* Weißer Text in dunklen Sektionen */
+.section-header h2 { margin-bottom: var(--sp-2); }
+.section-header .lead { margin-top: var(--sp-2); }
+
+/* Weiße Überschriften in dunklen Sektionen */
 .section--dark .section-header h2,
-.section--accent .section-header h2 {
+.section--accent .section-header h2,
+.section--blue .section-header h2 {
   color: var(--color-white);
 }
 
-/* 2-Spalten-Grid */
-.grid-2 {
-  display: grid;
-  grid-template-columns: 1fr;
-  gap: var(--space-4);
-}
-
-/* 3-Spalten-Grid */
-.grid-3 {
-  display: grid;
-  grid-template-columns: 1fr;
-  gap: var(--space-4);
-}
-
-/* Karte (weißes Panel mit Schatten) */
-.card {
-  background: var(--color-white);
-  border-radius: var(--radius-lg);
-  padding: var(--space-4);
-  box-shadow: var(--shadow-md);
+/* ── Horizontale Trennlinie ──
+   Dezenter Ersatz für visuelle Grenzen zwischen Blöcken */
+.divider {
+  border: none;
+  border-top: 1px solid var(--color-gray-line);
+  margin: var(--sp-8) 0;
 }
 
 
 /* ==========================================================================
    7. NAVIGATION / SITE HEADER
-   Fixierter oberer Navigationsbalken.
+   Sticky Header mit Logo links, Nav-Links Mitte/rechts, CTA-Button.
    ========================================================================== */
 .site-header {
   position: sticky;
   top: 0;
-  z-index: 100;                        /* Bleibt über allen anderen Elementen */
-  background-color: var(--color-white);
-  border-bottom: 1px solid #e8ecef;
+  z-index: 200;           /* Bleibt über allen Seitenin halten */
+  height: var(--header-height);
+  background-color: rgba(255, 255, 255, 0.95);
+  /* backdrop-filter: Milchglas-Effekt – der Header ist leicht transparent */
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border-bottom: 1px solid var(--color-gray-line);
   box-shadow: var(--shadow-sm);
 }
 
 .site-header .container {
+  height: 100%;
   display: flex;
   align-items: center;
   justify-content: space-between;
-  height: 64px;
+  gap: var(--sp-4);
 }
 
-.site-header .logo {
-  font-weight: 700;
-  font-size: var(--font-size-md);
+/* ── Logo ── */
+.site-logo {
+  font-size: var(--text-md);
+  font-weight: 800;
   color: var(--color-blue);
-  letter-spacing: -0.01em;
+  letter-spacing: -0.03em;
+  flex-shrink: 0;
+  transition: opacity var(--ease);
 }
 
-.site-header .logo span {
-  color: var(--color-accent);
-}
+.site-logo:hover { opacity: 0.75; }
 
-/* Navigation-Links (auf Desktop sichtbar) */
+/* Der "Code"-Teil des Logos in Akzentfarbe */
+.site-logo span { color: var(--color-accent); }
+
+/* ── Navigationslinks (auf Mobile versteckt) ── */
 .nav-links {
-  display: none;    /* Auf Mobile ausgeblendet */
-  gap: var(--space-4);
+  display: none;    /* Wird ab 900px eingeblendet */
+  align-items: center;
+  gap: var(--sp-5);
 }
 
 .nav-links a {
-  font-size: var(--font-size-sm);
+  font-size: var(--text-sm);
   font-weight: 500;
-  color: #444;
-  transition: color var(--transition);
+  color: var(--color-text-muted);
+  transition: color var(--ease);
+  position: relative;
+  padding-bottom: 2px;
+}
+
+/* Unterstrich-Hover-Effekt: wächst von links nach rechts */
+.nav-links a::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  bottom: -2px;
+  width: 0;
+  height: 2px;
+  background-color: var(--color-accent);
+  transition: width var(--ease);
 }
 
 .nav-links a:hover {
   color: var(--color-blue);
 }
 
-/* Header-CTA-Button (kleiner) */
-.site-header .btn {
-  padding: var(--space-1) var(--space-3);
-  font-size: var(--font-size-sm);
+.nav-links a:hover::after {
+  width: 100%;
 }
 
 
 /* ==========================================================================
    8. HERO SECTION
-   Erster Eindruck – großes Bild, Titel, CTA-Buttons.
+   Split-Layout: Text links, Buchcover rechts. Hintergrund: sehr helles Grau.
    ========================================================================== */
 .hero {
-  background: linear-gradient(
-    160deg,
-    #0d3350 0%,           /* Sehr dunkles Blau oben links */
-    var(--color-blue) 60%, /* Hauptblau */
-    #1e3a8a 100%          /* Tieferes Blau unten rechts */
-  );
-  color: var(--color-white);
-  padding-top: var(--space-12);
-  padding-bottom: var(--space-12);
+  background-color: var(--color-gray-light);
+  /* Mindesthöhe: minus Header-Höhe → füllt den sichtbaren Viewport aus */
+  min-height: calc(100vh - var(--header-height));
+  display: flex;
+  align-items: center;
+  padding: var(--sp-10) 0;
+  /* Overflow hidden damit kein Booking nach rechts überläuft */
   overflow: hidden;
   position: relative;
 }
 
-/* Dezentes geometrisches Muster als Hintergrunddekoration */
-.hero::before {
+/* Dezente geometrische Dekoration – großer halbtransparenter Kreis rechts */
+.hero::after {
   content: '';
   position: absolute;
-  top: -80px;
-  right: -80px;
-  width: 480px;
-  height: 480px;
+  top: -120px;
+  right: -200px;
+  width: 700px;
+  height: 700px;
   border-radius: 50%;
-  background: rgba(32, 15, 202, 0.12);
+  /* Sehr subtiler Farbhauch für Tiefe */
+  background: radial-gradient(circle, rgba(32,15,202,0.05) 0%, transparent 70%);
   pointer-events: none;
 }
 
+/* ── Hero Container: 2-Spalten-Grid auf Desktop ── */
 .hero .container {
   display: grid;
-  grid-template-columns: 1fr;   /* Auf Mobile: eine Spalte */
-  gap: var(--space-8);
+  /* Mobile: eine Spalte. Desktop: 2 Spalten (wird in Media Query gesetzt) */
+  grid-template-columns: 1fr;
+  gap: var(--sp-8);
   align-items: center;
-  position: relative;           /* Über dem Pseudo-Element */
+  position: relative;   /* Über dem ::after Pseudo-Element */
+  z-index: 1;
 }
 
-/* Linke Spalte: Textinhalt */
-.hero-content {
-  max-width: 560px;
+/* ── Linke Spalte: Text & Buttons ── */
+.hero-content {}
+
+/* Eyebrow-Badge im Hero */
+.hero-eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: rgba(32, 15, 202, 0.08);
+  border: 1px solid rgba(32, 15, 202, 0.15);
+  border-radius: var(--radius-full);
+  padding: 6px 14px;
+  font-size: var(--text-xs);
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--color-accent);
+  margin-bottom: var(--sp-3);
 }
 
-.hero-content h1 {
-  color: var(--color-white);
-  font-size: clamp(1.75rem, 5vw, 3rem); /* Flüssige Schriftgröße */
-  margin-bottom: var(--space-2);
+/* Haupttitel: sehr groß, mit CSS-clamp für flüssige Skalierung.
+   clamp(min, bevorzugt, max) → passt sich der Viewport-Breite an */
+.hero-title {
+  font-size: clamp(2.5rem, 6vw, 4.5rem);
+  font-weight: 800;
+  line-height: 1.05;
+  letter-spacing: -0.03em;
+  color: var(--color-blue);
+  margin-bottom: var(--sp-3);
 }
 
-/* Blauer Trennstrich unter dem Titel */
-.hero-content h1 span {
-  display: block;
-  color: rgba(255, 255, 255, 0.75);
-  font-size: 0.55em;
-  font-weight: 400;
-  margin-top: var(--space-1);
-}
+/* Leichter Farbwechsel für das Wort "Code" */
+.hero-title .accent { color: var(--color-accent); }
 
+/* Untertitel unter dem Haupttitel */
 .hero-subtitle {
-  font-size: var(--font-size-md);
-  color: rgba(255, 255, 255, 0.85);
-  margin-bottom: var(--space-5);
+  font-size: clamp(var(--text-md), 2vw, var(--text-lg));
+  font-weight: 400;
+  color: var(--color-text-muted);
+  line-height: 1.5;
   max-width: 480px;
+  margin-bottom: var(--sp-5);
 }
 
-/* Rechte Spalte: Buchcover-Platzhalter */
+/* ── Rechte Spalte: Buchcover ── */
 .hero-book {
   display: flex;
   justify-content: center;
+  align-items: center;
 }
 
-/* Simuliertes Buchcover als Platzhalter */
-.book-cover-placeholder {
+
+/* ==========================================================================
+   9. BUCHCOVER-MOCKUP
+   Realistisch wirkendes Buchcover mit CSS-only.
+   ========================================================================== */
+
+/* ── Äußere Hülle: erzeugt den 3D-Kippeffekt ──
+   perspective: definiert den Blickpunkt für die 3D-Transformation.
+   Ohne perspective würde rotateY flach wirken. */
+.book-wrapper {
+  perspective: 1000px;
+  display: inline-block;
+}
+
+/* ── Das eigentliche Cover ──
+   rotateY: dreht das Buch leicht nach links → erzeugt die "aufgeschlagene" Pose */
+.book-cover {
   width: 220px;
-  height: 300px;
-  background: linear-gradient(135deg, var(--color-accent) 0%, #0d0a80 100%);
-  border-radius: var(--radius-md);
+  /* Höhe = 1.5× Breite → exaktes 2:3-Verhältnis (Buchformat) */
+  height: 330px;
+  background: linear-gradient(150deg, #1f6598 0%, var(--color-blue) 40%, #0d2f45 100%);
+  border-radius: 2px var(--radius-sm) var(--radius-sm) 2px;
+
+  /* 3D-Transformation: Buch leicht nach links geneigt */
+  transform: rotateY(-15deg);
+  transform-style: preserve-3d;
+
+  /* Schatten simuliert das "Abheben" des Buches vom Hintergrund */
   box-shadow:
-    -8px 8px 0 rgba(0, 0, 0, 0.25),   /* Buchkanten-Effekt */
-    var(--shadow-lg);
+    -14px 10px 0   #0d1f2e,  /* Buchkante/Rücken – simuliert Tiefe */
+    -28px 20px 40px rgba(0,0,0,0.35),
+    0 40px 60px rgba(0,0,0,0.18);
+
   display: flex;
   flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  padding: var(--space-3);
-  text-align: center;
+  justify-content: space-between;
+  padding: var(--sp-4) var(--sp-3) var(--sp-3);
   position: relative;
   overflow: hidden;
+  transition: transform var(--ease-spring), box-shadow var(--ease);
 }
 
-/* Optischer Buchbinderstreifen links */
-.book-cover-placeholder::before {
+/* Leichtes Aufrichten beim Hover */
+.book-wrapper:hover .book-cover {
+  transform: rotateY(-8deg) translateY(-4px);
+  box-shadow:
+    -10px 8px 0   #0d1f2e,
+    -24px 24px 50px rgba(0,0,0,0.40),
+    0 50px 80px rgba(0,0,0,0.20);
+}
+
+/* Buchbinderstreifen (Rücken-Simulation) als Pseudo-Element */
+.book-cover::before {
   content: '';
   position: absolute;
   left: 0;
   top: 0;
-  width: 14px;
+  width: 16px;
   height: 100%;
-  background: rgba(0, 0, 0, 0.2);
+  /* Gradient simuliert die gekrümmte Oberfläche des Bucheinbands */
+  background: linear-gradient(to right, rgba(0,0,0,0.25), rgba(0,0,0,0.08) 70%, transparent);
 }
 
-.book-cover-placeholder .book-title {
-  font-size: 1.1rem;
-  font-weight: 800;
-  color: white;
-  line-height: 1.2;
-  margin-bottom: var(--space-2);
-}
-
-.book-cover-placeholder .book-subtitle {
-  font-size: 0.65rem;
-  color: rgba(255, 255, 255, 0.8);
-  line-height: 1.4;
-}
-
-.book-cover-placeholder .book-authors {
+/* Dezenter Glanz-Effekt oben rechts – macht das Cover plastischer */
+.book-cover::after {
+  content: '';
   position: absolute;
-  bottom: var(--space-2);
-  font-size: 0.6rem;
-  color: rgba(255, 255, 255, 0.7);
-  font-weight: 600;
-  letter-spacing: 0.05em;
-  text-transform: uppercase;
+  top: 0;
+  right: 0;
+  width: 50%;
+  height: 40%;
+  background: linear-gradient(135deg, rgba(255,255,255,0.12) 0%, transparent 60%);
+  pointer-events: none;
 }
 
-/* Badge "NEU" oben rechts am Cover */
-.book-badge {
-  position: absolute;
-  top: var(--space-2);
-  right: var(--space-2);
+/* ── Inhalte auf dem Cover ── */
+.book-cover-top {
+  position: relative;   /* Über den Pseudo-Elementen */
+  z-index: 1;
+}
+
+/* "NEU"-Badge oben rechts */
+.book-cover-badge {
+  display: inline-block;
   background: #f39c12;
   color: white;
-  font-size: 0.6rem;
+  font-size: 0.55rem;
   font-weight: 800;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  padding: 3px 8px;
+  border-radius: var(--radius-full);
+  margin-bottom: var(--sp-3);
+}
+
+/* Buchtitel auf dem Cover */
+.book-cover-title {
+  font-size: 1.35rem;
+  font-weight: 900;
+  color: var(--color-white);
+  line-height: 1.15;
+  letter-spacing: -0.01em;
+}
+
+/* "Code"-Teil in Akzentfarbe */
+.book-cover-title .accent { color: #7eb8e8; }
+
+/* Buchuntertitel auf dem Cover */
+.book-cover-subtitle {
+  font-size: 0.6rem;
+  color: rgba(255,255,255,0.72);
+  line-height: 1.5;
+  margin-top: 10px;
+  font-weight: 400;
+}
+
+/* Autorenzeile unten auf dem Cover */
+.book-cover-authors {
+  position: relative;
+  z-index: 1;
+  font-size: 0.58rem;
+  color: rgba(255,255,255,0.65);
+  font-weight: 600;
   letter-spacing: 0.08em;
   text-transform: uppercase;
-  padding: 4px 8px;
-  border-radius: var(--radius-full);
+  padding-top: var(--sp-2);
+  /* Schmaler Trennstrich zum Titelbereich */
+  border-top: 1px solid rgba(255,255,255,0.15);
 }
 
 
 /* ==========================================================================
-   9. VORTEILE SECTION
-   5 Stärken des Buchs als Icon + Text Liste.
+   10. VORTEILE SECTION
+   5 Buchargumente als vertikale Liste – minimalistisch, lesbar.
    ========================================================================== */
 .benefit-list {
   display: flex;
   flex-direction: column;
-  gap: var(--space-3);
-  max-width: 720px;
+  /* Trennlinien zwischen Items statt Abstand allein */
+  divide-color: var(--color-gray-line);
+  max-width: 740px;
   margin: 0 auto;
 }
 
-/* Einzelner Benefit-Eintrag */
 .benefit-item {
   display: flex;
-  gap: var(--space-3);
+  gap: var(--sp-4);
   align-items: flex-start;
-  padding: var(--space-3);
-  border-radius: var(--radius-md);
-  transition: background-color var(--transition);
+  padding: var(--sp-4) 0;
+  /* Trennlinie zwischen den Items */
+  border-bottom: 1px solid var(--color-gray-line);
+  transition: background-color var(--ease);
 }
 
-.benefit-item:hover {
-  background-color: var(--color-gray-light);
-}
+.benefit-item:first-child { border-top: 1px solid var(--color-gray-line); }
 
-/* Icon-Kreis */
-.benefit-icon {
-  flex-shrink: 0;                     /* Verhindert Schrumpfen */
-  width: 48px;
-  height: 48px;
-  background-color: #e8f0fb;
-  color: var(--color-accent);
-  border-radius: var(--radius-md);
+/* Großes Nummerierungs-Element links */
+.benefit-number {
+  flex-shrink: 0;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background-color: var(--color-accent);
+  color: var(--color-white);
+  font-size: var(--text-sm);
+  font-weight: 800;
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 1.4rem;
+  margin-top: 2px;  /* Leichte vertikale Ausrichtung zur Überschrift */
 }
 
-.benefit-text h3 {
-  font-size: var(--font-size-base);
+.benefit-body {}
+
+.benefit-body h3 {
+  font-size: var(--text-base);
+  font-weight: 700;
   margin-bottom: 4px;
   color: var(--color-blue);
+  letter-spacing: -0.01em;
 }
 
-.benefit-text p {
-  font-size: var(--font-size-sm);
-  color: #555;
+.benefit-body p {
+  font-size: var(--text-sm);
+  color: var(--color-text-muted);
+  margin: 0;
+  line-height: 1.65;
+}
+
+
+/* ==========================================================================
+   11. LESEPROBE SECTION
+   Breiter, zentrierter CTA-Banner.
+   ========================================================================== */
+.leseprobe-inner {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  gap: var(--sp-3);
+  padding: var(--sp-8);
+  background: var(--color-white);
+  border-radius: var(--radius-xl);
+  /* Dezenter Rahmen statt Schatten – passt zu elegantem Design */
+  border: 1.5px solid var(--color-gray-line);
+  max-width: 640px;
+  margin: 0 auto;
+}
+
+.leseprobe-inner h2 { margin-bottom: 0; }
+
+.leseprobe-inner .lead {
+  max-width: 440px;
   margin: 0;
 }
 
-
-/* ==========================================================================
-   10. LESEPROBE SECTION
-   Einfacher CTA-Block zum PDF-Download.
-   ========================================================================== */
-.leseprobe {
-  text-align: center;
-}
-
-.leseprobe-card {
-  background: var(--color-white);
-  border: 2px solid var(--color-blue);
-  border-radius: var(--radius-lg);
-  padding: var(--space-8) var(--space-4);
-  max-width: 600px;
-  margin: 0 auto;
-}
-
+/* Kleines Buchsymbol über dem Titel */
 .leseprobe-icon {
-  font-size: 3rem;
-  margin-bottom: var(--space-3);
-}
-
-.leseprobe-card h2 {
-  margin-bottom: var(--space-2);
-}
-
-.leseprobe-card p {
-  color: var(--color-gray);
-  margin-bottom: var(--space-4);
+  font-size: 2.5rem;
+  line-height: 1;
 }
 
 
 /* ==========================================================================
-   11. SCIL PROFILE SECTION
-   Erklärung des SCIL-Profils + Service-Kacheln.
+   12. SCIL PROFILE SECTION
+   Erklärungstext + SCIL-Badge + 4 Service-Kacheln.
    ========================================================================== */
+
+/* Einleitender 2-Spalter: Text | Badge */
 .scil-intro {
   display: grid;
   grid-template-columns: 1fr;
-  gap: var(--space-6);
-  margin-bottom: var(--space-8);
+  gap: var(--sp-6);
   align-items: center;
+  margin-bottom: var(--sp-10);
 }
 
-/* SCIL Logo/Badge Platzhalter */
-.scil-badge {
+.scil-text h2 { margin-bottom: var(--sp-3); }
+.scil-text p  { max-width: 520px; }
+
+/* ── SCIL-Badge ──
+   Rundes Emblem als visuelle Identität des Profils */
+.scil-badge-wrap {
   display: flex;
   justify-content: center;
 }
 
-.scil-badge-inner {
-  width: 160px;
-  height: 160px;
-  background: linear-gradient(135deg, var(--color-accent), var(--color-blue));
+.scil-badge {
+  width: 180px;
+  height: 180px;
   border-radius: 50%;
+  background: linear-gradient(135deg, var(--color-accent) 0%, var(--color-blue) 100%);
+  box-shadow: var(--shadow-lg);
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
   color: white;
-  font-weight: 800;
-  font-size: 1.2rem;
-  letter-spacing: 0.05em;
-  box-shadow: var(--shadow-lg);
+  font-weight: 900;
+  font-size: 1.4rem;
+  letter-spacing: 0.06em;
+  flex-shrink: 0;
 }
 
-.scil-badge-inner span {
-  font-size: 0.6rem;
+.scil-badge-sub {
+  font-size: 0.58rem;
   font-weight: 400;
   opacity: 0.8;
   margin-top: 4px;
@@ -672,497 +812,641 @@ p:last-child {
   letter-spacing: 0.1em;
 }
 
-/* Service-Kacheln */
+/* ── Service-Kacheln ── */
 .service-grid {
   display: grid;
-  grid-template-columns: 1fr;
-  gap: var(--space-3);
-  margin-bottom: var(--space-6);
+  grid-template-columns: 1fr;   /* Mobile: 1 Spalte */
+  gap: var(--sp-3);
+  margin-bottom: var(--sp-8);
 }
 
 .service-card {
   background: var(--color-white);
   border-radius: var(--radius-lg);
-  padding: var(--space-4);
-  box-shadow: var(--shadow-md);
-  border-top: 4px solid var(--color-accent);
-  transition: transform var(--transition), box-shadow var(--transition);
+  padding: var(--sp-4);
+  border: 1.5px solid var(--color-gray-line);
+  /* Farbiger Akzentstreifen oben – ersetzt Box-Shadow für mehr Eleganz */
+  border-top: 3px solid var(--color-accent);
+  transition: transform var(--ease-spring), box-shadow var(--ease), border-color var(--ease);
 }
 
 .service-card:hover {
-  transform: translateY(-4px);
-  box-shadow: var(--shadow-lg);
+  transform: translateY(-5px);
+  box-shadow: var(--shadow-md);
 }
 
-.service-card-icon {
-  font-size: 2rem;
-  margin-bottom: var(--space-2);
+.service-icon {
+  font-size: 1.75rem;
+  margin-bottom: var(--sp-2);
 }
 
 .service-card h3 {
-  font-size: var(--font-size-base);
-  margin-bottom: var(--space-1);
+  font-size: var(--text-base);
+  font-weight: 700;
   color: var(--color-blue);
+  margin-bottom: 8px;
 }
 
 .service-card p {
-  font-size: var(--font-size-sm);
-  color: #555;
+  font-size: var(--text-sm);
   margin: 0;
 }
 
-/* CTA-Block am Ende der SCIL-Sektion */
-.scil-cta-block {
+/* ── SCIL CTA-Block am Sektionsende ── */
+.scil-cta {
   text-align: center;
-  background: linear-gradient(135deg, #e8f0fb 0%, #f0ecff 100%);
-  border-radius: var(--radius-lg);
-  padding: var(--space-6);
+  padding: var(--sp-8) var(--sp-4);
+  background: linear-gradient(135deg, rgba(32,15,202,0.05), rgba(26,82,118,0.06));
+  border-radius: var(--radius-xl);
+  border: 1.5px solid rgba(32,15,202,0.12);
 }
 
-.scil-cta-block p {
-  color: #555;
-  margin-bottom: var(--space-3);
+.scil-cta h3 {
+  margin-bottom: var(--sp-2);
+}
+
+.scil-cta p {
+  max-width: 420px;
+  margin: 0 auto var(--sp-4);
 }
 
 
 /* ==========================================================================
-   12. BUNDLE SECTION
-   Kombiangebot Buch + SCIL Analyse.
+   13. BUNDLE SECTION
    ========================================================================== */
 .bundle-card {
-  max-width: 720px;
+  max-width: var(--max-width-narrow);
   margin: 0 auto;
   background: var(--color-white);
-  border-radius: var(--radius-lg);
+  border-radius: var(--radius-xl);
   overflow: hidden;
-  box-shadow: var(--shadow-lg);
+  box-shadow: var(--shadow-xl);
   display: grid;
-  grid-template-columns: 1fr;
+  grid-template-columns: 1fr;  /* Mobile: 1 Spalte, Desktop: 2 (Media Query) */
 }
 
-/* Linke bunte Seite (auf Desktop) */
+/* ── Linke farbige Seite ── */
 .bundle-visual {
-  background: linear-gradient(135deg, var(--color-accent) 0%, var(--color-blue) 100%);
+  background: linear-gradient(145deg, var(--color-accent) 0%, var(--color-blue) 100%);
   color: white;
-  padding: var(--space-6);
+  padding: var(--sp-8) var(--sp-6);
   text-align: center;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  gap: var(--space-2);
+  gap: var(--sp-3);
 }
 
-.bundle-visual .bundle-icons {
-  font-size: 3rem;
+.bundle-visual-icons {
+  font-size: 2.5rem;
   display: flex;
-  gap: var(--space-2);
   align-items: center;
+  gap: var(--sp-2);
 }
 
 .bundle-visual h3 {
   color: white;
-  font-size: var(--font-size-lg);
+  font-size: var(--text-xl);
+  letter-spacing: -0.02em;
 }
 
-/* Rechte weiße Seite mit Details */
+.bundle-visual p {
+  opacity: 0.82;
+  font-size: var(--text-sm);
+  max-width: 220px;
+}
+
+/* ── Rechte weiße Detailseite ── */
 .bundle-details {
-  padding: var(--space-6);
+  padding: var(--sp-8) var(--sp-6);
 }
 
 .bundle-details h2 {
-  margin-bottom: var(--space-3);
+  margin-bottom: var(--sp-4);
 }
 
-/* Preisanzeige */
-.bundle-pricing {
-  display: flex;
-  align-items: baseline;
-  gap: var(--space-2);
-  margin: var(--space-4) 0;
-  flex-wrap: wrap;
-}
-
-/* Alter (durchgestrichener) Preis */
-.price-original {
-  font-size: var(--font-size-lg);
-  color: var(--color-gray);
-  text-decoration: line-through;
-}
-
-/* Neuer vergünstigter Preis */
-.price-bundle {
-  font-size: var(--font-size-3xl);
-  font-weight: 800;
-  color: var(--color-accent);
-  line-height: 1;
-}
-
-.price-label {
-  font-size: var(--font-size-sm);
-  color: var(--color-gray);
-}
-
-/* Spar-Badge */
-.savings-badge {
-  display: inline-block;
-  background: #27ae60;
-  color: white;
-  font-size: var(--font-size-xs);
-  font-weight: 700;
-  padding: 4px 12px;
-  border-radius: var(--radius-full);
-  margin-left: var(--space-1);
-}
-
-/* Bundle-Inhaltsliste */
+/* Was ist im Bundle enthalten */
 .bundle-includes {
-  margin-bottom: var(--space-4);
+  margin-bottom: var(--sp-5);
 }
 
 .bundle-includes li {
   display: flex;
   align-items: center;
-  gap: var(--space-1);
-  padding: 6px 0;
-  font-size: var(--font-size-sm);
-  color: #444;
-  border-bottom: 1px solid #f0f0f0;
+  gap: 10px;
+  padding: 10px 0;
+  font-size: var(--text-sm);
+  color: var(--color-text);
+  border-bottom: 1px solid var(--color-gray-line);
 }
 
+/* Haken-Symbol per CSS (kein Emoji nötig) */
 .bundle-includes li::before {
-  content: '✓';
-  color: #27ae60;
-  font-weight: 700;
+  content: '';
   flex-shrink: 0;
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  background-color: #e8f5e9;
+  /* Grüner Haken per clip-path */
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 20' fill='%2327ae60'%3E%3Cpath fill-rule='evenodd' d='M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z' clip-rule='evenodd'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: 12px;
+}
+
+/* ── Preisanzeige ── */
+.bundle-pricing {
+  display: flex;
+  align-items: baseline;
+  gap: var(--sp-2);
+  flex-wrap: wrap;
+  margin-bottom: var(--sp-5);
+}
+
+/* Alter (durchgestrichener) Preis */
+.price-old {
+  font-size: var(--text-lg);
+  color: var(--color-gray);
+  text-decoration: line-through;
+}
+
+/* Neuer Preis: dominant */
+.price-new {
+  font-size: var(--text-4xl);
+  font-weight: 900;
+  color: var(--color-accent);
+  line-height: 1;
+  letter-spacing: -0.03em;
+}
+
+.price-vat {
+  font-size: var(--text-xs);
+  color: var(--color-gray);
+  align-self: flex-end;
+  padding-bottom: 4px;
+}
+
+/* Grünes Spar-Pill-Badge */
+.savings-badge {
+  display: inline-block;
+  background: #d4edda;
+  color: #155724;
+  font-size: var(--text-xs);
+  font-weight: 700;
+  padding: 4px 10px;
+  border-radius: var(--radius-full);
+  align-self: center;
 }
 
 
 /* ==========================================================================
-   13. TESTIMONIALS SECTION
-   3 Kundenstimmen als Karten.
+   14. TESTIMONIALS – CSS-ONLY INFINITE TICKER
+   ==========================================================================
+
+   Technik: Infinite Scroll Marquee mit reinem CSS.
+
+   Prinzip:
+   1. Außen: .testimonial-ticker  →  overflow:hidden  (Fenster / "Sichtschlitz")
+   2. Innen: .testimonial-track   →  display:flex + width:max-content
+      Die Track-Breite ist die Summe aller Karten + Abstände.
+   3. Die Karten werden DUPLIZIERT (aria-hidden auf Kopien).
+      Das erzeugt eine nahtlose Schleife, weil der Track bei -50%
+      wieder genauso aussieht wie am Anfang.
+   4. @keyframes: translateX von 0 → -50% → Loop
+
+   Pause beim Hover: animation-play-state: paused
+   Auf kleinen Screens scrollt es langsamer.
    ========================================================================== */
-.testimonial-grid {
-  display: grid;
-  grid-template-columns: 1fr;
-  gap: var(--space-4);
+
+/* ── Äußerer Container: Overflow-Maske + weiche Ränder ── */
+.testimonial-ticker {
+  overflow: hidden;
+  /* mask-image: weicht die Kanten links/rechts aus → sieht professionell aus */
+  -webkit-mask-image: linear-gradient(
+    to right,
+    transparent 0%,
+    black 8%,
+    black 92%,
+    transparent 100%
+  );
+  mask-image: linear-gradient(
+    to right,
+    transparent 0%,
+    black 8%,
+    black 92%,
+    transparent 100%
+  );
 }
 
+/* ── Innerer Track: scrollt kontinuierlich ── */
+.testimonial-track {
+  display: flex;
+  gap: var(--sp-4);
+  /* width:max-content = Track wird so breit wie alle Kinder zusammen */
+  width: max-content;
+  /* Animation: 40 Sekunden für eine vollständige Runde, linear, endlos */
+  animation: ticker-scroll 40s linear infinite;
+}
+
+/* Pausiert die Animation wenn der Nutzer drüber fährt */
+.testimonial-ticker:hover .testimonial-track {
+  animation-play-state: paused;
+}
+
+/* ── Einzelne Testimonial-Karte ── */
 .testimonial-card {
+  /* Feste Breite = gleichmäßiger Track.
+     Auf Widescreen sieht man ~3 Karten gleichzeitig. */
+  width: 340px;
+  flex-shrink: 0;   /* Karten dürfen nicht schrumpfen */
   background: var(--color-white);
   border-radius: var(--radius-lg);
-  padding: var(--space-5);
+  padding: var(--sp-5);
   box-shadow: var(--shadow-md);
-  position: relative;
-  border-left: 4px solid var(--color-accent);
+  border: 1.5px solid var(--color-gray-line);
+  display: flex;
+  flex-direction: column;
+  gap: var(--sp-3);
 }
 
-/* Großes Anführungszeichen als Dekoration */
-.testimonial-card::before {
-  content: '"';
-  position: absolute;
-  top: var(--space-3);
-  right: var(--space-3);
+/* ── Großes Anführungszeichen als dekoratives Element ──
+   Sieht nach Zitat-Typografie aus, die man auf
+   NYT-Buchrezensionen oder Literatur-Sites sieht */
+.testimonial-quote-mark {
+  font-family: Georgia, 'Times New Roman', serif;
   font-size: 5rem;
-  line-height: 1;
-  color: var(--color-gray-light);
-  font-family: Georgia, serif;
-  pointer-events: none;
+  line-height: 0.5;
+  color: var(--color-accent);
+  opacity: 0.2;
+  display: block;
+  height: 32px;
+  overflow: hidden;
 }
 
-/* Sterne-Bewertung */
-.testimonial-stars {
-  color: #f39c12;
-  font-size: 1.1rem;
-  margin-bottom: var(--space-2);
-  letter-spacing: 2px;
-}
-
+/* Zitattext: kursiv = optisch als direktes Zitat erkennbar */
 .testimonial-text {
-  font-size: var(--font-size-base);
-  color: #333;
-  line-height: 1.7;
-  margin-bottom: var(--space-3);
+  font-size: var(--text-sm);
   font-style: italic;
+  color: var(--color-text);
+  line-height: 1.75;
+  flex: 1;
+  margin: 0;
 }
 
+/* Autorenzeile */
 .testimonial-author {
   display: flex;
   align-items: center;
-  gap: var(--space-2);
+  gap: var(--sp-2);
+  padding-top: var(--sp-2);
+  border-top: 1px solid var(--color-gray-line);
 }
 
-/* Avatar-Kreis Platzhalter */
+/* Avatar-Platzhalter */
 .testimonial-avatar {
-  width: 48px;
-  height: 48px;
+  width: 44px;
+  height: 44px;
   border-radius: 50%;
   background: var(--color-gray-light);
-  border: 2px solid #ddd;
+  border: 2px solid var(--color-gray-line);
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 1.3rem;
+  font-size: 1.2rem;
   flex-shrink: 0;
-  color: var(--color-gray);
 }
 
-.testimonial-meta strong {
-  display: block;
-  font-size: var(--font-size-sm);
+.testimonial-name {
+  font-size: var(--text-sm);
+  font-weight: 700;
   color: var(--color-blue);
+  display: block;
+  font-style: normal;
 }
 
-.testimonial-meta span {
-  font-size: var(--font-size-xs);
+.testimonial-role {
+  font-size: var(--text-xs);
   color: var(--color-gray);
+  font-style: normal;
+}
+
+/* Sternchen-Zeile */
+.testimonial-stars {
+  color: #f59e0b;
+  font-size: 0.85rem;
+  letter-spacing: 2px;
+  display: block;
+  margin: 0;
 }
 
 
 /* ==========================================================================
-   14. AUTOREN SECTION
-   Portraits und Kurzbiografien der beiden Autoren.
+   15. AUTOREN SECTION
    ========================================================================== */
 .authors-grid {
   display: grid;
   grid-template-columns: 1fr;
-  gap: var(--space-6);
+  gap: var(--sp-8);
 }
 
 .author-card {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  text-align: center;
-  gap: var(--space-3);
+  display: grid;
+  grid-template-columns: 1fr;   /* Mobile: gestapelt */
+  gap: var(--sp-5);
+  align-items: start;
+  padding: var(--sp-6);
+  background: var(--color-white);
+  border-radius: var(--radius-xl);
+  border: 1.5px solid var(--color-gray-line);
+  transition: box-shadow var(--ease);
 }
 
-/* Foto-Platzhalter */
+.author-card:hover {
+  box-shadow: var(--shadow-md);
+}
+
+/* Quadratisches Foto – Platzhalter */
 .author-photo {
-  width: 140px;
-  height: 140px;
+  width: 120px;
+  height: 120px;
   border-radius: 50%;
   background: var(--color-gray-light);
-  border: 4px solid var(--color-blue);
+  border: 3px solid var(--color-blue);
   display: flex;
   align-items: center;
   justify-content: center;
   font-size: 3rem;
-  color: var(--color-gray);
   flex-shrink: 0;
+  margin: 0 auto;   /* Mobile: zentriert */
+  /* Wenn echte Fotos verwendet werden:
+     <img src="foto.jpg" alt="Name"> direkt in dieses div einsetzen */
 }
 
+.author-info {}
+
 .author-info h3 {
-  font-size: var(--font-size-lg);
-  margin-bottom: var(--space-1);
+  font-size: var(--text-xl);
+  margin-bottom: 4px;
 }
 
 .author-role {
-  font-size: var(--font-size-sm);
-  color: var(--color-accent);
-  font-weight: 600;
+  font-size: var(--text-xs);
+  font-weight: 700;
+  letter-spacing: 0.1em;
   text-transform: uppercase;
-  letter-spacing: 0.08em;
-  margin-bottom: var(--space-2);
+  color: var(--color-accent);
+  margin-bottom: var(--sp-3);
+  display: block;
 }
 
 .author-bio {
-  font-size: var(--font-size-sm);
-  color: #555;
-  line-height: 1.7;
-  margin-bottom: var(--space-2);
+  font-size: var(--text-sm);
+  line-height: 1.75;
+  margin-bottom: var(--sp-3);
 }
 
-/* Externer Link zur Website */
+/* Externer Link – öffnet in neuem Tab */
 .author-link {
   display: inline-flex;
   align-items: center;
-  gap: 4px;
-  font-size: var(--font-size-sm);
-  color: var(--color-accent);
+  gap: 6px;
+  font-size: var(--text-sm);
   font-weight: 600;
-  border-bottom: 1px solid transparent;
-  transition: border-color var(--transition);
+  color: var(--color-accent);
+  /* Animierter Unterstrich-Hover */
+  background-image: linear-gradient(var(--color-accent), var(--color-accent));
+  background-size: 0% 2px;
+  background-position: 0 100%;
+  background-repeat: no-repeat;
+  transition: background-size var(--ease);
 }
 
 .author-link:hover {
-  border-color: var(--color-accent);
+  background-size: 100% 2px;
 }
 
 
 /* ==========================================================================
-   15. EVENTS SECTION
-   Veranstaltungshinweis (ITK Mainz).
+   16. EVENTS SECTION
    ========================================================================== */
 .event-card {
-  max-width: 720px;
+  max-width: var(--max-width-narrow);
   margin: 0 auto;
   background: var(--color-white);
-  border-radius: var(--radius-lg);
-  padding: var(--space-6);
+  border-radius: var(--radius-xl);
+  border: 1.5px solid var(--color-gray-line);
+  overflow: hidden;
   box-shadow: var(--shadow-md);
   display: grid;
-  grid-template-columns: 1fr;
-  gap: var(--space-4);
-  align-items: center;
+  grid-template-columns: 1fr;   /* Desktop: 2-spaltig (Media Query) */
 }
 
-/* Datum-Block */
-.event-date-block {
-  display: flex;
-  align-items: center;
-  gap: var(--space-4);
-}
-
-.event-calendar {
-  background: var(--color-accent);
+/* Linke/obere farbige Datumsspalte */
+.event-date-col {
+  background: linear-gradient(145deg, var(--color-blue) 0%, var(--color-blue-dark) 100%);
   color: white;
-  border-radius: var(--radius-md);
-  padding: var(--space-2) var(--space-3);
+  padding: var(--sp-6);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
   text-align: center;
-  min-width: 80px;
-  flex-shrink: 0;
+  gap: var(--sp-2);
 }
 
-.event-calendar .event-month {
-  font-size: var(--font-size-xs);
+.event-month {
+  font-size: var(--text-xs);
+  font-weight: 700;
+  letter-spacing: 0.15em;
   text-transform: uppercase;
-  letter-spacing: 0.1em;
-  opacity: 0.85;
-}
-
-.event-calendar .event-day {
-  font-size: var(--font-size-2xl);
-  font-weight: 800;
-  line-height: 1.1;
-}
-
-.event-calendar .event-year {
-  font-size: var(--font-size-xs);
   opacity: 0.8;
 }
 
-.event-info h3 {
-  font-size: var(--font-size-lg);
-  margin-bottom: var(--space-1);
+.event-day {
+  font-size: var(--text-4xl);
+  font-weight: 900;
+  line-height: 1;
+  letter-spacing: -0.04em;
 }
 
-.event-location {
+.event-year {
+  font-size: var(--text-sm);
+  opacity: 0.7;
+}
+
+/* Rechte/untere Textinfo-Spalte */
+.event-info-col {
+  padding: var(--sp-6);
   display: flex;
+  flex-direction: column;
+  gap: var(--sp-3);
+  justify-content: center;
+}
+
+.event-info-col h3 {
+  font-size: var(--text-xl);
+  margin-bottom: 0;
+}
+
+.event-location-tag {
+  display: inline-flex;
   align-items: center;
-  gap: 6px;
-  font-size: var(--font-size-sm);
-  color: var(--color-gray);
+  gap: 8px;
+  font-size: var(--text-sm);
+  color: var(--color-text-muted);
 }
 
 .event-description {
-  font-size: var(--font-size-sm);
-  color: #555;
+  font-size: var(--text-sm);
+  margin: 0;
 }
 
 
 /* ==========================================================================
-   16. FOOTER
-   Impressum, Links, Copyright.
+   17. ABSCHLUSS-CTA SECTION
+   Letzter starker Call-To-Action vor dem Footer.
    ========================================================================== */
-.site-footer {
-  background-color: #0d1f2d;    /* Fast Schwarz-Blau */
-  color: rgba(255, 255, 255, 0.7);
-  padding: var(--space-8) 0 var(--space-4);
+.cta-final {
+  text-align: center;
 }
 
+.cta-final h2 {
+  color: var(--color-white);
+  font-size: clamp(var(--text-xl), 4vw, var(--text-3xl));
+  margin-bottom: var(--sp-2);
+}
+
+.cta-final .lead {
+  color: rgba(255,255,255,0.8);
+  margin-bottom: var(--sp-5);
+}
+
+/* Buttons in der CTA-Sektion zentrieren */
+.cta-final .btn-group {
+  justify-content: center;
+}
+
+
+/* ==========================================================================
+   18. FOOTER
+   ========================================================================== */
+.site-footer {
+  background-color: var(--color-blue-dark);
+  color: rgba(255,255,255,0.65);
+  padding: var(--sp-12) 0 var(--sp-6);
+}
+
+/* 4-Spalten Grid: Brand-Spalte breiter als Link-Spalten */
 .footer-grid {
   display: grid;
   grid-template-columns: 1fr;
-  gap: var(--space-6);
-  margin-bottom: var(--space-8);
+  gap: var(--sp-8);
+  margin-bottom: var(--sp-8);
+  padding-bottom: var(--sp-8);
+  border-bottom: 1px solid rgba(255,255,255,0.08);
 }
 
+/* ── Brand-Spalte ── */
+.footer-brand .footer-logo {
+  display: block;
+  font-size: var(--text-lg);
+  font-weight: 800;
+  color: var(--color-white);
+  letter-spacing: -0.02em;
+  margin-bottom: var(--sp-2);
+}
+
+.footer-brand .footer-logo span { color: var(--color-accent); }
+
+.footer-brand p {
+  font-size: var(--text-sm);
+  line-height: 1.65;
+  color: rgba(255,255,255,0.55);
+  max-width: 260px;
+}
+
+/* ── Link-Spalten ── */
 .footer-col h4 {
-  color: var(--color-white);
-  font-size: var(--font-size-sm);
+  font-size: var(--text-xs);
+  font-weight: 700;
+  letter-spacing: 0.12em;
   text-transform: uppercase;
-  letter-spacing: 0.1em;
-  margin-bottom: var(--space-3);
-}
-
-.footer-col p,
-.footer-col a {
-  font-size: var(--font-size-sm);
-  line-height: 1.8;
-  color: rgba(255, 255, 255, 0.6);
-}
-
-.footer-col a:hover {
   color: var(--color-white);
+  margin-bottom: var(--sp-3);
 }
 
 .footer-links {
   display: flex;
   flex-direction: column;
-  gap: 8px;
+  gap: 10px;
 }
 
-/* Trennlinie und Copyright-Zeile */
+.footer-links a {
+  font-size: var(--text-sm);
+  color: rgba(255,255,255,0.55);
+  transition: color var(--ease);
+}
+
+.footer-links a:hover { color: var(--color-white); }
+
+/* ── Copyright-Zeile ── */
 .footer-bottom {
-  border-top: 1px solid rgba(255, 255, 255, 0.1);
-  padding-top: var(--space-4);
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: var(--space-2);
+  gap: var(--sp-2);
   text-align: center;
 }
 
 .footer-bottom p {
-  font-size: var(--font-size-xs);
-  color: rgba(255, 255, 255, 0.4);
+  font-size: var(--text-xs);
+  color: rgba(255,255,255,0.35);
   margin: 0;
 }
 
-/* Footer-Logo */
-.footer-logo {
-  font-weight: 700;
-  font-size: var(--font-size-md);
-  color: var(--color-white);
-  margin-bottom: var(--space-2);
-  display: block;
+.footer-bottom a {
+  color: rgba(255,255,255,0.4);
+  font-size: var(--text-xs);
+  transition: color var(--ease);
 }
 
-.footer-logo span {
-  color: var(--color-accent);
+.footer-bottom a:hover { color: var(--color-white); }
+
+
+/* ==========================================================================
+   19. KEYFRAME-ANIMATIONEN
+   ========================================================================== */
+
+/* Infinite Ticker: Testimonials von rechts nach links scrollen.
+   Die Karten werden dupliziert, daher reicht -50% für den nahtlosen Loop.
+   Bei -50% sieht der Track identisch aus wie bei 0% → perfekte Schleife. */
+@keyframes ticker-scroll {
+  from { transform: translateX(0); }
+  to   { transform: translateX(-50%); }
 }
 
 
 /* ==========================================================================
-   17. MEDIA QUERIES – RESPONSIVE DESIGN
-   Mobile First: Grundlayout ist für kleine Screens.
-   Dann wird es für größere Screens erweitert.
+   20. MEDIA QUERIES (Mobile First → Tablet → Desktop → Wide)
    ========================================================================== */
 
-/* Tablet: ab 640px */
+/* ── Tablet: 640px ── */
 @media (min-width: 640px) {
 
-  /* Service-Grid: 2 Spalten */
+  /* Service-Kacheln: 2 Spalten */
   .service-grid {
     grid-template-columns: repeat(2, 1fr);
   }
 
-  /* Testimonials: 2 Spalten */
-  .testimonial-grid {
-    grid-template-columns: repeat(2, 1fr);
-  }
-
-  /* Authors: 2 Spalten nebeneinander */
-  .authors-grid {
-    grid-template-columns: repeat(2, 1fr);
-  }
-
-  /* Author Cards: horizontal auf Tablet */
+  /* Autoren-Karte: Foto links, Text rechts */
   .author-card {
-    flex-direction: row;
-    text-align: left;
-    align-items: flex-start;
+    grid-template-columns: auto 1fr;
+  }
+
+  .author-photo {
+    margin: 0;   /* Ausrichtung zurücksetzen */
   }
 
   /* Footer: 2 Spalten */
@@ -1170,77 +1454,109 @@ p:last-child {
     grid-template-columns: repeat(2, 1fr);
   }
 
-  /* Bundle-Card: 2 Spalten */
+  /* Bundle: 2 Spalten */
   .bundle-card {
-    grid-template-columns: 1fr 1.5fr;
+    grid-template-columns: 1fr 1.6fr;
   }
 }
 
-/* Desktop: ab 900px */
+/* ── Desktop: 900px ── */
 @media (min-width: 900px) {
 
-  /* Heading-Größen skalieren nach oben */
-  h1 { font-size: var(--font-size-3xl); }
-  h2 { font-size: var(--font-size-2xl); }
+  /* ── Typografie: skaliert auf Desktop nach oben ── */
+  h1 { font-size: var(--text-3xl); }
+  h2 { font-size: var(--text-2xl); }
 
-  /* Navigation zeigen */
+  /* ── Navigation: Links einblenden ── */
   .nav-links {
     display: flex;
   }
 
-  /* Hero: 2 Spalten (Text | Cover) */
+  /* ── Hero: 2-Spalten-Grid ── */
   .hero .container {
-    grid-template-columns: 1fr auto;
+    /* Text-Spalte etwas breiter als Cover-Spalte */
+    grid-template-columns: 1.1fr auto;
+    gap: var(--sp-12);
   }
 
-  /* Vorteile: zentriert, max-width nutzen */
-  .benefit-list {
-    max-width: 800px;
+  /* Buchcover auf Desktop größer */
+  .book-cover {
+    width: 270px;
+    height: 405px;
   }
 
-  /* Services: 4 Spalten */
-  .service-grid {
-    grid-template-columns: repeat(4, 1fr);
-  }
-
-  /* SCIL Intro: 2 Spalten (Text | Badge) */
+  /* ── SCIL Intro: Text | Badge nebeneinander ── */
   .scil-intro {
     grid-template-columns: 1fr auto;
   }
 
-  /* 3 Testimonials nebeneinander */
-  .testimonial-grid {
-    grid-template-columns: repeat(3, 1fr);
+  /* ── Service-Grid: 4 Spalten ── */
+  .service-grid {
+    grid-template-columns: repeat(4, 1fr);
   }
 
-  /* Footer: 4 Spalten */
+  /* ── Event-Card: Datum links, Info rechts ── */
+  .event-card {
+    grid-template-columns: 200px 1fr;
+  }
+
+  .event-date-col {
+    /* Auf Desktop hochkant ausgerichtet */
+    border-radius: 0;
+  }
+
+  /* ── Footer: 4-Spalten (Brand breit, 3 Link-Spalten schmal) ── */
   .footer-grid {
     grid-template-columns: 2fr 1fr 1fr 1fr;
   }
 
-  /* Footer Bottom: horizontal */
+  /* ── Footer-Bottom horizontal ── */
   .footer-bottom {
     flex-direction: row;
     justify-content: space-between;
+    text-align: left;
   }
 
-  /* Event-Card: 2 Spalten (Info | CTA) */
-  .event-card {
-    grid-template-columns: 1fr auto;
-  }
-
-  /* Buchcover größer auf Desktop */
-  .book-cover-placeholder {
-    width: 260px;
-    height: 360px;
+  /* ── Ticker-Karten etwas breiter ── */
+  .testimonial-card {
+    width: 380px;
   }
 }
 
-/* Großer Desktop: ab 1200px */
+/* ── Wide Desktop: 1200px ── */
 @media (min-width: 1200px) {
-  /* Mehr Innenabstand in Sektionen */
-  .section {
-    padding-top: var(--space-12);
-    padding-bottom: var(--space-12);
+
+  /* Noch mehr Luft in den Sektionen */
+  .section { padding-top: var(--sp-16); padding-bottom: var(--sp-16); }
+
+  h1 { font-size: var(--text-4xl); }
+
+  /* Hero-Buchcover nochmals größer */
+  .book-cover {
+    width: 300px;
+    height: 450px;
   }
+}
+
+
+/* ==========================================================================
+   21. REDUCED MOTION – Barrierefreiheit
+   Nutzer, die in ihrem OS "Bewegung reduzieren" aktiviert haben,
+   sollen keine blinkenden oder rollenden Animationen sehen.
+   ========================================================================== */
+@media (prefers-reduced-motion: reduce) {
+
+  /* Ticker: sofort auf Ende springen + einfrieren */
+  .testimonial-track {
+    animation-duration: 0.01ms;
+    animation-iteration-count: 1;
+  }
+
+  /* Alle anderen Transitions und Animationen deaktivieren */
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    transition-duration: 0.01ms !important;
+  }
+
+  html { scroll-behavior: auto; }
 }
