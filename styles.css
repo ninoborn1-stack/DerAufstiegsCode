@@ -534,16 +534,6 @@ p:last-child { margin-bottom: 0; }
 .hero-content { order: 2; }
 .hero-book    { order: 1; display: flex; justify-content: center; }
 
-/* Mobile: Original-Badge im hero-content verstecken; Mobile-Badge über Buchcover zeigen.
-   Ab 768px umgekehrt: Mobile-Badge weg, Original-Badge wieder sichtbar. */
-.hero-content .hero-badge { display: none; }
-.hero-badge--mobile        { display: inline-flex; margin-bottom: var(--sp-2); }
-
-@media (min-width: 768px) {
-  .hero-content .hero-badge { display: inline-flex; }
-  .hero-badge--mobile        { display: none; }
-}
-
 /* ── Hero-Badge (kleines Label oben) ── */
 .hero-badge {
   display: inline-flex;
