@@ -888,12 +888,15 @@ p:last-child { margin-bottom: 0; }
   background: white;
   border-radius: var(--radius-lg);
   border: 1.5px solid var(--color-gray-line);
-  /* 48px padding = var(--sp-6) laut Design-System */
-  padding: var(--sp-6);
+  /* Mobile: 16px padding; Desktop: 48px (var(--sp-6)) per Media Query */
+  padding: var(--sp-2);
   box-shadow: var(--shadow-md);
   display: flex;
   flex-direction: column;
   gap: var(--sp-3);
+  /* Verhindert, dass langer Text die Card sprengt */
+  min-width: 0;
+  overflow-wrap: break-word;
 }
 
 /* Bundle-Card: blauer Hintergrund, weißer Text, hervorgehoben */
@@ -906,10 +909,13 @@ p:last-child { margin-bottom: 0; }
 .card--blue p   { color: rgba(255, 255, 255, 0.85); }
 .card--blue .eyebrow { color: rgba(255, 255, 255, 0.7); }
 
-/* CTA ans Kartenende drücken: margin-top: auto füllt den verfügbaren Raum */
+/* CTA ans Kartenende drücken: margin-top: auto füllt den verfügbaren Raum.
+   Auf Mobile: volle Breite (width: 100%) laut Anforderung. */
 .card-cta {
   margin-top: auto;
   align-self: flex-start;
+  width: 100%;
+  justify-content: center;
 }
 
 /* ── Bundle-spezifische Elemente ── */
@@ -1288,6 +1294,21 @@ p:last-child { margin-bottom: 0; }
 }
 
 
+/* ── 768px: SCIL + Bundle zwei Spalten ────────────────────────────────── */
+@media (min-width: 768px) {
+  .card-pair {
+    grid-template-columns: 1fr 1fr;
+  }
+  .card {
+    padding: var(--sp-6);
+  }
+  .card-cta {
+    width: auto;
+    justify-content: flex-start;
+  }
+}
+
+
 /* ── 900px: Desktop ────────────────────────────────────────────────────── */
 @media (min-width: 900px) {
 
@@ -1315,11 +1336,6 @@ p:last-child { margin-bottom: 0; }
 
   /* ── Buchcover Desktop-Breite ── */
   .book-img-wrap { width: 300px; }
-
-  /* ── SCIL + Bundle: 2 Spalten ── */
-  .card-pair {
-    grid-template-columns: 1fr 1fr;
-  }
 
   /* ── Testimonials: 3 Spalten ── */
   .testimonial-grid {
