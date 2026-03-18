@@ -42,9 +42,11 @@
   <header class="site-header">
     <div class="container">
 
-      <!-- Logo – href="#" = Link zur Startseite (Seitenanfang) -->
+      <!-- Logo – href="#" = Link zur Startseite (Seitenanfang).
+           Bild statt Text: src="images/Nav-bar-logo.png"
+           Höhe: 40px Desktop / 32px Mobile (gesteuert per CSS). -->
       <a href="#" class="site-logo" aria-label="AufstiegsCode – Zurück zur Startseite">
-        Aufstiegs<span>Code</span>
+        <img src="images/Nav-bar-logo.png" alt="AufstiegsCode Logo" class="site-logo-img" />
       </a>
 
       <!-- Hauptnavigation – <nav> zeigt Screen Readern: hier sind Navigationslinks
@@ -137,11 +139,12 @@
             <div class="book-img-wrap">
 
               <!-- Echtes Buchcover-Bild.
-                   src="buchcover.jpg"  = Platzhalterpfad, wird durch echtes Bild ersetzt.
+                   src="images/buchcover.png" = Pfad zum echten Buchcover-Bild.
                    alt=""               = Leer, da der Parent aria-hidden="true" ist.
                    loading="eager"      = Sofort laden, da das Bild im sichtbaren Bereich liegt.
-                   width / height       = Verhältnis 2:3 → verhindert Layout Shift (CLS). -->
-              <img src="buchcover.jpg"
+                   width / height       = Verhältnis 2:3 → verhindert Layout Shift (CLS).
+                   Falls Bild nicht lädt: .book-img-wrap zeigt CSS-Fallback-Hintergrund. -->
+              <img src="images/buchcover.png"
                    alt=""
                    class="book-img"
                    width="220"

@@ -92,7 +92,7 @@
   --ease-spring:   0.35s cubic-bezier(0.34, 1.56, 0.64, 1);
 
   /* ── Layout ── */
-  --max-width:       1140px;
+  --max-width:       1240px;
   --max-width-narrow: 720px;
   --header-height:   68px;
 }
@@ -444,20 +444,24 @@ p:last-child { margin-bottom: 0; }
   gap: var(--sp-4);
 }
 
-/* ── Logo ── */
+/* ── Logo ──
+   Enthält jetzt ein <img> statt Text.
+   display:flex + align-items:center zentriert das Bild vertikal. */
 .site-logo {
-  font-size: var(--text-md);
-  font-weight: 800;
-  color: var(--color-blue);
-  letter-spacing: -0.03em;
+  display: flex;
+  align-items: center;
   flex-shrink: 0;
   transition: opacity var(--ease);
 }
 
 .site-logo:hover { opacity: 0.75; }
 
-/* Der "Code"-Teil des Logos in Akzentfarbe */
-.site-logo span { color: var(--color-accent); }
+/* Logo-Bild: Mobile-Größe (32px), Desktop überschreibt auf 40px (siehe Media Query) */
+.site-logo-img {
+  height: 32px;
+  width: auto;
+  display: block;
+}
 
 /* ── Navigationslinks (auf Mobile versteckt) ── */
 .nav-links {
@@ -607,9 +611,12 @@ p:last-child { margin-bottom: 0; }
 
 /* ── Bild-Wrapper: trägt 3D-Transformation und Schatten ──
    rotateY(-15deg): dreht das Buch leicht nach links →
-   erzeugt die "aufgestellte Buch"-Pose typischer Buchseiten */
+   erzeugt die "aufgestellte Buch"-Pose typischer Buchseiten.
+   background-color: Fallback-Farbe, die sichtbar wird wenn buchcover.png
+   nicht geladen werden kann (404 oder kein Netz). */
 .book-img-wrap {
   width: 220px;
+  background-color: var(--color-blue);   /* Fallback wenn Bild nicht lädt */
   border-radius: 2px var(--radius-sm) var(--radius-sm) 2px;
   transform: rotateY(-15deg);
   transform-style: preserve-3d;
@@ -1537,19 +1544,31 @@ p:last-child { margin-bottom: 0; }
     gap: var(--sp-12);
   }
 
+  /* Nav-Logo auf Desktop größer */
+  .site-logo-img {
+    height: 40px;
+  }
+
   /* Buchcover-Wrapper auf Desktop breiter */
   .book-img-wrap {
     width: 270px;
   }
 
-  /* ── Sektionspaare: nebeneinander auf Desktop ── */
+  /* ── Sektionspaare: nebeneinander auf Desktop ──
+     gap: var(--sp-6) = 48px → mehr Luft zwischen den Spalten */
   .section-pair {
     grid-template-columns: 1fr 1fr;
+    gap: var(--sp-6);
   }
 
   /* Variante: linke Spalte breiter (Vorteile breiter als Leseprobe-Card) */
   .section-pair--wide-left {
     grid-template-columns: 3fr 2fr;
+  }
+
+  /* Panel-Karten auf Desktop: mehr inneres Padding */
+  .panel-card {
+    padding: var(--sp-8);
   }
 
   /* ── SCIL Intro: Text | Badge nebeneinander ── */
