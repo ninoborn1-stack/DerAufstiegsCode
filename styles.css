@@ -529,9 +529,10 @@ p:last-child { margin-bottom: 0; }
   align-items: center;
 }
 
-/* Text zuerst im DOM (SEO/Accessibility), auf Desktop nach rechts */
-.hero-content { order: 1; }
-.hero-book    { order: 2; display: flex; justify-content: center; }
+/* Mobile: Buchcover oben (order:1), Text darunter (order:2).
+   Desktop (900px): per Media Query umgekehrt – Text rechts, Buch links. */
+.hero-content { order: 2; }
+.hero-book    { order: 1; display: flex; justify-content: center; }
 
 /* ── Hero-Badge (kleines Label oben) ── */
 .hero-badge {
