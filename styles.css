@@ -988,10 +988,9 @@ p:last-child { margin-bottom: 0; }
   gap: var(--sp-2);
 }
 .service-card {
-  background: var(--color-gray-light);
-  border-radius: var(--radius-md);
-  padding: var(--sp-2);         /* 16px auf Mobile */
-  /* Gleiche Höhe je Zeile (align-items:stretch wirkt per Grid automatisch) */
+  background: none;
+  border-radius: 0;
+  padding: var(--sp-2);
   min-width: 0;
   overflow-wrap: break-word;
 }
