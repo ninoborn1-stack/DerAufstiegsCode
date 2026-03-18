@@ -456,9 +456,9 @@ p:last-child { margin-bottom: 0; }
 
 .site-logo:hover { opacity: 0.75; }
 
-/* Logo-Bild: Mobile-Größe (32px), Desktop überschreibt auf 40px (siehe Media Query) */
+/* Logo-Bild: Mobile-Größe (55px), Desktop überschreibt auf 70px (siehe Media Query) */
 .site-logo-img {
-  height: 32px;
+  height: 55px;
   width: auto;
   display: block;
 }
@@ -615,7 +615,7 @@ p:last-child { margin-bottom: 0; }
    background-color: Fallback-Farbe, die sichtbar wird wenn buchcover.png
    nicht geladen werden kann (404 oder kein Netz). */
 .book-img-wrap {
-  width: 220px;
+  width: 275px;
   background-color: var(--color-blue);   /* Fallback wenn Bild nicht lädt */
   border-radius: 2px var(--radius-sm) var(--radius-sm) 2px;
   transform: rotateY(-15deg);
@@ -1546,12 +1546,12 @@ p:last-child { margin-bottom: 0; }
 
   /* Nav-Logo auf Desktop größer */
   .site-logo-img {
-    height: 40px;
+    height: 70px;
   }
 
   /* Buchcover-Wrapper auf Desktop breiter */
   .book-img-wrap {
-    width: 270px;
+    width: 338px;
   }
 
   /* ── Sektionspaare: nebeneinander auf Desktop ──
@@ -1619,7 +1619,7 @@ p:last-child { margin-bottom: 0; }
 
   /* Buchcover-Wrapper auf Wide-Desktop noch größer */
   .book-img-wrap {
-    width: 300px;
+    width: 375px;
   }
 }
 
