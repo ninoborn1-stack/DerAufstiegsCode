@@ -1,5 +1,5 @@
 /* ==========================================================================
-   AUFSTIEGSCODE – Landingpage Stylesheet (Redesign: Premium Author Site)
+   AUFSTIEGSCODE – Landingpage Stylesheet (Redesign v3)
    ==========================================================================
 
    Inhaltsverzeichnis:
@@ -8,47 +8,49 @@
     3.  Typografie
     4.  Utility-Klassen
     5.  Buttons
-    6.  Layout  (Container, Section, Divider)
-    7.  Navigation / Site Header
+    6.  Layout (Container, Section)
+    7.  Navigation / Site Header (inkl. CSS-only Hamburger)
     8.  Hero Section
-    9.  Buchcover-Mockup
-   10.  Vorteile Section
-   11.  Leseprobe Section
-   12.  SCIL Profile Section
-   13.  Bundle Section
-   14.  Testimonials (CSS-only Infinite Ticker)
-   15.  Autoren Section
-   16.  Events Section
-   17.  Abschluss-CTA Section
-   18.  Footer
-   19.  Keyframe-Animationen
-   20.  Media Queries (Responsive)
-   21.  Reduced Motion (Barrierefreiheit)
+    9.  Buchcover-Mockup (3D-Effekt – 1:1 beibehalten)
+   10.  Über das Buch (Checkmark-Liste)
+   11.  Testimonials (3 statische Cards)
+   12.  Newsletter / Email Sektion
+   13.  SCIL + Bundle (Card Pair)
+   14.  Autoren Section
+   15.  Events Section
+   16.  Abschluss-CTA
+   17.  Footer
+   18.  Keyframe-Animationen
+   19.  Media Queries (Responsive)
+   20.  Reduced Motion (Barrierefreiheit)
    ========================================================================== */
 
 
 /* ==========================================================================
-   1. CSS CUSTOM PROPERTIES
-   Alle Design-Tokens zentral – Änderungen hier gelten überall.
+   1. CSS CUSTOM PROPERTIES (Design Tokens)
+   Alle Werte zentral definiert – Änderungen hier gelten überall.
    ========================================================================== */
 :root {
   /* ── Markenfarben ── */
-  --color-blue:        #1a7bbf;   /* Hauptfarbe – Hellblau (Buchcover) */
-  --color-blue-dark:   #0d2f45;   /* Noch dunkleres Blau für Footer / CTAs */
-  --color-hero-bg:     #e8f4f8;   /* Hero-Hintergrund – sehr helles Buchcover-Blau */
-  --color-accent:      #200FCA;   /* Akzentfarbe – leuchtendes Blau-Violett */
-  --color-accent-dark: #1a0da8;   /* Hover-Zustand für Accent-Buttons */
+  --color-blue:        #1a7bbf;   /* Hauptfarbe Hellblau */
+  --color-blue-dark:   #0d2f45;   /* Dunkelblau für Footer / CTAs */
+  --color-accent:      #200FCA;   /* Akzentfarbe Blau-Violett */
+  --color-accent-dark: #1a0da8;   /* Hover-Zustand Accent */
   --color-gray:        #9c9c9c;   /* Sekundärtext, Borders */
-  --color-gray-light:  #f5f6f8;   /* Abwechselnder Sektionshintergrund */
+  --color-gray-light:  #f5f6f8;   /* Heller Sektionshintergrund */
   --color-gray-line:   #e8eaed;   /* Dünne Trennlinien */
   --color-text:        #1c1c1e;   /* Haupttext – fast schwarz */
   --color-text-muted:  #6b7280;   /* Sekundärtext */
   --color-white:       #ffffff;
+  --color-hero-bg:     #f8f9fa;   /* Hero-Hintergrund – sehr helles Grau */
+  --color-light-blue:  #f0f7ff;   /* Testimonial-Hintergrund */
 
   /* ── Typografie ── */
+  /* System-Font-Stack: nutzt die native Systemschrift des Betriebssystems.
+     Kein externer Font-Request → schnelleres Laden, konsistentes Aussehen. */
   --font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif;
 
-  /* Schriftgrößen-Skala (rem-basiert, 1rem = 16px) */
+  /* Schriftgrößen-Skala (rem-basiert, 1rem = 16px Browserddefault) */
   --text-xs:   0.75rem;    /*  12px */
   --text-sm:   0.875rem;   /*  14px */
   --text-base: 1rem;       /*  16px */
@@ -60,8 +62,8 @@
   --text-4xl:  3.75rem;    /*  60px */
 
   /* ── 8px Spacing-System ──
-     Alle Abstände sind Vielfache von 8px. Das erzeugt ein
-     konsistentes visuelles Raster über die gesamte Seite. */
+     Alle Abstände sind Vielfache von 8px.
+     Das erzeugt ein konsistentes visuelles Raster. */
   --sp-1:   8px;
   --sp-2:  16px;
   --sp-3:  24px;
@@ -76,55 +78,56 @@
   /* ── Border-Radius ── */
   --radius-sm:   4px;
   --radius-md:   8px;
-  --radius-lg:  16px;
+  --radius-lg:  12px;   /* Cards, Inputs */
   --radius-xl:  24px;
-  --radius-full: 9999px;
+  --radius-full: 9999px; /* Kreise, Pills */
 
-  /* ── Schatten ──
-     Mehrere Ebenen für ein realistisches Tiefen-System */
+  /* ── Schatten (subtil, mehrschichtig) ── */
   --shadow-sm:  0 1px 2px rgba(0,0,0,0.06), 0 1px 3px rgba(0,0,0,0.07);
   --shadow-md:  0 4px 6px rgba(0,0,0,0.05), 0 10px 15px rgba(0,0,0,0.07);
   --shadow-lg:  0 10px 25px rgba(0,0,0,0.08), 0 20px 48px rgba(0,0,0,0.10);
-  --shadow-xl:  0 20px 60px rgba(0,0,0,0.15);
 
-  /* ── Übergänge ── */
-  --ease:          0.22s cubic-bezier(0.4, 0, 0.2, 1);
-  --ease-spring:   0.35s cubic-bezier(0.34, 1.56, 0.64, 1);
+  /* ── Transitions ──
+     all 0.2s ease: alle interaktiven Elemente reagieren einheitlich schnell */
+  --transition: all 0.2s ease;
+  --ease-spring: cubic-bezier(0.34, 1.56, 0.64, 1); /* leichter Überschwung für Buch-Hover */
 
   /* ── Layout ── */
-  --max-width:       1240px;
-  --max-width-narrow: 720px;
-  --header-height:   68px;
+  --max-width:         1280px;
+  --max-width-narrow:   720px;
+  --header-height:       68px;
 }
 
 
 /* ==========================================================================
    2. RESET & BASE
-   Browser-Defaults normalisieren.
+   Browser-Defaults normalisieren für konsistentes Verhalten.
    ========================================================================== */
 *,
 *::before,
 *::after {
-  /* Padding und Border werden in Breitenberechnung einbezogen */
+  /* box-sizing: border-box = Padding und Border werden in die Breite eingerechnet.
+     Ohne diese Regel würden padding + width die Gesamtbreite überschreiten. */
   box-sizing: border-box;
   margin: 0;
   padding: 0;
 }
 
 html {
-  /* Sanftes Scrollen für alle Anker-Links (<a href="#..."> ) */
+  /* scroll-behavior: smooth = Sanftes Scrollen für alle Anker-Links (#id) */
   scroll-behavior: smooth;
-  /* Verhindert horizontalen Überlauf durch breite Elemente */
+  /* Verhindert horizontalen Scroll durch zu breite Elemente */
   overflow-x: hidden;
 }
 
 body {
   font-family: var(--font-family);
   font-size: var(--text-base);
-  line-height: 1.7;
+  /* line-height: 1.5 = Gemäß Design-System */
+  line-height: 1.5;
   color: var(--color-text);
   background-color: var(--color-white);
-  /* Schriftglättung auf macOS/iOS für scharfere Darstellung */
+  /* Schriftglättung: schärferes Rendering auf macOS/iOS */
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   overflow-x: hidden;
@@ -132,18 +135,20 @@ body {
 
 img {
   max-width: 100%;
-  display: block;  /* Entfernt Standard-Inline-Gap unter Bildern */
+  /* display: block entfernt den Standard-Inline-Abstand unter Bildern */
+  display: block;
 }
 
 a {
   color: inherit;
   text-decoration: none;
+  transition: var(--transition);
 }
 
-/* Entfernt Standard-Listenpunkte */
 ul { list-style: none; }
 
-/* Einheitliches Fokus-Styling für Tastaturnavigation (Barrierefreiheit) */
+/* Einheitliches Fokus-Styling für Tastaturnavigation (Barrierefreiheit).
+   :focus-visible = nur bei Tastatur-Fokus, nicht bei Mausklick */
 :focus-visible {
   outline: 3px solid var(--color-accent);
   outline-offset: 3px;
@@ -153,154 +158,153 @@ ul { list-style: none; }
 
 /* ==========================================================================
    3. TYPOGRAFIE
-   Starke, kontrastreiche Hierarchie wie auf professionellen Autoren-Seiten.
+   Starke Hierarchie. Maximal 2 Gewichte: 400 (regular) und 700 (bold).
    ========================================================================== */
 h1, h2, h3, h4 {
   line-height: 1.15;
-  font-weight: 800;  /* Extra-Bold für Impact */
-  color: var(--color-blue);
-  letter-spacing: -0.02em;  /* Leichtes Tracking bei großen Fonts */
+  font-weight: 700;
+  color: var(--color-blue-dark);
+  /* letter-spacing: leichtes Zusammenrücken bei großen Fonts → wirkt professioneller */
+  letter-spacing: -0.02em;
 }
 
-/* Basis-Größen (werden in Media Queries skaliert) */
-h1 { font-size: var(--text-2xl); }
-h2 { font-size: var(--text-xl);  }
-h3 { font-size: var(--text-lg);  }
-h4 { font-size: var(--text-md);  }
+/* clamp(min, preferred, max): Fluid Typography – skaliert zwischen Breakpoints.
+   Kein Media Query nötig für Schriftgrößenanpassungen. */
+h1 { font-size: clamp(var(--text-2xl), 5vw, var(--text-4xl)); }
+h2 { font-size: clamp(var(--text-xl),  3vw, var(--text-3xl)); }
+h3 { font-size: var(--text-lg); }
+h4 { font-size: var(--text-md); }
 
 p {
   margin-bottom: var(--sp-2);
   color: var(--color-text-muted);
-  line-height: 1.75;
+  line-height: 1.5;
 }
-
 p:last-child { margin-bottom: 0; }
 
 /* ── Eyebrow Label ──
-   Kleiner, kursiver Obertitel über Sektionsüberschriften.
-   Typisch für Premium-Publishingseiten. */
+   Kleiner Text über Sektionsüberschriften. Typisch für Premium-Publishing. */
 .eyebrow {
   display: inline-block;
   font-size: var(--text-xs);
-  font-weight: 600;
+  font-weight: 700;
   letter-spacing: 0.14em;
   text-transform: uppercase;
-  color: var(--color-accent);
+  color: var(--color-blue);
   margin-bottom: var(--sp-1);
 }
 
 /* ── Lead-Text ──
-   Etwas größerer Einleitungstext direkt unter dem Sektions-H2 */
+   Etwas größerer Einleitungstext unter dem Sektions-H2 */
 .lead {
   font-size: var(--text-md);
   color: var(--color-text-muted);
-  line-height: 1.7;
+  line-height: 1.6;
+  max-width: 600px;
+  margin: 0 auto;
 }
 
-/* Verstecktes Element – nur für Screen Reader sichtbar */
-.sr-only {
-  position: absolute;
-  width: 1px;
-  height: 1px;
-  overflow: hidden;
-  clip: rect(0,0,0,0);
-  white-space: nowrap;
-}
+/* Akzentfarbe für Teile der Headline (z.B. "Code" in "AufstiegsCode") */
+.accent { color: var(--color-blue); }
 
 
 /* ==========================================================================
    4. UTILITY-KLASSEN
    ========================================================================== */
-.text-center { text-align: center; }
-.text-white  { color: var(--color-white) !important; }
-.text-accent { color: var(--color-accent); }
-.text-blue   { color: var(--color-blue); }
-.text-muted  { color: var(--color-text-muted); }
 
-.mb-2 { margin-bottom: var(--sp-2); }
-.mb-3 { margin-bottom: var(--sp-3); }
-.mb-4 { margin-bottom: var(--sp-4); }
-.mb-6 { margin-bottom: var(--sp-6); }
+/* Nur für Screen Reader sichtbar – visuell versteckt */
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+.text-center { text-align: center; }
 
 
 /* ==========================================================================
    5. BUTTONS
-   Drei Varianten: Primary (Akzent-Farbe), Outline (Blau), Ghost (Weiß).
+   Alle interaktiven Links/Buttons: transition: all 0.2s ease (Design-System).
    ========================================================================== */
-
-/* ── Basis aller Buttons ── */
 .btn {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  gap: 8px;
-  /* Padding: komfortabel, aber nicht zu wuchtig */
+  gap: var(--sp-1);
   padding: 14px 28px;
-  font-size: var(--text-sm);
+  font-family: var(--font-family);
+  font-size: var(--text-base);
   font-weight: 700;
-  letter-spacing: 0.02em;
-  border-radius: var(--radius-full);   /* Pillen-Form – typisch für moderne Autoren-Sites */
+  /* border-radius: 8-12px (Design-System) */
+  border-radius: var(--radius-lg);
   border: 2px solid transparent;
   cursor: pointer;
-  transition:
-    background-color var(--ease),
-    color            var(--ease),
-    border-color     var(--ease),
-    transform        var(--ease-spring),
-    box-shadow       var(--ease);
-  text-decoration: none;
+  transition: var(--transition);
   white-space: nowrap;
+  text-decoration: none;
+  line-height: 1;
 }
 
-.btn:hover { transform: translateY(-2px); }
-.btn:active { transform: translateY(0); }
-
-/* ── Primär: gefüllt, Akzentfarbe ── */
+/* Primär: Blauer gefüllter Button */
 .btn-primary {
-  background-color: var(--color-accent);
-  color: var(--color-white);
-  border-color: var(--color-accent);
-  box-shadow: 0 4px 14px rgba(32, 15, 202, 0.3);
+  background: var(--color-blue);
+  color: white;
+  border-color: var(--color-blue);
 }
-
 .btn-primary:hover {
-  background-color: var(--color-accent-dark);
-  border-color:     var(--color-accent-dark);
-  box-shadow: 0 6px 20px rgba(32, 15, 202, 0.4);
+  background: var(--color-blue-dark);
+  border-color: var(--color-blue-dark);
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(26, 123, 191, 0.35);
 }
 
-/* ── Outline: Rahmen, transparenter Hintergrund ── */
+/* Outline: transparenter Hintergrund mit blauem Rand */
 .btn-outline {
-  background-color: transparent;
+  background: transparent;
   color: var(--color-blue);
   border-color: var(--color-blue);
 }
-
 .btn-outline:hover {
-  background-color: var(--color-blue);
-  color: var(--color-white);
+  background: var(--color-blue);
+  color: white;
+  transform: translateY(-1px);
 }
 
-/* ── Ghost-Weiß: für dunkle Hintergründe ── */
-.btn-ghost {
-  background-color: transparent;
-  color: var(--color-white);
+/* Weiß: für blaue Hintergründe */
+.btn-white {
+  background: white;
+  color: var(--color-blue);
+  border-color: white;
+}
+.btn-white:hover {
+  background: var(--color-light-blue);
+  transform: translateY(-1px);
+}
+
+/* Outline-White: Ghost-Variante für blaue Hintergründe */
+.btn-outline-white {
+  background: transparent;
+  color: white;
   border-color: rgba(255, 255, 255, 0.6);
 }
-
-.btn-ghost:hover {
-  background-color: var(--color-white);
-  color: var(--color-blue);
-  border-color: var(--color-white);
+.btn-outline-white:hover {
+  background: rgba(255, 255, 255, 0.15);
+  border-color: white;
 }
 
-/* ── Klein: kompakter Button für Header oder Karten ── */
+/* Klein: für Header-CTA */
 .btn-sm {
-  padding: 10px 20px;
-  font-size: var(--text-xs);
+  padding: 8px 20px;
+  font-size: var(--text-sm);
 }
 
-/* ── Button-Gruppe: Buttons nebeneinander ── */
+/* Gruppen-Container: Buttons nebeneinander */
 .btn-group {
   display: flex;
   flex-wrap: wrap;
@@ -310,1338 +314,1135 @@ p:last-child { margin-bottom: 0; }
 
 
 /* ==========================================================================
-   6. LAYOUT
+   6. LAYOUT (Container, Sektionen)
    ========================================================================== */
 
-/* ── Container: zentriert, max-width, Seitenpading ── */
+/* Container: zentriert, max. 1280px, mit seitlichem Padding */
 .container {
   width: 100%;
   max-width: var(--max-width);
-  margin-left: auto;
-  margin-right: auto;
-  padding-left: var(--sp-3);
-  padding-right: var(--sp-3);
+  margin: 0 auto;
+  padding: 0 var(--sp-3);
 }
 
-/* ── Schmaler Container für Lesebreite ── */
-.container-narrow {
+/* Schmaler Container: für Über-das-Buch und Events */
+.container--narrow {
   max-width: var(--max-width-narrow);
-  margin-left: auto;
-  margin-right: auto;
 }
 
-/* ── Standard-Sektion: großzügige vertikale Abstände ──
-   Viel Weißraum ist das Kennzeichen professioneller Buchseiten. */
+/* Standard-Sektion: 80px vertikales Padding */
 .section {
-  padding-top: var(--sp-12);
-  padding-bottom: var(--sp-12);
+  padding: var(--sp-10) 0;
 }
 
-/* ── Hintergrund-Varianten für Sektionen ── */
-.section--gray   { background-color: var(--color-gray-light); }
-.section--dark   { background-color: var(--color-blue-dark); color: var(--color-white); }
-.section--accent { background-color: var(--color-accent);    color: var(--color-white); }
-.section--blue   { background-color: var(--color-blue);      color: var(--color-white); }
+/* Sektionsvarianten (Hintergründe) */
+.section--gray-light  { background: var(--color-gray-light); }
+.section--light-blue  { background: var(--color-light-blue); }
+.section--blue-solid  { background: var(--color-blue); }
 
-/* ── Sektionskopf: zentriert, mit Obertitel + Überschrift ── */
+/* Sektionskopf mit Abstand nach unten */
 .section-header {
-  text-align: center;
-  max-width: 600px;
-  margin-left: auto;
-  margin-right: auto;
-  margin-bottom: var(--sp-8);
+  margin-bottom: var(--sp-6);
 }
-
-.section-header h2 { margin-bottom: var(--sp-2); }
-.section-header .lead { margin-top: var(--sp-2); }
-
-/* Weiße Überschriften in dunklen Sektionen */
-.section--dark .section-header h2,
-.section--accent .section-header h2,
-.section--blue .section-header h2 {
-  color: var(--color-white);
-}
-
-/* ── Horizontale Trennlinie ──
-   Dezenter Ersatz für visuelle Grenzen zwischen Blöcken */
-.divider {
-  border: none;
-  border-top: 1px solid var(--color-gray-line);
-  margin: var(--sp-8) 0;
-}
-
-/* ── Zwei-Spalten-Sektionspaar ──
-   Verbindet zwei inhaltlich verwandte Bereiche nebeneinander.
-   Mobile: gestapelt (grid-template-columns: 1fr).
-   Desktop ab 900px: nebeneinander (1fr 1fr).
-   align-items: stretch → beide Spalten immer gleich hoch. */
-.section-pair {
-  display: grid;
-  grid-template-columns: 1fr;
-  gap: var(--sp-4);
-  align-items: stretch;
-}
-
-/* Variante: linke Spalte breiter (z.B. 5 Gründe : Leseprobe = 3:2).
-   Wird in der 900px Media Query gesetzt. */
-.section-pair--wide-left {}
-
-/* ── Panel-Karte ──
-   Weißes Card-Element mit Schatten, eingesetzt in Sektionspaaren.
-   display:flex + flex-direction:column erlaubt, den CTA-Button
-   am Ende der Karte mit margin-top:auto anzupinnen. */
-.panel-card {
-  background: var(--color-white);
-  border-radius: var(--radius-xl);
-  border: 1.5px solid var(--color-gray-line);
-  padding: var(--sp-6);
-  box-shadow: var(--shadow-md);
-  display: flex;
-  flex-direction: column;
-}
-
-/* Panel-Heading: etwas kleiner als globales h2 für kompakte Karten */
-.panel-card h2 {
-  font-size: var(--text-xl);
-  margin-bottom: var(--sp-2);
-}
-
-.panel-card h3 {
-  margin-bottom: var(--sp-2);
-}
-
-/* Letztes Kind einer Panel-Karte bekommt automatisch
-   nach oben Abstand → drückt CTA-Buttons ans untere Ende */
-.panel-card > .btn:last-child,
-.panel-card > a.btn:last-child {
-  margin-top: auto;
-  align-self: flex-start;
+.section-header h2 {
+  margin-top: var(--sp-1);
+  margin-bottom: var(--sp-3);
 }
 
 
 /* ==========================================================================
    7. NAVIGATION / SITE HEADER
-   Sticky Header mit Logo links, Nav-Links Mitte/rechts, CTA-Button.
+   Sticky: bleibt beim Scrollen oben.
+   CSS-only Hamburger: <input type="checkbox"> steuert Nav-Sichtbarkeit
+   per :checked-Selektor – kein JavaScript benötigt.
    ========================================================================== */
 .site-header {
   position: sticky;
   top: 0;
-  z-index: 200;           /* Bleibt über allen Seitenin halten */
-  height: var(--header-height);
-  background-color: rgba(255, 255, 255, 0.95);
-  /* backdrop-filter: Milchglas-Effekt – der Header ist leicht transparent */
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
+  z-index: 100;
+  background: white;
   border-bottom: 1px solid var(--color-gray-line);
   box-shadow: var(--shadow-sm);
 }
 
-.site-header .container {
-  height: 100%;
+/* Innerer Flex-Container für Logo + Nav + CTA.
+   flex-wrap: wrap = auf Mobile bricht die Nav in eine neue Zeile. */
+.header-inner {
   display: flex;
   align-items: center;
-  justify-content: space-between;
-  gap: var(--sp-4);
+  gap: var(--sp-2);
+  max-width: var(--max-width);
+  margin: 0 auto;
+  padding: 0 var(--sp-3);
+  min-height: var(--header-height);
+  flex-wrap: wrap;
+  /* position: relative = Positioning-Kontext für absolute Kinder (z.B. Mobile-Nav) */
+  position: relative;
 }
 
-/* ── Logo ──
-   Enthält jetzt ein <img> statt Text.
-   display:flex + align-items:center zentriert das Bild vertikal. */
+/* ── Logo ── */
 .site-logo {
   display: flex;
   align-items: center;
   flex-shrink: 0;
-  transition: opacity var(--ease);
+  /* Auf Mobile wächst das Logo, um den Hamburger nach rechts zu schieben */
+  flex: 1;
 }
-
-.site-logo:hover { opacity: 0.75; }
-
-/* Logo-Bild: Mobile-Größe (55px), Desktop überschreibt auf 70px (siehe Media Query) */
 .site-logo-img {
-  height: 55px;
+  /* 70px Desktop – in Media Query auf 55px Mobile reduziert */
+  height: 70px;
   width: auto;
   display: block;
 }
 
-/* ── Navigationslinks (auf Mobile versteckt) ── */
-.nav-links {
-  display: none;    /* Wird ab 900px eingeblendet */
-  align-items: center;
-  gap: var(--sp-5);
+/* ── Hamburger-Toggle (CSS-only) ──
+   display: none verbirgt die Checkbox visuell.
+   Das verknüpfte <label for="nav-toggle"> bleibt klickbar:
+   Klick auf Label → Checkbox :checked ↔ :not(:checked). */
+.nav-toggle {
+  display: none;
 }
 
-.nav-links a {
-  font-size: var(--text-sm);
-  font-weight: 500;
-  color: var(--color-text-muted);
-  transition: color var(--ease);
-  position: relative;
-  padding-bottom: 2px;
+/* ── Hamburger-Button (sichtbarer Button aus 3 Balken) ──
+   Auf Desktop ausgeblendet, auf Mobile angezeigt. */
+.hamburger {
+  display: none;
+  flex-direction: column;
+  justify-content: center;
+  gap: 5px;
+  width: 36px;
+  height: 36px;
+  cursor: pointer;
+  padding: 6px;
+  border-radius: var(--radius-sm);
+  transition: var(--transition);
+  /* flex-shrink: 0 = drückt sich nicht zusammen */
+  flex-shrink: 0;
+  /* align-self: center = vertikal mittig im header-inner */
+  align-self: center;
+}
+.hamburger:hover {
+  background: var(--color-gray-light);
 }
 
-/* Unterstrich-Hover-Effekt: wächst von links nach rechts */
-.nav-links a::after {
-  content: '';
-  position: absolute;
-  left: 0;
-  bottom: -2px;
-  width: 0;
-  height: 2px;
-  background-color: var(--color-accent);
-  transition: width var(--ease);
-}
-
-.nav-links a:hover {
-  color: var(--color-blue);
-}
-
-.nav-links a:hover::after {
+/* Die 3 Hamburger-Balken */
+.hamburger-bar {
+  display: block;
   width: 100%;
+  height: 2px;
+  background: var(--color-text);
+  border-radius: 2px;
+  transition: var(--transition);
+}
+
+/* ── Navigation ── */
+.site-nav {
+  /* Auf Desktop: flex-Zeile mit allen Links */
+  display: flex;
+  /* margin-left: auto = schiebt Nav nach rechts (Desktop) */
+  margin-left: auto;
+  flex: 0 0 auto;
+}
+
+/* Nav-Links horizontal */
+.nav-links {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+/* Einzelner Nav-Link */
+.nav-link {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  padding: 6px 12px;
+  font-size: var(--text-sm);
+  font-weight: 400;
+  color: var(--color-text-muted);
+  border-radius: var(--radius-sm);
+  /* Unterstrich-Effekt: 2px-Border am unteren Rand */
+  border-bottom: 2px solid transparent;
+  transition: var(--transition);
+}
+.nav-link:hover {
+  color: var(--color-blue);
+  background: var(--color-light-blue);
+}
+
+/* Aktiver Menüpunkt: blau + Unterstrich (Design-System) */
+.nav-link.is-active {
+  color: var(--color-blue);
+  border-bottom-color: var(--color-blue);
+  font-weight: 700;
+}
+
+/* Nummerierung (01, 02, …) im Nav */
+.nav-num {
+  font-size: var(--text-xs);
+  font-weight: 700;
+  color: var(--color-blue);
+  opacity: 0.55;
+}
+
+/* CTA-Button im Header */
+.nav-cta {
+  flex-shrink: 0;
+  margin-left: var(--sp-2);
 }
 
 
 /* ==========================================================================
    8. HERO SECTION
-   Split-Layout: Text links, Buchcover rechts. Hintergrund: sehr helles Grau.
+   Zweispaltiges Layout: links Buchcover-Animation, rechts Text.
+   Hintergrund: #f8f9fa (sehr helles Grau laut Design-System).
+   Vertikaler Blau-Balken links: ::before Pseudo-Element.
+   Mobile: Einspaltig, Text oben / Buch unten (CSS order).
    ========================================================================== */
 .hero {
-  /* var(--color-hero-bg) = sehr helles Buchcover-Blau, passend zu Pantone-Hellblau */
-  background-color: var(--color-hero-bg);
-  /* Mindesthöhe: minus Header-Höhe → füllt den sichtbaren Viewport aus */
-  min-height: calc(100vh - var(--header-height));
-  display: flex;
-  align-items: center;
+  background: var(--color-hero-bg);
   padding: var(--sp-10) 0;
-  /* Overflow hidden damit kein Booking nach rechts überläuft */
-  overflow: hidden;
   position: relative;
+  overflow: hidden;
 }
 
-/* Dezente geometrische Dekoration – großer halbtransparenter Kreis rechts */
-.hero::after {
+/* Vertikaler Blau-Balken am linken Rand der Hero-Sektion */
+.hero::before {
   content: '';
   position: absolute;
-  top: -120px;
-  right: -200px;
-  width: 700px;
-  height: 700px;
-  border-radius: 50%;
-  /* Sehr subtiler Farbhauch für Tiefe */
-  background: radial-gradient(circle, rgba(32,15,202,0.05) 0%, transparent 70%);
-  pointer-events: none;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  width: 6px;
+  background: var(--color-blue);
 }
 
-/* ── Hero Container: 2-Spalten-Grid auf Desktop ── */
-.hero .container {
+/* Zweispalten-Grid: Mobile = 1 Spalte, Desktop = 1fr 1fr */
+.hero-layout {
   display: grid;
-  /* Mobile: eine Spalte. Desktop: 2 Spalten (wird in Media Query gesetzt) */
   grid-template-columns: 1fr;
   gap: var(--sp-8);
   align-items: center;
-  position: relative;   /* Über dem ::after Pseudo-Element */
-  z-index: 1;
 }
 
-/* ── Linke Spalte: Text & Buttons ── */
-.hero-content {}
+/* Text zuerst im DOM (SEO/Accessibility), auf Desktop nach rechts */
+.hero-content { order: 1; }
+.hero-book    { order: 2; display: flex; justify-content: center; }
 
-/* Eyebrow-Badge im Hero */
-.hero-eyebrow {
+/* ── Hero-Badge (kleines Label oben) ── */
+.hero-badge {
   display: inline-flex;
   align-items: center;
-  gap: 8px;
-  background: rgba(32, 15, 202, 0.08);
-  border: 1px solid rgba(32, 15, 202, 0.15);
-  border-radius: var(--radius-full);
-  padding: 6px 14px;
-  font-size: var(--text-xs);
-  font-weight: 700;
-  letter-spacing: 0.1em;
-  text-transform: uppercase;
-  color: var(--color-accent);
-  margin-bottom: var(--sp-3);
-}
-
-/* Haupttitel: sehr groß, mit CSS-clamp für flüssige Skalierung.
-   clamp(min, bevorzugt, max) → passt sich der Viewport-Breite an */
-.hero-title {
-  font-size: clamp(2.5rem, 6vw, 4.5rem);
-  font-weight: 800;
-  line-height: 1.05;
-  letter-spacing: -0.03em;
+  gap: 6px;
+  background: white;
   color: var(--color-blue);
+  border: 1.5px solid var(--color-gray-line);
+  border-radius: var(--radius-full);
+  padding: 6px 16px;
+  font-size: var(--text-sm);
+  font-weight: 600;
+  margin-bottom: var(--sp-3);
+  box-shadow: var(--shadow-sm);
+}
+
+/* ── Hero Headline ── */
+.hero-title {
+  font-size: clamp(var(--text-3xl), 6vw, var(--text-4xl));
+  font-weight: 700;
+  color: var(--color-blue-dark);
+  letter-spacing: -0.03em;
+  margin-bottom: var(--sp-2);
+  line-height: 1.1;
+}
+
+/* ── Hero Subline ── */
+.hero-subtitle {
+  font-size: var(--text-lg);
+  color: var(--color-text-muted);
+  margin-bottom: var(--sp-3);
+  line-height: 1.4;
+}
+
+/* ── Sterne-Bewertung ── */
+.hero-stars {
+  display: flex;
+  align-items: center;
+  gap: var(--sp-1);
   margin-bottom: var(--sp-3);
 }
-
-/* Leichter Farbwechsel für das Wort "Code" */
-.hero-title .accent { color: var(--color-accent); }
-
-/* Untertitel unter dem Haupttitel */
-.hero-subtitle {
-  font-size: clamp(var(--text-md), 2vw, var(--text-lg));
-  font-weight: 400;
+.hero-stars-icons {
+  color: #f59e0b;  /* Goldgelb für Sterne */
+  font-size: var(--text-lg);
+  line-height: 1;
+}
+.hero-stars-label {
+  font-size: var(--text-sm);
   color: var(--color-text-muted);
-  line-height: 1.5;
-  max-width: 480px;
-  margin-bottom: var(--sp-5);
 }
 
-/* ── Rechte Spalte: Buchcover ── */
-.hero-book {
-  display: flex;
-  justify-content: center;
-  align-items: center;
+/* ── Testimonial-Zitat im Hero ──
+   <blockquote> ist das semantisch korrekte Element für Zitate.
+   Blauer linker Rand als visueller Hinweis auf Zitat-Charakter. */
+.hero-quote {
+  background: white;
+  border-left: 3px solid var(--color-blue);
+  border-radius: 0 var(--radius-md) var(--radius-md) 0;
+  padding: var(--sp-2) var(--sp-3);
+  margin-bottom: var(--sp-4);
+  box-shadow: var(--shadow-sm);
+}
+.hero-quote p {
+  font-style: italic;
+  color: var(--color-text);
+  font-size: var(--text-md);
+  margin-bottom: var(--sp-1);
+}
+.hero-quote footer {
+  font-size: var(--text-sm);
+  color: var(--color-text-muted);
 }
 
 
 /* ==========================================================================
-   9. BUCHCOVER – ECHTES BILD MIT CSS-3D-EFFEKT
-   Das Buchcover-Bild (buchcover.jpg) wird in .book-img-wrap gewrappt,
-   das alle 3D-Transformationen und Schatten trägt.
-   Pseudo-Elemente erzeugen Buchbinderstreifen und Glanzeffekt.
+   9. BUCHCOVER-MOCKUP (3D-Effekt – 1:1 aus Vorgängerversion übernommen)
+   Technik:
+   - .book-wrapper:  perspective: 800px → erzeugt 3D-Raum (ohne perspective
+                     wirkt rotateY nur wie scaleX, kein echter Tiefeneffekt)
+   - .book-img-wrap: transform: rotateY(-15deg) → leichtes Kippen nach links
+   - ::before:       Buchbinderstreifen (linker dunkler Rand)
+   - ::after:        Glanzlicht oben rechts (helles Gradient-Dreieck)
+   - :hover:         Buch dreht sich fast gerade → Cover besser sichtbar
    ========================================================================== */
-
-/* ── Äußere Hülle: definiert den perspective-Kontext ──
-   perspective: simuliert einen Blickpunkt im 3D-Raum.
-   Ohne perspective würde rotateY flach (2D) wirken. */
 .book-wrapper {
-  perspective: 1000px;
+  /* perspective: simuliert einen Blickpunkt für den 3D-Effekt */
+  perspective: 800px;
   display: inline-block;
 }
 
-/* ── Bild-Wrapper: trägt 3D-Transformation und Schatten ──
-   rotateY(-15deg): dreht das Buch leicht nach links →
-   erzeugt die "aufgestellte Buch"-Pose typischer Buchseiten.
-   background-color: Fallback-Farbe, die sichtbar wird wenn buchcover.png
-   nicht geladen werden kann (404 oder kein Netz). */
 .book-img-wrap {
-  width: 275px;
-  background-color: var(--color-blue);   /* Fallback wenn Bild nicht lädt */
-  border-radius: 2px var(--radius-sm) var(--radius-sm) 2px;
+  /* -15° Kippung nach links: Buchbinderstreifen sichtbar, realistisch */
   transform: rotateY(-15deg);
   transform-style: preserve-3d;
-  /* Dreischichtiger Schatten:
-     1. Dunkle Kante = simulierter Buchkanten-/Rücken-Effekt
-     2. Weicher Umgebungsschatten
-     3. Boden-Schatten                                          */
+  /* Sanfter Hover-Übergang mit leichtem Überschwung (ease-spring) */
+  transition: transform 0.5s var(--ease-spring),
+              box-shadow 0.5s ease;
+  border-radius: var(--radius-md);
+  /* Mehrstufiger Schatten: Tiefe + Bodenschatten */
   box-shadow:
-    -14px 10px 0   #0d1f2e,
-    -28px 20px 40px rgba(0,0,0,0.35),
-    0 40px 60px rgba(0,0,0,0.18);
+    -6px  6px 20px rgba(0, 0, 0, 0.25),
+     6px  6px 40px rgba(0, 0, 0, 0.15),
+     0   20px 60px rgba(0, 0, 0, 0.20);
+  /* CSS-Fallback wenn Bild nicht lädt: sichtbarer blauer Platzhalter */
+  background: linear-gradient(135deg, var(--color-blue) 0%, var(--color-blue-dark) 100%);
+  min-height: 240px;
   position: relative;
-  overflow: hidden;
-  display: block;
-  transition: transform var(--ease-spring), box-shadow var(--ease);
+  /* Desktop-Breite: in Media Queries skaliert */
+  width: 290px;
 }
 
-/* Leichtes Aufrichten und Anheben beim Hover */
-.book-wrapper:hover .book-img-wrap {
-  transform: rotateY(-8deg) translateY(-4px);
-  box-shadow:
-    -10px 8px 0   #0d1f2e,
-    -24px 24px 50px rgba(0,0,0,0.40),
-    0 50px 80px rgba(0,0,0,0.20);
-}
-
-/* Buchbinderstreifen links (::before).
-   Gradient von dunkel nach transparent simuliert die
-   Wölbung des Bucheinbandes an der Bindeseite. */
+/* Buchbinderstreifen: linker dunkler Rand = Buchrücken */
 .book-img-wrap::before {
   content: '';
   position: absolute;
-  left: 0; top: 0;
-  width: 16px; height: 100%;
-  background: linear-gradient(to right, rgba(0,0,0,0.28), rgba(0,0,0,0.08) 70%, transparent);
+  left: 0;
+  top: 0;
+  bottom: 0;
+  width: 16px;
+  background: rgba(0, 0, 0, 0.12);
+  border-radius: var(--radius-md) 0 0 var(--radius-md);
   z-index: 1;
-  pointer-events: none;
 }
 
-/* Glanz-Effekt oben rechts (::after).
-   Simuliert Lichtreflektion auf dem Einband. */
+/* Glanzlicht: helles Gradient oben rechts = Lichtreflexion auf Buchcover */
 .book-img-wrap::after {
   content: '';
   position: absolute;
-  top: 0; right: 0;
-  width: 50%; height: 40%;
-  background: linear-gradient(135deg, rgba(255,255,255,0.18) 0%, transparent 60%);
-  z-index: 1;
+  top: 0;
+  right: 0;
+  width: 30%;
+  height: 60%;
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.18) 0%, transparent 70%);
+  border-radius: 0 var(--radius-md) 0 0;
   pointer-events: none;
+  z-index: 1;
 }
 
-/* Das Buchcover-Bild.
-   width: 100% → füllt den Wrapper.
-   aspect-ratio: 2/3 → reserviert Platz, bevor das Bild geladen ist
-                       (verhindert Layout-Shift = CLS).
-   object-fit: cover → Bild füllt den Bereich ohne Verzerrung. */
+/* Hover: Buch dreht sich fast gerade + hebt sich leicht an */
+.book-img-wrap:hover,
+.hero-book:hover .book-img-wrap {
+  transform: rotateY(-5deg) translateY(-4px);
+  box-shadow:
+    -4px 12px 30px rgba(0, 0, 0, 0.20),
+     8px 12px 50px rgba(0, 0, 0, 0.12),
+     0   30px 70px rgba(0, 0, 0, 0.18);
+}
+
+/* Das echte Buchcover-Bild */
 .book-img {
   width: 100%;
   height: auto;
-  display: block;
+  /* aspect-ratio: 2:3 (typisches Buchformat) → verhindert Layout Shift (CLS) */
   aspect-ratio: 2 / 3;
   object-fit: cover;
+  border-radius: var(--radius-md);
+  display: block;
 }
 
 
 /* ==========================================================================
-   10. VORTEILE SECTION
-   5 Buchargumente als vertikale Liste – minimalistisch, lesbar.
+   10. ÜBER DAS BUCH (Checkmark-Liste)
    ========================================================================== */
-.benefit-list {
+
+/* Checkmark-Liste: vertikal, zentriert */
+.check-list {
   display: flex;
   flex-direction: column;
-  /* Trennlinien zwischen Items statt Abstand allein */
-  divide-color: var(--color-gray-line);
-  max-width: 740px;
-  margin: 0 auto;
+  gap: var(--sp-2);
+  max-width: 560px;
+  /* margin: auto = zentriert wenn text-align:center auf dem Parent */
+  margin: var(--sp-5) auto 0;
 }
 
-.benefit-item {
+/* Einzelner Checkmark-Eintrag */
+.check-item {
   display: flex;
-  gap: var(--sp-3);
-  align-items: center;  /* Zentriert, da kein Beschreibungstext */
-  padding: var(--sp-2) 0;
-  /* Trennlinie zwischen den Items */
-  border-bottom: 1px solid var(--color-gray-line);
+  align-items: flex-start;
+  gap: var(--sp-2);
+  font-size: var(--text-md);
+  color: var(--color-text);
 }
 
-.benefit-item:first-child { border-top: 1px solid var(--color-gray-line); }
-
-/* Nummerierungskreis: kleiner als vorher, da kein Beschreibungstext */
-.benefit-number {
-  flex-shrink: 0;
-  width: 36px;
-  height: 36px;
-  border-radius: 50%;
-  background-color: var(--color-accent);
-  color: var(--color-white);
-  font-size: var(--text-xs);
-  font-weight: 800;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-.benefit-body {}
-
-/* h3 ohne margin-bottom, da kein Beschreibungstext folgt */
-.benefit-body h3 {
-  font-size: var(--text-base);
-  font-weight: 600;
-  margin-bottom: 0;
+/* ✓ in #1a7bbf (Design-System Vorgabe) */
+.check-mark {
   color: var(--color-blue);
-  letter-spacing: -0.01em;
+  font-size: var(--text-lg);
+  font-weight: 700;
+  line-height: 1.3;
+  flex-shrink: 0;
 }
 
 
 /* ==========================================================================
-   11. LESEPROBE SECTION
-   Breiter, zentrierter CTA-Banner.
+   11. TESTIMONIALS (3 statische Cards)
+   Hintergrund: #f0f7ff. Großes dekoratives Anführungszeichen,
+   kursives Zitat, 5 Sterne, Name + Titel.
+   Desktop: 3-spaltig. Mobile: 1-spaltig. Tablet (640px): 2-spaltig.
    ========================================================================== */
-.leseprobe-inner {
+.testimonial-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: var(--sp-3);
+}
+
+.testimonial-card {
+  background: white;
+  border-radius: var(--radius-lg);
+  padding: var(--sp-5);
+  box-shadow: var(--shadow-md);
   display: flex;
   flex-direction: column;
-  align-items: center;
-  text-align: center;
-  gap: var(--sp-3);
-  padding: var(--sp-8);
-  background: var(--color-white);
-  border-radius: var(--radius-xl);
-  /* Dezenter Rahmen statt Schatten – passt zu elegantem Design */
-  border: 1.5px solid var(--color-gray-line);
-  max-width: 640px;
-  margin: 0 auto;
+  gap: var(--sp-2);
+  transition: var(--transition);
+}
+.testimonial-card:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-lg);
 }
 
-.leseprobe-inner h2 { margin-bottom: 0; }
-
-.leseprobe-inner .lead {
-  max-width: 440px;
-  margin: 0;
-}
-
-/* Kleines Buchsymbol über dem Titel */
-.leseprobe-icon {
-  font-size: 2.5rem;
+/* Großes dekoratives Anführungszeichen (Georgia-Serif für typografischen Charakter) */
+.testimonial-quote-mark {
+  font-size: 64px;
   line-height: 1;
+  color: var(--color-blue);
+  opacity: 0.2;
+  font-family: Georgia, 'Times New Roman', serif;
+  display: block;
+  /* Negativer Margin: Zitat rückt näher → enger Look */
+  margin-bottom: -12px;
+}
+
+/* Großes kursives Zitat – flex-grow: 1 = füllt verfügbare Höhe */
+.testimonial-text {
+  font-style: italic;
+  font-size: var(--text-md);
+  color: var(--color-text);
+  line-height: 1.6;
+  flex-grow: 1;
+  margin-bottom: 0;
+}
+
+/* Sterne */
+.testimonial-stars {
+  color: #f59e0b;
+  font-size: var(--text-md);
+}
+
+/* Autorenzeile: trennt vom Zitat durch Border-Top */
+.testimonial-author {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  border-top: 1px solid var(--color-gray-line);
+  padding-top: var(--sp-2);
+  margin-top: auto;
+}
+.testimonial-name {
+  font-size: var(--text-base);
+  font-weight: 700;
+  color: var(--color-text);
+}
+.testimonial-role {
+  font-size: var(--text-sm);
+  color: var(--color-text-muted);
 }
 
 
 /* ==========================================================================
-   12. SCIL PROFILE SECTION
-   Erklärungstext + SCIL-Badge + 4 Service-Kacheln.
+   12. NEWSLETTER / EMAIL SEKTION
+   Voller blauer Hintergrund (#1a7bbf).
+   Zweispaltig: links Text, rechts Formular + dekoratives CSS-Muster.
+   .newsletter-pattern: radial-gradient erzeugt Punkteraster (rein dekorativ).
    ========================================================================== */
-
-/* Einleitender 2-Spalter: Text | Badge */
-.scil-intro {
+.newsletter-layout {
   display: grid;
   grid-template-columns: 1fr;
   gap: var(--sp-6);
   align-items: center;
-  margin-bottom: var(--sp-10);
 }
 
-.scil-text h2 { margin-bottom: var(--sp-3); }
-.scil-text p  { max-width: 520px; }
-
-/* ── SCIL-Badge ──
-   Rundes Emblem als visuelle Identität des Profils */
-.scil-badge-wrap {
-  display: flex;
-  justify-content: center;
+/* Linke Seite: weißer Text auf blauem Hintergrund */
+.newsletter-text h2 {
+  color: white;
+  margin-bottom: var(--sp-2);
+}
+.newsletter-text p {
+  color: rgba(255, 255, 255, 0.85);
 }
 
-.scil-badge {
-  width: 180px;
-  height: 180px;
-  border-radius: 50%;
-  background: linear-gradient(135deg, var(--color-accent) 0%, var(--color-blue) 100%);
-  box-shadow: var(--shadow-lg);
+/* Rechte Seite: relativer Container für CSS-Muster + Formular */
+.newsletter-form-wrap {
+  position: relative;
+}
+
+/* Dekoratives CSS-Punkteraster im Hintergrund.
+   radial-gradient(circle, …) erzeugt kreisförmige Punkte im 20px-Raster. */
+.newsletter-pattern {
+  position: absolute;
+  inset: -24px;
+  background-image: radial-gradient(circle, rgba(255, 255, 255, 0.18) 1px, transparent 1px);
+  background-size: 20px 20px;
+  pointer-events: none;
+  z-index: 0;
+}
+
+/* Formular: Stack auf Mobile, Reihe auf Desktop (per Media Query) */
+.newsletter-form {
   display: flex;
   flex-direction: column;
-  align-items: center;
-  justify-content: center;
+  gap: var(--sp-2);
+  position: relative;
+  z-index: 1;
+}
+
+/* E-Mail-Input: halbtransparenter weißer Hintergrund auf blauem Grund */
+.newsletter-input {
+  width: 100%;
+  padding: 14px 20px;
+  font-size: var(--text-base);
+  font-family: var(--font-family);
+  border: none;
+  border-radius: var(--radius-lg);
+  background: rgba(255, 255, 255, 0.15);
   color: white;
-  font-weight: 900;
-  font-size: 1.4rem;
-  letter-spacing: 0.06em;
+  outline: 2px solid transparent;
+  transition: var(--transition);
+}
+.newsletter-input::placeholder {
+  color: rgba(255, 255, 255, 0.6);
+}
+.newsletter-input:focus {
+  outline-color: rgba(255, 255, 255, 0.8);
+  background: rgba(255, 255, 255, 0.22);
+}
+
+
+/* ==========================================================================
+   13. SCIL + BUNDLE (Card Pair)
+   Zwei gleich hohe Cards nebeneinander.
+   align-items: stretch = beide Cards gleiche Höhe.
+   .card--blue: Bundle-Card mit blauem Hintergrund, hervorgehoben.
+   ========================================================================== */
+.card-pair {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: var(--sp-6);
+  align-items: stretch;
+}
+
+/* Standard-Card: weiß, Schatten, 12px border-radius, 48px padding */
+.card {
+  background: white;
+  border-radius: var(--radius-lg);
+  border: 1.5px solid var(--color-gray-line);
+  /* 48px padding = var(--sp-6) laut Design-System */
+  padding: var(--sp-6);
+  box-shadow: var(--shadow-md);
+  display: flex;
+  flex-direction: column;
+  gap: var(--sp-3);
+}
+
+/* Bundle-Card: blauer Hintergrund, weißer Text, hervorgehoben */
+.card--blue {
+  background: var(--color-blue);
+  border-color: var(--color-blue);
+}
+.card--blue h2,
+.card--blue h3 { color: white; }
+.card--blue p   { color: rgba(255, 255, 255, 0.85); }
+.card--blue .eyebrow { color: rgba(255, 255, 255, 0.7); }
+
+/* CTA ans Kartenende drücken: margin-top: auto füllt den verfügbaren Raum */
+.card-cta {
+  margin-top: auto;
+  align-self: flex-start;
+}
+
+/* ── Bundle-spezifische Elemente ── */
+.bundle-icons {
+  display: flex;
+  align-items: center;
+  gap: var(--sp-2);
+  font-size: 2rem;
+}
+
+/* Bundle-Inhaltsliste mit automatischen weißen Checkmarks */
+.bundle-list {
+  display: flex;
+  flex-direction: column;
+  gap: var(--sp-1);
+}
+.bundle-list li {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--sp-1);
+  font-size: var(--text-base);
+  color: rgba(255, 255, 255, 0.9);
+}
+/* ✓ per ::before erzeugt, kein extra HTML-Element nötig */
+.bundle-list li::before {
+  content: '✓';
+  color: rgba(255, 255, 255, 0.65);
+  font-weight: 700;
   flex-shrink: 0;
 }
 
-.scil-badge-sub {
-  font-size: 0.58rem;
-  font-weight: 400;
-  opacity: 0.8;
-  margin-top: 4px;
-  text-transform: uppercase;
-  letter-spacing: 0.1em;
+/* Preisblock */
+.bundle-price {
+  display: flex;
+  align-items: center;
+  gap: var(--sp-2);
+  flex-wrap: wrap;
+}
+.price-old {
+  text-decoration: line-through;
+  color: rgba(255, 255, 255, 0.45);
+  font-size: var(--text-md);
+}
+.price-new {
+  font-size: var(--text-3xl);
+  font-weight: 700;
+  color: white;
+  line-height: 1;
+}
+.savings-badge {
+  background: rgba(255, 255, 255, 0.2);
+  color: white;
+  padding: 4px 10px;
+  border-radius: var(--radius-full);
+  font-size: var(--text-sm);
+  font-weight: 700;
+}
+.price-vat {
+  font-size: var(--text-xs);
+  color: rgba(255, 255, 255, 0.55);
 }
 
-/* ── Service-Kacheln ── */
+/* ── Service-Grid (2×2 Kacheln in der SCIL-Card) ── */
 .service-grid {
   display: grid;
-  grid-template-columns: 1fr;   /* Mobile: 1 Spalte */
-  gap: var(--sp-3);
-  margin-bottom: var(--sp-6);
-}
-
-/* Innerhalb einer Panel-Karte: immer 2×2 (kompakt),
-   unabhängig von der äußeren Viewport-Breite */
-.panel-card .service-grid {
   grid-template-columns: repeat(2, 1fr);
   gap: var(--sp-2);
-  margin-bottom: var(--sp-4);
 }
-
-/* Service-Karten in Panel kompakter */
-.panel-card .service-card {
-  padding: var(--sp-3);
+.service-card {
+  background: var(--color-gray-light);
+  border-radius: var(--radius-md);
+  padding: var(--sp-2);
 }
-
-.panel-card .service-icon {
-  font-size: 1.25rem;
-  margin-bottom: var(--sp-1);
-}
-
-.panel-card .service-card h3 {
-  font-size: var(--text-sm);
+.service-icon {
+  font-size: 1.5rem;
   margin-bottom: 4px;
 }
-
-.panel-card .service-card p {
-  font-size: var(--text-xs);
-}
-
-.service-card {
-  background: var(--color-white);
-  border-radius: var(--radius-lg);
-  padding: var(--sp-4);
-  border: 1.5px solid var(--color-gray-line);
-  /* Farbiger Akzentstreifen oben – ersetzt Box-Shadow für mehr Eleganz */
-  border-top: 3px solid var(--color-accent);
-  transition: transform var(--ease-spring), box-shadow var(--ease), border-color var(--ease);
-}
-
-.service-card:hover {
-  transform: translateY(-5px);
-  box-shadow: var(--shadow-md);
-}
-
-.service-icon {
-  font-size: 1.75rem;
-  margin-bottom: var(--sp-2);
-}
-
 .service-card h3 {
   font-size: var(--text-base);
-  font-weight: 700;
-  color: var(--color-blue);
-  margin-bottom: 8px;
+  margin-bottom: 4px;
+  color: var(--color-blue-dark);
 }
-
 .service-card p {
   font-size: var(--text-sm);
   margin: 0;
 }
 
-/* ── SCIL Panel innerhalb einer Panel-Karte: kein eigener Intro-Zweispalter ──
-   Der Badge entfällt, Text und Service-Grid füllen die Karte. */
-.panel-card .scil-intro {
-  grid-template-columns: 1fr;
-  margin-bottom: var(--sp-4);
-}
-
-/* ── SCIL CTA-Block am Sektionsende ── */
-.scil-cta {
-  text-align: center;
-  padding: var(--sp-8) var(--sp-4);
-  background: linear-gradient(135deg, rgba(32,15,202,0.05), rgba(26,82,118,0.06));
-  border-radius: var(--radius-xl);
-  border: 1.5px solid rgba(32,15,202,0.12);
-}
-
-.scil-cta h3 {
-  margin-bottom: var(--sp-2);
-}
-
-.scil-cta p {
-  max-width: 420px;
-  margin: 0 auto var(--sp-4);
-}
-
 
 /* ==========================================================================
-   13. BUNDLE SECTION
-   ========================================================================== */
-.bundle-card {
-  max-width: var(--max-width-narrow);
-  margin: 0 auto;
-  background: var(--color-white);
-  border-radius: var(--radius-xl);
-  overflow: hidden;
-  box-shadow: var(--shadow-xl);
-  display: grid;
-  grid-template-columns: 1fr;  /* Mobile: 1 Spalte, Desktop: 2 (Media Query) */
-}
-
-/* ── Linke farbige Seite ── */
-.bundle-visual {
-  background: linear-gradient(145deg, var(--color-accent) 0%, var(--color-blue) 100%);
-  color: white;
-  padding: var(--sp-8) var(--sp-6);
-  text-align: center;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  gap: var(--sp-3);
-}
-
-.bundle-visual-icons {
-  font-size: 2.5rem;
-  display: flex;
-  align-items: center;
-  gap: var(--sp-2);
-}
-
-.bundle-visual h3 {
-  color: white;
-  font-size: var(--text-xl);
-  letter-spacing: -0.02em;
-}
-
-.bundle-visual p {
-  opacity: 0.82;
-  font-size: var(--text-sm);
-  max-width: 220px;
-}
-
-/* ── Rechte weiße Detailseite ── */
-.bundle-details {
-  padding: var(--sp-8) var(--sp-6);
-}
-
-.bundle-details h2 {
-  margin-bottom: var(--sp-4);
-}
-
-/* Was ist im Bundle enthalten */
-.bundle-includes {
-  margin-bottom: var(--sp-5);
-}
-
-.bundle-includes li {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  padding: 10px 0;
-  font-size: var(--text-sm);
-  color: var(--color-text);
-  border-bottom: 1px solid var(--color-gray-line);
-}
-
-/* Haken-Symbol per CSS (kein Emoji nötig) */
-.bundle-includes li::before {
-  content: '';
-  flex-shrink: 0;
-  width: 20px;
-  height: 20px;
-  border-radius: 50%;
-  background-color: #e8f5e9;
-  /* Grüner Haken per clip-path */
-  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 20' fill='%2327ae60'%3E%3Cpath fill-rule='evenodd' d='M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z' clip-rule='evenodd'/%3E%3C/svg%3E");
-  background-repeat: no-repeat;
-  background-position: center;
-  background-size: 12px;
-}
-
-/* ── Preisanzeige ── */
-.bundle-pricing {
-  display: flex;
-  align-items: baseline;
-  gap: var(--sp-2);
-  flex-wrap: wrap;
-  margin-bottom: var(--sp-5);
-}
-
-/* Alter (durchgestrichener) Preis */
-.price-old {
-  font-size: var(--text-lg);
-  color: var(--color-gray);
-  text-decoration: line-through;
-}
-
-/* Neuer Preis: dominant */
-.price-new {
-  font-size: var(--text-4xl);
-  font-weight: 900;
-  color: var(--color-accent);
-  line-height: 1;
-  letter-spacing: -0.03em;
-}
-
-.price-vat {
-  font-size: var(--text-xs);
-  color: var(--color-gray);
-  align-self: flex-end;
-  padding-bottom: 4px;
-}
-
-/* Grünes Spar-Pill-Badge */
-.savings-badge {
-  display: inline-block;
-  background: #d4edda;
-  color: #155724;
-  font-size: var(--text-xs);
-  font-weight: 700;
-  padding: 4px 10px;
-  border-radius: var(--radius-full);
-  align-self: center;
-}
-
-
-/* ==========================================================================
-   14. TESTIMONIALS – CSS-ONLY INFINITE TICKER
-   ==========================================================================
-
-   Technik: Infinite Scroll Marquee mit reinem CSS.
-
-   Prinzip:
-   1. Außen: .testimonial-ticker  →  overflow:hidden  (Fenster / "Sichtschlitz")
-   2. Innen: .testimonial-track   →  display:flex + width:max-content
-      Die Track-Breite ist die Summe aller Karten + Abstände.
-   3. Die Karten werden DUPLIZIERT (aria-hidden auf Kopien).
-      Das erzeugt eine nahtlose Schleife, weil der Track bei -50%
-      wieder genauso aussieht wie am Anfang.
-   4. @keyframes: translateX von 0 → -50% → Loop
-
-   Pause beim Hover: animation-play-state: paused
-   Auf kleinen Screens scrollt es langsamer.
-   ========================================================================== */
-
-/* ── Äußerer Container: Overflow-Maske + weiche Ränder ── */
-.testimonial-ticker {
-  overflow: hidden;
-  /* mask-image: weicht die Kanten links/rechts aus → sieht professionell aus */
-  -webkit-mask-image: linear-gradient(
-    to right,
-    transparent 0%,
-    black 8%,
-    black 92%,
-    transparent 100%
-  );
-  mask-image: linear-gradient(
-    to right,
-    transparent 0%,
-    black 8%,
-    black 92%,
-    transparent 100%
-  );
-}
-
-/* ── Innerer Track: scrollt kontinuierlich ── */
-.testimonial-track {
-  display: flex;
-  gap: var(--sp-4);
-  /* width:max-content = Track wird so breit wie alle Kinder zusammen */
-  width: max-content;
-  /* Animation: 40 Sekunden für eine vollständige Runde, linear, endlos */
-  animation: ticker-scroll 40s linear infinite;
-}
-
-/* Pausiert die Animation wenn der Nutzer drüber fährt */
-.testimonial-ticker:hover .testimonial-track {
-  animation-play-state: paused;
-}
-
-/* ── Einzelne Testimonial-Karte ── */
-.testimonial-card {
-  /* Feste Breite = gleichmäßiger Track.
-     Auf Widescreen sieht man ~3 Karten gleichzeitig. */
-  width: 340px;
-  flex-shrink: 0;   /* Karten dürfen nicht schrumpfen */
-  background: var(--color-white);
-  border-radius: var(--radius-lg);
-  padding: var(--sp-5);
-  box-shadow: var(--shadow-md);
-  border: 1.5px solid var(--color-gray-line);
-  display: flex;
-  flex-direction: column;
-  gap: var(--sp-3);
-}
-
-/* ── Großes Anführungszeichen als dekoratives Element ──
-   Sieht nach Zitat-Typografie aus, die man auf
-   NYT-Buchrezensionen oder Literatur-Sites sieht */
-.testimonial-quote-mark {
-  font-family: Georgia, 'Times New Roman', serif;
-  font-size: 5rem;
-  line-height: 0.5;
-  color: var(--color-accent);
-  opacity: 0.2;
-  display: block;
-  height: 32px;
-  overflow: hidden;
-}
-
-/* Zitattext: kursiv = optisch als direktes Zitat erkennbar */
-.testimonial-text {
-  font-size: var(--text-sm);
-  font-style: italic;
-  color: var(--color-text);
-  line-height: 1.75;
-  flex: 1;
-  margin: 0;
-}
-
-/* Autorenzeile */
-.testimonial-author {
-  display: flex;
-  align-items: center;
-  gap: var(--sp-2);
-  padding-top: var(--sp-2);
-  border-top: 1px solid var(--color-gray-line);
-}
-
-/* Avatar-Platzhalter */
-.testimonial-avatar {
-  width: 44px;
-  height: 44px;
-  border-radius: 50%;
-  background: var(--color-gray-light);
-  border: 2px solid var(--color-gray-line);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 1.2rem;
-  flex-shrink: 0;
-}
-
-.testimonial-name {
-  font-size: var(--text-sm);
-  font-weight: 700;
-  color: var(--color-blue);
-  display: block;
-  font-style: normal;
-}
-
-.testimonial-role {
-  font-size: var(--text-xs);
-  color: var(--color-gray);
-  font-style: normal;
-}
-
-/* Sternchen-Zeile */
-.testimonial-stars {
-  color: #f59e0b;
-  font-size: 0.85rem;
-  letter-spacing: 2px;
-  display: block;
-  margin: 0;
-}
-
-
-/* ==========================================================================
-   15. AUTOREN SECTION
+   14. AUTOREN SECTION
+   Heller Hintergrund, zwei Autoren-Blöcke nebeneinander.
+   Rundes Foto-Platzhalter (border-radius: 50%).
+   Name in Akzentfarbe (#200FCA).
    ========================================================================== */
 .authors-grid {
   display: grid;
   grid-template-columns: 1fr;
-  gap: var(--sp-8);
+  gap: var(--sp-6);
 }
 
-.author-card {
-  display: grid;
-  grid-template-columns: 1fr;   /* Mobile: gestapelt */
-  gap: var(--sp-5);
-  align-items: start;
-  padding: var(--sp-6);
-  background: var(--color-white);
-  border-radius: var(--radius-xl);
-  border: 1.5px solid var(--color-gray-line);
-  transition: box-shadow var(--ease);
-}
-
-.author-card:hover {
-  box-shadow: var(--shadow-md);
-}
-
-/* ── Autoren in Panel-Karte: kompakter gestapelt ──
-   Die zwei Autoren-Karten sind vertikal ohne großen Gap. */
-.panel-card .authors-grid {
-  gap: var(--sp-4);
-}
-
-/* In Panel: Foto + Info nebeneinander (Mini-Horizontal-Layout) */
-.panel-card .author-card {
-  grid-template-columns: auto 1fr;
-  padding: var(--sp-3);
-  gap: var(--sp-3);
-  border: 1px solid var(--color-gray-line);
+/* Autor-Block: zentriert, Card-Stil */
+.author-block {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  gap: var(--sp-2);
+  background: white;
   border-radius: var(--radius-lg);
+  padding: var(--sp-6);
+  box-shadow: var(--shadow-sm);
+  border: 1.5px solid var(--color-gray-line);
 }
 
-.panel-card .author-photo {
-  width: 64px;
-  height: 64px;
-  font-size: 1.5rem;
-  border-width: 2px;
-  margin: 0;
-}
-
-.panel-card .author-info h3 {
-  font-size: var(--text-base);
-}
-
-/* Quadratisches Foto – Platzhalter */
-.author-photo {
+/* Rundes Foto-Platzhalter (border-radius: 50% = Kreis) */
+.author-avatar {
   width: 120px;
   height: 120px;
   border-radius: 50%;
-  background: var(--color-gray-light);
-  border: 3px solid var(--color-blue);
+  background: var(--color-light-blue);
+  border: 3px solid var(--color-gray-line);
   display: flex;
   align-items: center;
   justify-content: center;
   font-size: 3rem;
   flex-shrink: 0;
-  margin: 0 auto;   /* Mobile: zentriert */
-  /* Wenn echte Fotos verwendet werden:
-     <img src="foto.jpg" alt="Name"> direkt in dieses div einsetzen */
 }
 
-.author-info {}
-
-.author-info h3 {
+/* Name in Akzentfarbe (#200FCA laut Design-System) */
+.author-name {
+  color: var(--color-accent);
   font-size: var(--text-xl);
-  margin-bottom: 4px;
+  margin: 0;
 }
 
 .author-role {
-  font-size: var(--text-xs);
+  font-size: var(--text-sm);
+  color: var(--color-blue);
   font-weight: 700;
-  letter-spacing: 0.1em;
   text-transform: uppercase;
-  color: var(--color-accent);
-  margin-bottom: var(--sp-3);
-  display: block;
+  letter-spacing: 0.08em;
 }
 
 .author-bio {
-  font-size: var(--text-sm);
-  line-height: 1.75;
-  margin-bottom: var(--sp-3);
+  font-size: var(--text-base);
+  color: var(--color-text-muted);
+  max-width: 360px;
+  line-height: 1.6;
 }
 
-/* Externer Link – öffnet in neuem Tab */
 .author-link {
-  display: inline-flex;
-  align-items: center;
-  gap: 6px;
-  font-size: var(--text-sm);
+  color: var(--color-blue);
   font-weight: 600;
-  color: var(--color-accent);
-  /* Animierter Unterstrich-Hover */
-  background-image: linear-gradient(var(--color-accent), var(--color-accent));
-  background-size: 0% 2px;
-  background-position: 0 100%;
-  background-repeat: no-repeat;
-  transition: background-size var(--ease);
+  font-size: var(--text-sm);
+  border-bottom: 1px solid transparent;
+  transition: var(--transition);
 }
-
 .author-link:hover {
-  background-size: 100% 2px;
+  border-bottom-color: var(--color-blue);
 }
 
 
 /* ==========================================================================
-   16. EVENTS SECTION
+   15. EVENTS SECTION
+   Event-Karte mit prominentem Datum-Block links (Kalender-Stil).
+   Desktop: Datum links + Info rechts (flex-row).
+   Mobile: Datum oben + Info unten (flex-column).
    ========================================================================== */
 .event-card {
-  max-width: var(--max-width-narrow);
-  margin: 0 auto;
-  background: var(--color-white);
-  border-radius: var(--radius-xl);
-  border: 1.5px solid var(--color-gray-line);
-  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  gap: var(--sp-4);
+  background: white;
+  border-radius: var(--radius-lg);
+  padding: var(--sp-5);
   box-shadow: var(--shadow-md);
-  display: grid;
-  grid-template-columns: 1fr;   /* Desktop: 2-spaltig (Media Query) */
+  border: 1.5px solid var(--color-gray-line);
 }
 
-/* Linke/obere farbige Datumsspalte */
-.event-date-col {
-  background: linear-gradient(145deg, var(--color-blue) 0%, var(--color-blue-dark) 100%);
-  color: white;
-  padding: var(--sp-6);
+/* Prominenter Kalender-Block: blauer Hintergrund, weißer Text */
+.event-date-block {
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
+  background: var(--color-blue);
+  color: white;
+  border-radius: var(--radius-md);
+  padding: var(--sp-3) var(--sp-4);
+  min-width: 100px;
+  flex-shrink: 0;
   text-align: center;
-  gap: var(--sp-2);
 }
-
 .event-month {
   font-size: var(--text-xs);
   font-weight: 700;
-  letter-spacing: 0.15em;
   text-transform: uppercase;
+  letter-spacing: 0.1em;
   opacity: 0.8;
 }
-
 .event-day {
-  font-size: var(--text-4xl);
-  font-weight: 900;
+  font-size: var(--text-2xl);
+  font-weight: 700;
   line-height: 1;
-  letter-spacing: -0.04em;
 }
-
 .event-year {
-  font-size: var(--text-sm);
+  font-size: var(--text-xs);
   opacity: 0.7;
 }
 
-/* Rechte/untere Textinfo-Spalte */
-.event-info-col {
-  padding: var(--sp-6);
+.event-info {
   display: flex;
   flex-direction: column;
-  gap: var(--sp-3);
-  justify-content: center;
+  gap: var(--sp-2);
 }
-
-.event-info-col h3 {
+.event-title {
   font-size: var(--text-xl);
-  margin-bottom: 0;
+  color: var(--color-blue-dark);
+  margin: 0;
 }
-
-.event-location-tag {
-  display: inline-flex;
+.event-location {
+  display: flex;
   align-items: center;
-  gap: 8px;
-  font-size: var(--text-sm);
+  gap: 6px;
   color: var(--color-text-muted);
-}
-
-.event-description {
   font-size: var(--text-sm);
+  margin: 0;
+}
+.event-description {
+  color: var(--color-text-muted);
   margin: 0;
 }
 
 
 /* ==========================================================================
-   17. ABSCHLUSS-CTA SECTION
-   Letzter starker Call-To-Action vor dem Footer.
+   16. ABSCHLUSS-CTA
    ========================================================================== */
 .cta-final {
   text-align: center;
 }
-
-.cta-final h2 {
-  color: var(--color-white);
-  font-size: clamp(var(--text-xl), 4vw, var(--text-3xl));
-  margin-bottom: var(--sp-2);
-}
-
 .cta-final .lead {
-  color: rgba(255,255,255,0.8);
-  margin-bottom: var(--sp-5);
-}
-
-/* Buttons in der CTA-Sektion zentrieren */
-.cta-final .btn-group {
-  justify-content: center;
+  max-width: 480px;
 }
 
 
 /* ==========================================================================
-   18. FOOTER
+   17. FOOTER
+   Dunkelblauer Hintergrund (#0d2f45).
+   Logo links, Linkliste rechts. Einfach und klar.
    ========================================================================== */
 .site-footer {
-  background-color: var(--color-blue-dark);
-  color: rgba(255,255,255,0.65);
-  padding: var(--sp-12) 0 var(--sp-6);
+  background: var(--color-blue-dark);
+  color: rgba(255, 255, 255, 0.7);
+  padding: var(--sp-10) 0 var(--sp-4);
 }
 
-/* 4-Spalten Grid: Brand-Spalte breiter als Link-Spalten */
-.footer-grid {
-  display: grid;
-  grid-template-columns: 1fr;
-  gap: var(--sp-8);
-  margin-bottom: var(--sp-8);
-  padding-bottom: var(--sp-8);
-  border-bottom: 1px solid rgba(255,255,255,0.08);
+/* Footer-Innerer Bereich: Brand + Nav */
+.footer-inner {
+  display: flex;
+  flex-direction: column;
+  gap: var(--sp-5);
+  padding-bottom: var(--sp-6);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
 }
 
-/* ── Brand-Spalte ── */
-.footer-brand .footer-logo {
-  display: block;
-  font-size: var(--text-lg);
-  font-weight: 800;
-  color: var(--color-white);
-  letter-spacing: -0.02em;
-  margin-bottom: var(--sp-2);
+.footer-brand {
+  display: flex;
+  flex-direction: column;
+  gap: var(--sp-2);
 }
 
-.footer-brand .footer-logo span { color: var(--color-accent); }
+/* Footer-Logo: Text-basiert mit Akzentfarbe für "Code" */
+.footer-logo {
+  font-size: var(--text-xl);
+  font-weight: 700;
+  color: white;
+  transition: var(--transition);
+}
+.footer-logo span { color: var(--color-blue); }
+.footer-logo:hover { opacity: 0.8; }
 
 .footer-brand p {
+  color: rgba(255, 255, 255, 0.55);
   font-size: var(--text-sm);
-  line-height: 1.65;
-  color: rgba(255,255,255,0.55);
-  max-width: 260px;
 }
 
-/* ── Link-Spalten ── */
-.footer-col h4 {
-  font-size: var(--text-xs);
-  font-weight: 700;
-  letter-spacing: 0.12em;
-  text-transform: uppercase;
-  color: var(--color-white);
-  margin-bottom: var(--sp-3);
-}
-
+/* Footer-Links horizontal */
 .footer-links {
   display: flex;
-  flex-direction: column;
-  gap: 10px;
-}
-
-.footer-links a {
-  font-size: var(--text-sm);
-  color: rgba(255,255,255,0.55);
-  transition: color var(--ease);
-}
-
-.footer-links a:hover { color: var(--color-white); }
-
-/* ── Copyright-Zeile ── */
-.footer-bottom {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
+  flex-wrap: wrap;
   gap: var(--sp-2);
+}
+.footer-links a {
+  color: rgba(255, 255, 255, 0.6);
+  font-size: var(--text-sm);
+  transition: var(--transition);
+}
+.footer-links a:hover { color: white; }
+
+/* Copyright-Zeile */
+.footer-bottom {
+  margin-top: var(--sp-4);
+  padding-top: var(--sp-2);
+}
+.footer-bottom p {
+  font-size: var(--text-sm);
+  color: rgba(255, 255, 255, 0.35);
+  margin: 0;
   text-align: center;
 }
 
-.footer-bottom p {
-  font-size: var(--text-xs);
-  color: rgba(255,255,255,0.35);
-  margin: 0;
-}
-
-.footer-bottom a {
-  color: rgba(255,255,255,0.4);
-  font-size: var(--text-xs);
-  transition: color var(--ease);
-}
-
-.footer-bottom a:hover { color: var(--color-white); }
-
 
 /* ==========================================================================
-   19. KEYFRAME-ANIMATIONEN
+   18. KEYFRAME-ANIMATIONEN
+   Nur für Hero-Einblend-Animation beim Laden der Seite.
    ========================================================================== */
+@keyframes fade-up {
+  from {
+    opacity: 0;
+    transform: translateY(24px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
 
-/* Infinite Ticker: Testimonials von rechts nach links scrollen.
-   Die Karten werden dupliziert, daher reicht -50% für den nahtlosen Loop.
-   Bei -50% sieht der Track identisch aus wie bei 0% → perfekte Schleife. */
-@keyframes ticker-scroll {
-  from { transform: translateX(0); }
-  to   { transform: translateX(-50%); }
+/* Hero-Elemente blenden sequenziell ein */
+.hero-content {
+  animation: fade-up 0.55s ease both;
+}
+.hero-book {
+  animation: fade-up 0.55s 0.15s ease both;
 }
 
 
 /* ==========================================================================
-   20. MEDIA QUERIES (Mobile First → Tablet → Desktop → Wide)
+   19. MEDIA QUERIES (RESPONSIVE)
+   Mobile-first: Base-CSS = Mobile.
+   Breakpoints: 640px (kleines Tablet), 900px (Desktop), 1200px (groß).
    ========================================================================== */
 
-/* ── Tablet: 640px ── */
+/* ── 640px: Kleines Tablet ─────────────────────────────────────────────── */
 @media (min-width: 640px) {
 
-  /* Service-Kacheln: 2 Spalten */
-  .service-grid {
+  /* Newsletter: Input und Button nebeneinander */
+  .newsletter-form {
+    flex-direction: row;
+  }
+  .newsletter-input {
+    flex: 1;
+  }
+
+  /* Testimonials: 2 Spalten */
+  .testimonial-grid {
     grid-template-columns: repeat(2, 1fr);
   }
 
-  /* Autoren-Karte: Foto links, Text rechts */
-  .author-card {
-    grid-template-columns: auto 1fr;
+  /* Events: Datum und Info nebeneinander */
+  .event-card {
+    flex-direction: row;
+    align-items: flex-start;
   }
 
-  .author-photo {
-    margin: 0;   /* Ausrichtung zurücksetzen */
-  }
-
-  /* Footer: 2 Spalten */
-  .footer-grid {
+  /* Autoren: 2 Spalten */
+  .authors-grid {
     grid-template-columns: repeat(2, 1fr);
   }
 
-  /* Bundle: 2 Spalten */
-  .bundle-card {
-    grid-template-columns: 1fr 1.6fr;
+  /* Footer: Row-Layout */
+  .footer-inner {
+    flex-direction: row;
+    align-items: flex-start;
+    justify-content: space-between;
   }
 }
 
-/* ── Desktop: 900px ── */
+
+/* ── 900px: Desktop ────────────────────────────────────────────────────── */
 @media (min-width: 900px) {
 
-  /* ── Typografie: skaliert auf Desktop nach oben ── */
-  h1 { font-size: var(--text-3xl); }
-  h2 { font-size: var(--text-2xl); }
+  /* ── Navigation: Hamburger ausblenden, Nav anzeigen ── */
+  .hamburger { display: none !important; }
+  .site-nav   {
+    display: flex !important;
+    /* Auf Desktop: Logo hat kein flex:1, Nav hat margin-left: auto */
+  }
+  .site-logo  { flex: 0 0 auto; }
+  .nav-cta    { display: inline-flex; }
 
-  /* ── Navigation: Links einblenden ── */
+  /* Nav-Links auf Desktop horizontal */
   .nav-links {
-    display: flex;
-  }
-
-  /* ── Hero: 2-Spalten-Grid ── */
-  .hero .container {
-    /* Text-Spalte etwas breiter als Cover-Spalte */
-    grid-template-columns: 1.1fr auto;
-    gap: var(--sp-12);
-  }
-
-  /* Nav-Logo auf Desktop größer */
-  .site-logo-img {
-    height: 70px;
-  }
-
-  /* Buchcover-Wrapper auf Desktop breiter */
-  .book-img-wrap {
-    width: 338px;
-  }
-
-  /* ── Sektionspaare: nebeneinander auf Desktop ──
-     gap: var(--sp-6) = 48px → mehr Luft zwischen den Spalten */
-  .section-pair {
-    grid-template-columns: 1fr 1fr;
-    gap: var(--sp-6);
-  }
-
-  /* Variante: linke Spalte breiter (Vorteile breiter als Leseprobe-Card) */
-  .section-pair--wide-left {
-    grid-template-columns: 3fr 2fr;
-  }
-
-  /* Panel-Karten auf Desktop: mehr inneres Padding */
-  .panel-card {
-    padding: var(--sp-8);
-  }
-
-  /* ── SCIL Intro: Text | Badge nebeneinander ── */
-  .scil-intro {
-    grid-template-columns: 1fr auto;
-  }
-
-  /* ── Service-Grid: 4 Spalten ── */
-  .service-grid {
-    grid-template-columns: repeat(4, 1fr);
-  }
-
-  /* ── Event-Card: Datum links, Info rechts ── */
-  .event-card {
-    grid-template-columns: 200px 1fr;
-  }
-
-  .event-date-col {
-    /* Auf Desktop hochkant ausgerichtet */
-    border-radius: 0;
-  }
-
-  /* ── Footer: 4-Spalten (Brand breit, 3 Link-Spalten schmal) ── */
-  .footer-grid {
-    grid-template-columns: 2fr 1fr 1fr 1fr;
-  }
-
-  /* ── Footer-Bottom horizontal ── */
-  .footer-bottom {
     flex-direction: row;
-    justify-content: space-between;
-    text-align: left;
   }
 
-  /* ── Ticker-Karten etwas breiter ── */
-  .testimonial-card {
-    width: 380px;
+  /* ── Hero: 2 Spalten ── */
+  .hero-layout {
+    grid-template-columns: 1fr 1fr;
+  }
+  /* Buchcover links (order: 1), Text rechts (order: 2) */
+  .hero-book    { order: 1; }
+  .hero-content { order: 2; }
+
+  /* ── Buchcover Desktop-Breite ── */
+  .book-img-wrap { width: 300px; }
+
+  /* ── SCIL + Bundle: 2 Spalten ── */
+  .card-pair {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  /* ── Testimonials: 3 Spalten ── */
+  .testimonial-grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+
+  /* ── Newsletter: 2 Spalten ── */
+  .newsletter-layout {
+    grid-template-columns: 1fr 1fr;
   }
 }
 
-/* ── Wide Desktop: 1200px ── */
-@media (min-width: 1200px) {
 
-  /* Noch mehr Luft in den Sektionen */
-  .section { padding-top: var(--sp-16); padding-bottom: var(--sp-16); }
+/* ── Mobile: Hamburger-Menü (max-width: 899px) ────────────────────────── */
+@media (max-width: 899px) {
 
-  h1 { font-size: var(--text-4xl); }
+  /* Logo nimmt verfügbaren Platz → Hamburger wandert nach rechts */
+  .site-logo { flex: 1; }
 
-  /* Buchcover-Wrapper auf Wide-Desktop noch größer */
-  .book-img-wrap {
-    width: 375px;
+  /* Logo auf Mobile kleiner */
+  .site-logo-img { height: 55px; }
+
+  /* Hamburger anzeigen */
+  .hamburger { display: flex; }
+
+  /* CTA-Button in der Navigationsleiste auf Mobile verstecken */
+  .nav-cta { display: none; }
+
+  /* Navigation standardmäßig versteckt.
+     Wird durch .nav-toggle:checked ~ .site-nav angezeigt. */
+  .site-nav {
+    /* display: none = kein Platzbedarf, aber Checkbox-Logik funktioniert weiterhin */
+    display: none;
+    /* Volle Breite: bricht auf neue Zeile dank flex-wrap auf .header-inner */
+    width: 100%;
+    flex: 0 0 100%;
+    order: 10;
+    padding: var(--sp-2) 0 var(--sp-3);
+    border-top: 1px solid var(--color-gray-line);
+    background: white;
   }
+
+  /* Nav-Links auf Mobile vertikal */
+  .nav-links {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 4px;
+    padding: 0 var(--sp-2);
+  }
+
+  .nav-link {
+    padding: var(--sp-2);
+    border-bottom: none;
+    border-radius: var(--radius-md);
+  }
+  .nav-link.is-active {
+    background: var(--color-light-blue);
+    border-bottom: none;
+  }
+
+  /* ══ DER KERNMECHANISMUS (CSS-only Hamburger) ══
+     .nav-toggle:checked  = Checkbox ist angehakt (Menü soll offen sein)
+     ~                    = Geschwister-Selektor (folgendes Geschwister-Element)
+     .site-nav            = die Navigation, die ein- und ausgeblendet wird
+     Beide Elemente sind Kinder von .header-inner → Geschwister-Beziehung. */
+  .nav-toggle:checked ~ .site-nav {
+    display: flex;
+    flex-direction: column;
+  }
+
+  /* Hamburger → X Animation beim Öffnen */
+  /* Balken 1: dreht nach oben-rechts */
+  .nav-toggle:checked ~ .hamburger .hamburger-bar:nth-child(1) {
+    transform: translateY(7px) rotate(45deg);
+  }
+  /* Balken 2: verschwindet */
+  .nav-toggle:checked ~ .hamburger .hamburger-bar:nth-child(2) {
+    opacity: 0;
+    transform: scaleX(0);
+  }
+  /* Balken 3: dreht nach unten-rechts */
+  .nav-toggle:checked ~ .hamburger .hamburger-bar:nth-child(3) {
+    transform: translateY(-7px) rotate(-45deg);
+  }
+
+  /* Buttons auf Mobile: volle Breite */
+  .btn-group {
+    flex-direction: column;
+  }
+  .btn-group .btn {
+    width: 100%;
+    justify-content: center;
+  }
+}
+
+
+/* ── 1200px: Großer Desktop ────────────────────────────────────────────── */
+@media (min-width: 1200px) {
+  /* Größeres Buchcover auf großen Bildschirmen */
+  .book-img-wrap { width: 340px; }
 }
 
 
 /* ==========================================================================
-   21. REDUCED MOTION – Barrierefreiheit
-   Nutzer, die in ihrem OS "Bewegung reduzieren" aktiviert haben,
-   sollen keine blinkenden oder rollenden Animationen sehen.
+   20. REDUCED MOTION (Barrierefreiheit)
+   Benutzer können in ihrem Betriebssystem "Animationen reduzieren" aktivieren.
+   prefers-reduced-motion: reduce → alle Animationen und Übergänge deaktivieren.
    ========================================================================== */
 @media (prefers-reduced-motion: reduce) {
-
-  /* Ticker: sofort auf Ende springen + einfrieren */
-  .testimonial-track {
-    animation-duration: 0.01ms;
-    animation-iteration-count: 1;
-  }
-
-  /* Alle anderen Transitions und Animationen deaktivieren */
-  *, *::before, *::after {
+  *,
+  *::before,
+  *::after {
     animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
     transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
   }
 
-  html { scroll-behavior: auto; }
+  html {
+    scroll-behavior: auto;
+  }
+
+  /* Buchcover-3D-Effekt deaktivieren */
+  .book-img-wrap,
+  .book-img-wrap:hover,
+  .hero-book:hover .book-img-wrap {
+    transform: none;
+    transition: none;
+  }
 }
