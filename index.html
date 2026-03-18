@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <!--
-  AufstiegsCode – Landingpage (Redesign: Premium Author Site)
+  AufstiegsCode – Landingpage
   Autoren: Andreas Bornhäußer & Dirk Scheffer
   Technologie: Reines HTML + CSS, kein JavaScript-Framework
   Alle CTAs zeigen auf placeholder.html
@@ -79,9 +79,9 @@
 
     <!-- ================================================================
       1. HERO SECTION
-      Erster sichtbarer Bereich. Entscheidet, ob Besucher bleiben.
-      Linke Spalte: Headline + Subline + 2 CTAs
-      Rechte Spalte: Buchcover-Mockup (CSS-only)
+      Linke Spalte:  Headline + Subline + 2 CTAs
+      Rechte Spalte: Echtes Buchcover-Bild (buchcover.jpg)
+      Hintergrund:   var(--color-hero-bg) = sehr helles Buchcover-Blau
     ================================================================ -->
     <section class="hero" aria-labelledby="hero-title">
       <div class="container">
@@ -123,172 +123,145 @@
         </div>
 
 
-        <!-- ── Rechte Spalte: Buchcover ──
-             aria-hidden="true": Dekoration, kein Inhalt für Screen Reader.
-             Das Cover ist visuell, die textliche Info steckt im Hero-Text. -->
+        <!-- ── Rechte Spalte: Buchcover-Bild ──
+             aria-hidden="true": Das visuelle Cover ist Dekoration;
+             die inhaltliche Information steckt bereits im Hero-Text. -->
         <div class="hero-book" aria-hidden="true">
 
           <!-- .book-wrapper: erzeugt den perspective-Kontext für den 3D-Effekt.
                perspective: simuliert einen Blickpunkt → macht rotateY sichtbar. -->
           <div class="book-wrapper">
-            <div class="book-cover">
 
-              <!-- Oberer Bereich des Covers -->
-              <div class="book-cover-top">
-                <span class="book-cover-badge">Neu</span>
-                <div class="book-cover-title">
-                  Aufstiegs<span class="accent">Code</span>
-                </div>
-                <div class="book-cover-subtitle">
-                  Dein Weg vom Trainer zur<br>
-                  Führungspersönlichkeit im Sport
-                </div>
-              </div>
+            <!-- .book-img-wrap: trägt die 3D-Transformation, Schatten und
+                 die Pseudo-Elemente für Buchbinderstreifen und Glanz. -->
+            <div class="book-img-wrap">
 
-              <!-- Autorenzeile unten auf dem Cover -->
-              <div class="book-cover-authors">
-                A. Bornhäußer · D. Scheffer
-              </div>
+              <!-- Echtes Buchcover-Bild.
+                   src="buchcover.jpg"  = Platzhalterpfad, wird durch echtes Bild ersetzt.
+                   alt=""               = Leer, da der Parent aria-hidden="true" ist.
+                   loading="eager"      = Sofort laden, da das Bild im sichtbaren Bereich liegt.
+                   width / height       = Verhältnis 2:3 → verhindert Layout Shift (CLS). -->
+              <img src="buchcover.jpg"
+                   alt=""
+                   class="book-img"
+                   width="220"
+                   height="330"
+                   loading="eager" />
             </div>
-          </div>
 
+          </div>
         </div><!-- /hero-book -->
       </div><!-- /container -->
     </section><!-- /hero -->
 
 
     <!-- ================================================================
-      2. VORTEILE SECTION
-      5 Buchargumente als nummerierte Liste. Klar strukturiert,
-      wenig Text pro Eintrag – typisch für Premium-Buchlandingpages.
-      id="vorteile": Anker-Ziel für Nav-Link.
+      2. SEKTIONSPAAR: VORTEILE (links) + LESEPROBE (rechts)
+      =================================================================
+      Zwei Panel-Karten nebeneinander auf Desktop, gestapelt auf Mobile.
+      .section-pair--wide-left: linke Karte bekommt mehr Breite (3:2).
     ================================================================ -->
-    <section class="section" id="vorteile" aria-labelledby="vorteile-heading">
+    <section class="section section--gray" id="vorteile" aria-labelledby="vorteile-heading">
       <div class="container">
 
-        <!-- Zentrierter Sektionskopf mit Eyebrow + H2 + Fließtext -->
-        <div class="section-header">
-          <span class="eyebrow">Was dich erwartet</span>
-          <h2 id="vorteile-heading">5 Gründe für dieses Buch</h2>
-          <p class="lead">
-            Praxisnah, direkt und ohne Umwege – der AufstiegsCode gibt dir die
-            Werkzeuge, die Trainerausbildungen oft vergessen.
-          </p>
-        </div>
+        <div class="section-pair section-pair--wide-left">
 
-        <!-- Benefit-Liste: role="list" + role="listitem" für Screen Reader
-             (Ohne role kann CSS list-style:none die Listenstruktur in manchen
-             Browsern verstecken) -->
-        <ul class="benefit-list" role="list">
+          <!-- ── Linke Panel-Karte: 5 Gründe für das Buch ── -->
+          <div class="panel-card">
+            <span class="eyebrow">Was dich erwartet</span>
+            <h2 id="vorteile-heading">5 Gründe für dieses Buch</h2>
 
-          <!-- ── Benefit 1 ── -->
-          <li class="benefit-item" role="listitem">
-            <!-- Nummerierungskreis: rein dekorativ, Ziffer als visueller Anker -->
-            <div class="benefit-number" aria-hidden="true">01</div>
-            <div class="benefit-body">
-              <h3>Klares Führungsverständnis entwickeln</h3>
-              <p>
-                Du lernst, was moderne Führung im Sport wirklich bedeutet –
-                jenseits von Autorität und Hierarchie, hin zu echter Wirksamkeit.
-              </p>
-            </div>
-          </li>
+            <!-- Benefit-Liste: Nur Überschriften, keine Beschreibungstexte.
+                 role="list" + role="listitem" stellt die Semantik sicher,
+                 da list-style:none in CSS die Liste für Assistenz-Software
+                 in manchen Browsern unsichtbar macht. -->
+            <ul class="benefit-list" role="list">
 
-          <!-- ── Benefit 2 ── -->
-          <li class="benefit-item" role="listitem">
-            <div class="benefit-number" aria-hidden="true">02</div>
-            <div class="benefit-body">
-              <h3>Dein persönliches Führungsprofil kennen</h3>
-              <p>
-                Mit dem integrierten SCIL-Profil verstehst du deine Stärken,
-                blinden Flecken und Entwicklungsfelder als Führungspersönlichkeit.
-              </p>
-            </div>
-          </li>
+              <!-- ── Benefit 1 ── -->
+              <li class="benefit-item" role="listitem">
+                <!-- Nummerierungskreis: rein dekorativ -->
+                <div class="benefit-number" aria-hidden="true">01</div>
+                <div class="benefit-body">
+                  <h3>Klares Führungsverständnis entwickeln</h3>
+                </div>
+              </li>
 
-          <!-- ── Benefit 3 ── -->
-          <li class="benefit-item" role="listitem">
-            <div class="benefit-number" aria-hidden="true">03</div>
-            <div class="benefit-body">
-              <h3>Sofort anwendbare Methoden &amp; Tools</h3>
-              <p>
-                Keine Theorie ohne Praxis: Jedes Kapitel endet mit konkreten
-                Übungen und Reflexionsfragen, die du direkt nutzen kannst.
-              </p>
-            </div>
-          </li>
+              <!-- ── Benefit 2 ── -->
+              <li class="benefit-item" role="listitem">
+                <div class="benefit-number" aria-hidden="true">02</div>
+                <div class="benefit-body">
+                  <h3>Dein persönliches Führungsprofil kennen</h3>
+                </div>
+              </li>
 
-          <!-- ── Benefit 4 ── -->
-          <li class="benefit-item" role="listitem">
-            <div class="benefit-number" aria-hidden="true">04</div>
-            <div class="benefit-body">
-              <h3>Echte Fallbeispiele aus dem Spitzensport</h3>
-              <p>
-                Die Autoren teilen authentische Geschichten aus dem professionellen
-                Sport – damit du von echten Erfahrungen lernst.
-              </p>
-            </div>
-          </li>
+              <!-- ── Benefit 3 ── -->
+              <li class="benefit-item" role="listitem">
+                <div class="benefit-number" aria-hidden="true">03</div>
+                <div class="benefit-body">
+                  <h3>Sofort anwendbare Methoden &amp; Tools</h3>
+                </div>
+              </li>
 
-          <!-- ── Benefit 5 ── -->
-          <li class="benefit-item" role="listitem">
-            <div class="benefit-number" aria-hidden="true">05</div>
-            <div class="benefit-body">
-              <h3>Den nächsten Karriereschritt bewusst gehen</h3>
-              <p>
-                Vom Trainer zur Führungspersönlichkeit ist kein Zufall – dieses
-                Buch zeigt dir, wie du diesen Weg strukturiert und selbstbewusst gehst.
-              </p>
-            </div>
-          </li>
+              <!-- ── Benefit 4 ── -->
+              <li class="benefit-item" role="listitem">
+                <div class="benefit-number" aria-hidden="true">04</div>
+                <div class="benefit-body">
+                  <h3>Echte Fallbeispiele aus dem Spitzensport</h3>
+                </div>
+              </li>
 
-        </ul><!-- /benefit-list -->
+              <!-- ── Benefit 5 ── -->
+              <li class="benefit-item" role="listitem">
+                <div class="benefit-number" aria-hidden="true">05</div>
+                <div class="benefit-body">
+                  <h3>Den nächsten Karriereschritt bewusst gehen</h3>
+                </div>
+              </li>
+
+            </ul><!-- /benefit-list -->
+          </div><!-- /panel-card Vorteile -->
+
+
+          <!-- ── Rechte Panel-Karte: Leseprobe ──
+               Zentriertes Layout, ein einziger CTA.
+               margin-top:auto am Button drückt ihn ans Kartenende. -->
+          <div class="panel-card" style="align-items: center; text-align: center; justify-content: center;">
+
+            <!-- Dekoratives Symbol: aria-hidden weil es nur visuell ist -->
+            <div class="leseprobe-icon" aria-hidden="true">📖</div>
+
+            <h2 id="leseprobe-heading">Kostenlos reinlesen</h2>
+
+            <p class="lead">
+              Überzeug dich selbst – hol dir die kostenlose Leseprobe
+              und entdecke die ersten Kapitel des AufstiegsCodes.
+            </p>
+
+            <!-- Einziger CTA dieser Karte: klar und unmissverständlich -->
+            <a href="placeholder.html" class="btn btn-primary" style="margin-top: auto;">
+              ⬇ Leseprobe als PDF
+            </a>
+          </div><!-- /panel-card Leseprobe -->
+
+        </div><!-- /section-pair -->
       </div>
     </section>
 
 
     <!-- ================================================================
-      3. LESEPROBE SECTION
-      Einfacher, zentrierter Banner mit einem einzigen CTA.
-      Wenig Ablenkung = höhere Conversion-Rate.
-      section--gray: Hintergrundwechsel als visueller Rhythmus.
-    ================================================================ -->
-    <section class="section section--gray" aria-labelledby="leseprobe-heading">
-      <div class="container">
-        <div class="leseprobe-inner">
-
-          <!-- Dekoratives Symbol: aria-hidden weil es nur visuell ist -->
-          <div class="leseprobe-icon" aria-hidden="true">📖</div>
-
-          <h2 id="leseprobe-heading">Kostenlos reinlesen</h2>
-
-          <p class="lead">
-            Überzeug dich selbst – hol dir die kostenlose Leseprobe
-            und entdecke die ersten Kapitel des AufstiegsCodes.
-          </p>
-
-          <!-- Einziger CTA in dieser Sektion: klar und unmissverständlich -->
-          <a href="placeholder.html" class="btn btn-primary">
-            ⬇ Leseprobe als PDF
-          </a>
-        </div>
-      </div>
-    </section>
-
-
-    <!-- ================================================================
-      4. SCIL PROFILE SECTION
-      Zweispaltige Einleitung + 4 Service-Kacheln + CTA-Block.
-      id="scil": Anker-Ziel.
+      3. SEKTIONSPAAR: SCIL PROFIL (links) + BUNDLE (rechts)
+      =================================================================
+      id="scil": Anker-Ziel für Nav-Link.
+      Beide Karten gleiche Breite (1fr 1fr), gleiche Höhe durch
+      align-items:stretch im .section-pair Grid.
     ================================================================ -->
     <section class="section" id="scil" aria-labelledby="scil-heading">
       <div class="container">
 
-        <!-- ── Einleitungs-Block: Text | Badge ── -->
-        <div class="scil-intro">
+        <div class="section-pair">
 
-          <!-- Linke Seite: Erklärungstext -->
-          <div class="scil-text">
+          <!-- ── Linke Panel-Karte: SCIL Führungsprofil ── -->
+          <div class="panel-card">
             <span class="eyebrow">Führung messbar machen</span>
             <h2 id="scil-heading">Das SCIL Führungsprofil</h2>
             <p>
@@ -297,161 +270,111 @@
               ein wissenschaftlich fundiertes Profil, das deine Führungskompetenzen
               im sportlichen Kontext sichtbar macht.
             </p>
-            <p>
-              Das SCIL Profil analysiert, wie du führst – nicht nur wie du glaubst
-              zu führen. Es kombiniert Selbst- und Fremdeinschätzung und gibt dir
-              ein klares Bild deiner Wirkung auf andere.
-            </p>
-          </div>
 
-          <!-- Rechte Seite: rundes Badge-Emblem
-               aria-hidden: reine Visualisierung -->
-          <div class="scil-badge-wrap" aria-hidden="true">
-            <div class="scil-badge">
-              SCIL
-              <span class="scil-badge-sub">Führungsprofil</span>
-            </div>
-          </div>
-        </div>
+            <!-- Service-Kacheln im 2×2-Grid (durch .panel-card .service-grid in CSS) -->
+            <!-- role="list" + role="listitem": semantisch korrekte Liste aus Kacheln -->
+            <div class="service-grid" role="list">
 
+              <!-- Service 1: Gruppenworkshop -->
+              <div class="service-card" role="listitem">
+                <div class="service-icon" aria-hidden="true">🏟️</div>
+                <h3>Gruppen&shy;workshop</h3>
+                <!-- &shy; = weiches Trennzeichen: Wort wird nur bei Bedarf getrennt -->
+                <p>Intensiv-Workshops für Trainer-Teams – direkt anwendbar.</p>
+              </div>
 
-        <!-- ── Service-Kacheln: 4 Angebote ──
-             role="list" + role="listitem": semantisch korrekte Liste aus Kacheln -->
-        <div class="service-grid" role="list">
+              <!-- Service 2: Einzelcoaching -->
+              <div class="service-card" role="listitem">
+                <div class="service-icon" aria-hidden="true">👤</div>
+                <h3>Einzel&shy;coaching</h3>
+                <p>1:1-Begleitung für Trainer und Führungskräfte.</p>
+              </div>
 
-          <!-- Service 1: Gruppenworkshop -->
-          <div class="service-card" role="listitem">
-            <div class="service-icon" aria-hidden="true">🏟️</div>
-            <h3>Gruppen&shy;workshop</h3>
-            <!-- &shy; = weiches Trennzeichen: der Browser trennt das Wort nur wenn nötig -->
-            <p>
-              Intensiv-Workshops für Trainer-Teams und Sportorganisationen –
-              direkt anwendbar, kein Frontvortrag.
-            </p>
-          </div>
+              <!-- Service 3: Online Analyse -->
+              <div class="service-card" role="listitem">
+                <div class="service-icon" aria-hidden="true">💻</div>
+                <h3>Online Analyse</h3>
+                <p>Vollständiges SCIL-Profil mit Auswertungsgespräch.</p>
+              </div>
 
-          <!-- Service 2: Einzelcoaching -->
-          <div class="service-card" role="listitem">
-            <div class="service-icon" aria-hidden="true">👤</div>
-            <h3>Einzel&shy;coaching</h3>
-            <p>
-              1:1-Begleitung für Trainer und Führungskräfte, die gezielt an
-              ihrer persönlichen Entwicklung arbeiten wollen.
-            </p>
-          </div>
+              <!-- Service 4: Keynote -->
+              <div class="service-card" role="listitem">
+                <div class="service-icon" aria-hidden="true">🎤</div>
+                <h3>Keynote &amp; Vortrag</h3>
+                <p>Impulse für Verbände und Vereine – live oder hybrid.</p>
+              </div>
 
-          <!-- Service 3: Online Analyse -->
-          <div class="service-card" role="listitem">
-            <div class="service-icon" aria-hidden="true">💻</div>
-            <h3>Online Profil-Analyse</h3>
-            <p>
-              Das vollständige SCIL-Profil bequem online – mit persönlichem
-              Auswertungsgespräch per Video-Call.
-            </p>
-          </div>
+            </div><!-- /service-grid -->
 
-          <!-- Service 4: Keynote -->
-          <div class="service-card" role="listitem">
-            <div class="service-icon" aria-hidden="true">🎤</div>
-            <h3>Keynote &amp; Vortrag</h3>
-            <p>
-              Inspirierende Impulse für Verbände, Vereine und Sportorganisationen
-              – live oder hybrid buchbar.
-            </p>
-          </div>
-
-        </div><!-- /service-grid -->
-
-
-        <!-- ── SCIL CTA-Block ── -->
-        <div class="scil-cta">
-          <h3>Erstelle jetzt dein persönliches SCIL-Profil</h3>
-          <p>
-            Erfahre in 15 Minuten mehr über deine Führungspersönlichkeit –
-            wissenschaftlich fundiert und sportpraktisch interpretiert.
-          </p>
-          <a href="placeholder.html" class="btn btn-primary">
-            SCIL-Profil erstellen
-          </a>
-        </div>
-
-      </div>
-    </section>
-
-
-    <!-- ================================================================
-      5. BUNDLE ANGEBOT
-      Kombi-Angebot: Buch + SCIL Analyse vergünstigt.
-      section--gray: visueller Wechsel.
-    ================================================================ -->
-    <section class="section section--gray" aria-labelledby="bundle-heading">
-      <div class="container">
-
-        <div class="section-header">
-          <span class="eyebrow">Das beste Paket</span>
-          <h2 id="bundle-heading">Bundle: Buch + SCIL-Analyse</h2>
-        </div>
-
-        <!-- Bundle-Karte: zweigeteilt – visuell | Details -->
-        <div class="bundle-card">
-
-          <!-- ── Linke farbige Seite ── -->
-          <div class="bundle-visual">
-            <!-- aria-hidden: Emoji-Icons sind dekorativ -->
-            <div class="bundle-visual-icons" aria-hidden="true">
-              <span>📚</span><span>+</span><span>🧭</span>
-            </div>
-            <h3>Das perfekte Paket</h3>
-            <p>Buch &amp; SCIL Analyse – alles was du brauchst, um deine Führungskarriere zu starten.</p>
-          </div>
-
-          <!-- ── Rechte weiße Detailseite ── -->
-          <div class="bundle-details">
-            <h2>Komplett-Paket</h2>
-
-            <!-- Was ist enthalten: role="list" für semantisch korrekte Listen -->
-            <ul class="bundle-includes" role="list">
-              <li>AufstiegsCode Buch (Print &amp; E-Book)</li>
-              <li>Vollständige SCIL Führungsprofil-Analyse</li>
-              <li>Persönliches 60-min. Auswertungsgespräch</li>
-              <li>Exklusives Begleit-Workbook als PDF</li>
-            </ul>
-
-            <!-- Preisblock:
-                 aria-label auf dem Container = kombinierter lesbarer Text
-                 für Screen Reader (statt einzelner Zahlen) -->
-            <div class="bundle-pricing"
-                 aria-label="Bundle-Preis: 149 Euro statt 219 Euro – 32 Prozent günstiger">
-              <span class="price-old" aria-hidden="true">219 €</span>
-              <span class="price-new">149 €</span>
-              <span class="savings-badge">–32 %</span>
-              <span class="price-vat">inkl. MwSt.</span>
-            </div>
-
-            <a href="placeholder.html" class="btn btn-primary">
-              Bundle jetzt sichern
+            <!-- CTA am unteren Kartenende (margin-top:auto durch panel-card Regel) -->
+            <a href="placeholder.html" class="btn btn-primary" style="margin-top: auto; align-self: flex-start;">
+              SCIL-Profil erstellen
             </a>
-          </div>
+          </div><!-- /panel-card SCIL -->
 
-        </div><!-- /bundle-card -->
+
+          <!-- ── Rechte Panel-Karte: Bundle-Angebot ──
+               Visueller Header + Inhaltsliste + Preis + CTA -->
+          <div class="panel-card" style="padding: 0; overflow: hidden;">
+
+            <!-- Farbiger oberer Bereich der Bundle-Karte -->
+            <div class="bundle-visual">
+              <!-- aria-hidden: Emoji-Icons sind dekorativ -->
+              <div class="bundle-visual-icons" aria-hidden="true">
+                <span>📚</span><span>+</span><span>🧭</span>
+              </div>
+              <h3>Bundle-Angebot</h3>
+              <p>Buch &amp; SCIL Analyse – das perfekte Paket für deinen Start.</p>
+            </div>
+
+            <!-- Weißer Inhaltsbereich der Bundle-Karte -->
+            <div class="bundle-details">
+
+              <!-- Was ist enthalten: role="list" für semantisch korrekte Listen -->
+              <ul class="bundle-includes" role="list">
+                <li>AufstiegsCode Buch (Print &amp; E-Book)</li>
+                <li>Vollständige SCIL Führungsprofil-Analyse</li>
+                <li>Persönliches 60-min. Auswertungsgespräch</li>
+                <li>Exklusives Begleit-Workbook als PDF</li>
+              </ul>
+
+              <!-- Preisblock:
+                   aria-label = kombinierter lesbarer Text für Screen Reader -->
+              <div class="bundle-pricing"
+                   aria-label="Bundle-Preis: 149 Euro statt 219 Euro – 32 Prozent günstiger">
+                <span class="price-old" aria-hidden="true">219 €</span>
+                <span class="price-new">149 €</span>
+                <span class="savings-badge">–32 %</span>
+                <span class="price-vat">inkl. MwSt.</span>
+              </div>
+
+              <a href="placeholder.html" class="btn btn-primary">
+                Bundle jetzt sichern
+              </a>
+            </div><!-- /bundle-details -->
+
+          </div><!-- /panel-card Bundle -->
+
+        </div><!-- /section-pair -->
       </div>
     </section>
 
 
     <!-- ================================================================
-      6. TESTIMONIALS – CSS-ONLY INFINITE TICKER
+      4. TESTIMONIALS – CSS-ONLY INFINITE TICKER
+      =================================================================
       Scrollende Zitate, kein JavaScript erforderlich.
 
       Technik:
-      - .testimonial-ticker  = overflow:hidden (der sichtbare "Schaufenster")
+      - .testimonial-ticker  = overflow:hidden (sichtbarer "Schaufenster")
       - .testimonial-track   = display:flex + width:max-content + CSS-Animation
       - Karten werden DUPLIZIERT (aria-hidden auf Kopien)
         → nahtloser Loop bei 50% Fortschritt der translateX-Animation
-      - Pause beim Hover über .testimonial-ticker:hover .testimonial-track
+      - Pause beim Hover: .testimonial-ticker:hover .testimonial-track
     ================================================================ -->
-    <section class="section" aria-labelledby="testimonials-heading">
+    <section class="section section--gray" aria-labelledby="testimonials-heading">
 
-      <!-- Sektionskopf ist im Container, Ticker läuft über volle Breite -->
+      <!-- Sektionskopf im Container, Ticker läuft über volle Viewport-Breite -->
       <div class="container">
         <div class="section-header">
           <span class="eyebrow">Stimmen aus der Praxis</span>
@@ -462,8 +385,8 @@
         </div>
       </div>
 
-      <!-- Ticker: kein Container → Ticker scrollt über volle Viewport-Breite
-           role="region" + aria-label: Screen Reader können den Bereich benennen -->
+      <!-- Ticker: kein Container → scrollt über volle Breite
+           role="region" + aria-label: Screen Reader benennen den Bereich -->
       <div class="testimonial-ticker" role="region" aria-label="Testimonials – scrollend">
 
         <!-- .testimonial-track scrollt horizontal per CSS-Animation -->
@@ -527,10 +450,10 @@
           </article>
 
           <!-- ════════════ DUPLIZIERTE KARTEN (für nahtlose Schleife) ════════════
-               aria-hidden="true": diese Karten sind für Screen Reader unsichtbar.
+               aria-hidden="true": Screen Reader sehen diese Karten NICHT.
                Sie existieren nur damit die CSS-Animation nahtlos weiter läuft.
-               Bei 50% der Animation (translate -50%) zeigt der Track dieselben
-               Karten wie am Anfang → kein Sprung sichtbar.    -->
+               Bei translateX(-50%) zeigt der Track dieselben Karten wie
+               am Anfang → kein Sprung sichtbar. -->
 
           <!-- Duplikat 1 -->
           <article class="testimonial-card" aria-hidden="true">
@@ -593,141 +516,136 @@
 
 
     <!-- ================================================================
-      7. AUTOREN SECTION
-      Beide Autoren gleichwertig, je mit Foto-Platzhalter + Bio.
-      id="autoren": Anker-Ziel.
+      5. SEKTIONSPAAR: EVENTS (links) + AUTOREN (rechts)
+      =================================================================
+      id="events" und id="autoren" als Anker-Ziele in einer Sektion.
+      Beide als gleichbreite Panel-Karten (1fr 1fr).
     ================================================================ -->
-    <section class="section section--gray" id="autoren" aria-labelledby="autoren-heading">
+    <section class="section" aria-labelledby="events-heading">
       <div class="container">
 
-        <div class="section-header">
-          <span class="eyebrow">Die Köpfe dahinter</span>
-          <h2 id="autoren-heading">Die Autoren</h2>
-          <p class="lead">
-            Zwei Experten. Eine Mission. Ein Buch.
-          </p>
-        </div>
+        <div class="section-pair">
 
-        <!-- 2-Spalten-Grid, beide Kacheln gleichwertig -->
-        <div class="authors-grid">
+          <!-- ── Linke Panel-Karte: Nächstes Event ──
+               id="events": Anker-Ziel für den Nav-Link -->
+          <div class="panel-card" id="events">
+            <span class="eyebrow">Live erleben</span>
+            <h2 id="events-heading">Kommende Events</h2>
 
-          <!-- ── Autor 1: Dirk Scheffer ── -->
-          <article class="author-card">
+            <!-- Event-Karte: Datumsspalte + Infospalte.
+                 Im Panel-Kontext ohne extra Kartenrahmen (nur Inhalt). -->
+            <article>
 
-            <!-- Foto-Platzhalter.
-                 Wenn das echte Foto vorliegt, dieses div ersetzen durch:
-                 <img src="dirk-scheffer.jpg"
-                      alt="Dirk Scheffer – Führungsexperte und Coach"
-                      width="120" height="120"> -->
-            <div class="author-photo"
-                 role="img"
-                 aria-label="Foto-Platzhalter für Dirk Scheffer">
-              👤
-            </div>
+              <!-- Datum-Block: farbiger Kalender-Stil -->
+              <div class="event-date-block" style="display:flex; align-items:center; gap:var(--sp-3); margin-bottom:var(--sp-3);">
 
-            <div class="author-info">
-              <h3>Dirk Scheffer</h3>
-              <span class="author-role">Führungsexperte &amp; Coach</span>
-              <p class="author-bio">
-                Dirk Scheffer ist Experte für Führungskräfteentwicklung im Sport
-                mit über 20 Jahren Erfahrung in der Arbeit mit Spitzentrainern
-                und Sportorganisationen. Als Mitentwickler des SCIL-Profils
-                verbindet er wissenschaftliche Fundierung mit praktischer Relevanz.
+                <!-- Visueller Kalender-Chip (aria-hidden: Datum wird unten wiederholt) -->
+                <div class="event-calendar" aria-hidden="true">
+                  <div class="event-month">Juli</div>
+                  <div class="event-day">27–29</div>
+                  <div class="event-year">2026</div>
+                </div>
+
+                <div>
+                  <h3 style="margin-bottom:4px;">ITK Mainz 2026</h3>
+                  <!-- event-location-tag: kleines Tag mit Pin-Emoji -->
+                  <p class="event-location-tag" style="margin:0;">
+                    <span aria-hidden="true">📍</span>
+                    <!-- &nbsp; = geschütztes Leerzeichen → kein Zeilenumbruch zwischen Emoji und Text -->
+                    <span>Rheingoldhalle Mainz, 27.–29.&nbsp;Juli&nbsp;2026</span>
+                  </p>
+                </div>
+              </div>
+
+              <p class="event-description">
+                Andreas Bornhäußer und Dirk Scheffer präsentieren den AufstiegsCode
+                auf dem internationalen Trainerkongress. Vortrag, Buchsignierung und
+                Workshop – sichert euch jetzt euren Platz.
               </p>
-              <!-- Externer Link:
-                   target="_blank"         = öffnet in neuem Tab
-                   rel="noopener noreferrer" = verhindert, dass die Zielseite auf
-                   das öffnende Fenster zugreifen kann (Sicherheit) -->
-              <a href="https://rasenreich.com"
-                 target="_blank"
-                 rel="noopener noreferrer"
-                 class="author-link">
-                rasenreich.com ↗
-              </a>
-            </div>
-          </article>
+            </article>
 
-          <!-- ── Autor 2: Andreas Bornhäußer ── -->
-          <article class="author-card">
-            <div class="author-photo"
-                 role="img"
-                 aria-label="Foto-Platzhalter für Andreas Bornhäußer">
-              👤
-            </div>
-
-            <div class="author-info">
-              <h3>Andreas Bornhäußer</h3>
-              <span class="author-role">Trainer, Coach &amp; Autor</span>
-              <p class="author-bio">
-                Andreas Bornhäußer hat als Trainer und Sportdirektor selbst alle
-                Stufen der Führungslaufbahn durchlaufen. Heute begleitet er Trainer
-                auf dem Weg in Führungsrollen – als Coach, Referent und Buchautor.
-                Seine pragmatische Art macht komplexe Führungsthemen greifbar.
-              </p>
-              <a href="https://rasenreich.com"
-                 target="_blank"
-                 rel="noopener noreferrer"
-                 class="author-link">
-                rasenreich.com ↗
-              </a>
-            </div>
-          </article>
-
-        </div><!-- /authors-grid -->
-      </div>
-    </section>
-
-
-    <!-- ================================================================
-      8. EVENTS SECTION
-      ITK Mainz 2026 – einzige Veranstaltung als prominente Karte.
-      id="events": Anker-Ziel.
-    ================================================================ -->
-    <section class="section" id="events" aria-labelledby="events-heading">
-      <div class="container">
-
-        <div class="section-header">
-          <span class="eyebrow">Live erleben</span>
-          <h2 id="events-heading">Kommende Events</h2>
-          <p class="lead">Triff die Autoren persönlich.</p>
-        </div>
-
-        <!-- Event-Karte: Datum-Spalte links + Info rechts (ab Desktop 2-spaltig) -->
-        <article class="event-card">
-
-          <!-- Linke Datumsspalte -->
-          <!-- aria-hidden: das Datum wird im Info-Text wiederholt und ist damit barrierefrei -->
-          <div class="event-date-col" aria-hidden="true">
-            <span class="event-month">Juli</span>
-            <span class="event-day">27–29</span>
-            <span class="event-year">2026</span>
-          </div>
-
-          <!-- Rechte Informationsspalte -->
-          <div class="event-info-col">
-            <h3>ITK Mainz 2026</h3>
-
-            <!-- Ort als Tag mit Pin-Emoji -->
-            <p class="event-location-tag">
-              <span aria-hidden="true">📍</span>
-              <!-- &nbsp; = geschütztes Leerzeichen – verhindert unschönen Zeilenumbruch zwischen Emoji und Text -->
-              <span>Rheingoldhalle Mainz, 27.–29.&nbsp;Juli&nbsp;2026</span>
-            </p>
-
-            <p class="event-description">
-              Andreas Bornhäußer und Dirk Scheffer präsentieren den AufstiegsCode
-              auf dem internationalen Trainerkongress. Vortrag, Buchsignierung und
-              Workshop – sichert euch jetzt euren Platz.
-            </p>
-
-            <a href="placeholder.html" class="btn btn-primary">
+            <!-- CTA am Kartenende -->
+            <a href="placeholder.html" class="btn btn-primary" style="margin-top: auto; align-self: flex-start;">
               Jetzt anmelden
             </a>
-          </div>
+          </div><!-- /panel-card Events -->
 
-        </article>
+
+          <!-- ── Rechte Panel-Karte: Autoren ──
+               id="autoren": Anker-Ziel für den Nav-Link.
+               Beide Autoren kompakt gestapelt. -->
+          <div class="panel-card" id="autoren">
+            <span class="eyebrow">Die Köpfe dahinter</span>
+            <h2 id="autoren-heading">Die Autoren</h2>
+
+            <!-- Autoren-Grid: 2 Karten vertikal gestapelt.
+                 .panel-card .authors-grid und .panel-card .author-card
+                 in CSS sorgen für kompaktes Horizontal-Layout (Foto links, Text rechts). -->
+            <div class="authors-grid">
+
+              <!-- ── Autor 1: Dirk Scheffer ── -->
+              <article class="author-card">
+
+                <!-- Foto-Platzhalter.
+                     Wenn das echte Foto vorliegt, dieses div ersetzen durch:
+                     <img src="dirk-scheffer.jpg"
+                          alt="Dirk Scheffer – Führungsexperte und Coach"
+                          width="64" height="64"> -->
+                <div class="author-photo"
+                     role="img"
+                     aria-label="Foto-Platzhalter für Dirk Scheffer">
+                  👤
+                </div>
+
+                <div class="author-info">
+                  <h3>Dirk Scheffer</h3>
+                  <span class="author-role">Führungsexperte &amp; Coach</span>
+                  <p class="author-bio">
+                    Experte für Führungskräfteentwicklung im Sport. Mitentwickler
+                    des SCIL-Profils. Über 20 Jahre Erfahrung mit Spitzentrainern.
+                  </p>
+                  <!-- Externer Link:
+                       target="_blank"          = öffnet in neuem Tab
+                       rel="noopener noreferrer" = Sicherheitsmaßnahme bei externen Links -->
+                  <a href="https://rasenreich.com"
+                     target="_blank"
+                     rel="noopener noreferrer"
+                     class="author-link">
+                    rasenreich.com ↗
+                  </a>
+                </div>
+              </article>
+
+              <!-- ── Autor 2: Andreas Bornhäußer ── -->
+              <article class="author-card">
+                <div class="author-photo"
+                     role="img"
+                     aria-label="Foto-Platzhalter für Andreas Bornhäußer">
+                  👤
+                </div>
+
+                <div class="author-info">
+                  <h3>Andreas Bornhäußer</h3>
+                  <span class="author-role">Trainer, Coach &amp; Autor</span>
+                  <p class="author-bio">
+                    Hat alle Stufen der Führungslaufbahn selbst durchlaufen.
+                    Begleitet Trainer auf dem Weg in Führungsrollen.
+                  </p>
+                  <a href="https://rasenreich.com"
+                     target="_blank"
+                     rel="noopener noreferrer"
+                     class="author-link">
+                    rasenreich.com ↗
+                  </a>
+                </div>
+              </article>
+
+            </div><!-- /authors-grid -->
+          </div><!-- /panel-card Autoren -->
+
+        </div><!-- /section-pair -->
       </div>
-    </section>
+    </section><!-- /events + autoren -->
 
 
     <!-- ================================================================
@@ -742,8 +660,7 @@
           Hol dir jetzt den AufstiegsCode und beginne deinen Weg
           zur Führungspersönlichkeit im Sport.
         </p>
-        <!-- Zentrierte Buttons: justify-content:center kommt via inline-style,
-             da nur für diese eine Stelle benötigt -->
+        <!-- Zentrierte Button-Gruppe: justify-content:center nur hier benötigt -->
         <div class="btn-group" style="justify-content: center;">
           <a href="placeholder.html" class="btn btn-ghost">📚 Buch kaufen</a>
           <a href="placeholder.html" class="btn btn-ghost">🧭 SCIL-Profil</a>
@@ -759,7 +676,7 @@
   <!-- ================================================================
     FOOTER
     <footer> = semantischer Seitenabschluss.
-    Impressum (in Deutschland gesetzlich pflicht), Datenschutz, Links.
+    Impressum (in Deutschland Pflicht nach §5 TMG), Datenschutz, Links.
   ================================================================ -->
   <footer class="site-footer" aria-labelledby="footer-heading">
 
