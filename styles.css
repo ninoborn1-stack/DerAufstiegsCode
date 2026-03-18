@@ -33,8 +33,9 @@
    ========================================================================== */
 :root {
   /* ── Markenfarben ── */
-  --color-blue:        #1a5276;   /* Hauptfarbe – Dunkelblau */
+  --color-blue:        #1a7bbf;   /* Hauptfarbe – Hellblau (Buchcover) */
   --color-blue-dark:   #0d2f45;   /* Noch dunkleres Blau für Footer / CTAs */
+  --color-hero-bg:     #e8f4f8;   /* Hero-Hintergrund – sehr helles Buchcover-Blau */
   --color-accent:      #200FCA;   /* Akzentfarbe – leuchtendes Blau-Violett */
   --color-accent-dark: #1a0da8;   /* Hover-Zustand für Accent-Buttons */
   --color-gray:        #9c9c9c;   /* Sekundärtext, Borders */
@@ -369,6 +370,54 @@ p:last-child { margin-bottom: 0; }
   margin: var(--sp-8) 0;
 }
 
+/* ── Zwei-Spalten-Sektionspaar ──
+   Verbindet zwei inhaltlich verwandte Bereiche nebeneinander.
+   Mobile: gestapelt (grid-template-columns: 1fr).
+   Desktop ab 900px: nebeneinander (1fr 1fr).
+   align-items: stretch → beide Spalten immer gleich hoch. */
+.section-pair {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: var(--sp-4);
+  align-items: stretch;
+}
+
+/* Variante: linke Spalte breiter (z.B. 5 Gründe : Leseprobe = 3:2).
+   Wird in der 900px Media Query gesetzt. */
+.section-pair--wide-left {}
+
+/* ── Panel-Karte ──
+   Weißes Card-Element mit Schatten, eingesetzt in Sektionspaaren.
+   display:flex + flex-direction:column erlaubt, den CTA-Button
+   am Ende der Karte mit margin-top:auto anzupinnen. */
+.panel-card {
+  background: var(--color-white);
+  border-radius: var(--radius-xl);
+  border: 1.5px solid var(--color-gray-line);
+  padding: var(--sp-6);
+  box-shadow: var(--shadow-md);
+  display: flex;
+  flex-direction: column;
+}
+
+/* Panel-Heading: etwas kleiner als globales h2 für kompakte Karten */
+.panel-card h2 {
+  font-size: var(--text-xl);
+  margin-bottom: var(--sp-2);
+}
+
+.panel-card h3 {
+  margin-bottom: var(--sp-2);
+}
+
+/* Letztes Kind einer Panel-Karte bekommt automatisch
+   nach oben Abstand → drückt CTA-Buttons ans untere Ende */
+.panel-card > .btn:last-child,
+.panel-card > a.btn:last-child {
+  margin-top: auto;
+  align-self: flex-start;
+}
+
 
 /* ==========================================================================
    7. NAVIGATION / SITE HEADER
@@ -452,7 +501,8 @@ p:last-child { margin-bottom: 0; }
    Split-Layout: Text links, Buchcover rechts. Hintergrund: sehr helles Grau.
    ========================================================================== */
 .hero {
-  background-color: var(--color-gray-light);
+  /* var(--color-hero-bg) = sehr helles Buchcover-Blau, passend zu Pantone-Hellblau */
+  background-color: var(--color-hero-bg);
   /* Mindesthöhe: minus Header-Höhe → füllt den sichtbaren Viewport aus */
   min-height: calc(100vh - var(--header-height));
   display: flex;
@@ -541,48 +591,44 @@ p:last-child { margin-bottom: 0; }
 
 
 /* ==========================================================================
-   9. BUCHCOVER-MOCKUP
-   Realistisch wirkendes Buchcover mit CSS-only.
+   9. BUCHCOVER – ECHTES BILD MIT CSS-3D-EFFEKT
+   Das Buchcover-Bild (buchcover.jpg) wird in .book-img-wrap gewrappt,
+   das alle 3D-Transformationen und Schatten trägt.
+   Pseudo-Elemente erzeugen Buchbinderstreifen und Glanzeffekt.
    ========================================================================== */
 
-/* ── Äußere Hülle: erzeugt den 3D-Kippeffekt ──
-   perspective: definiert den Blickpunkt für die 3D-Transformation.
-   Ohne perspective würde rotateY flach wirken. */
+/* ── Äußere Hülle: definiert den perspective-Kontext ──
+   perspective: simuliert einen Blickpunkt im 3D-Raum.
+   Ohne perspective würde rotateY flach (2D) wirken. */
 .book-wrapper {
   perspective: 1000px;
   display: inline-block;
 }
 
-/* ── Das eigentliche Cover ──
-   rotateY: dreht das Buch leicht nach links → erzeugt die "aufgeschlagene" Pose */
-.book-cover {
+/* ── Bild-Wrapper: trägt 3D-Transformation und Schatten ──
+   rotateY(-15deg): dreht das Buch leicht nach links →
+   erzeugt die "aufgestellte Buch"-Pose typischer Buchseiten */
+.book-img-wrap {
   width: 220px;
-  /* Höhe = 1.5× Breite → exaktes 2:3-Verhältnis (Buchformat) */
-  height: 330px;
-  background: linear-gradient(150deg, #1f6598 0%, var(--color-blue) 40%, #0d2f45 100%);
   border-radius: 2px var(--radius-sm) var(--radius-sm) 2px;
-
-  /* 3D-Transformation: Buch leicht nach links geneigt */
   transform: rotateY(-15deg);
   transform-style: preserve-3d;
-
-  /* Schatten simuliert das "Abheben" des Buches vom Hintergrund */
+  /* Dreischichtiger Schatten:
+     1. Dunkle Kante = simulierter Buchkanten-/Rücken-Effekt
+     2. Weicher Umgebungsschatten
+     3. Boden-Schatten                                          */
   box-shadow:
-    -14px 10px 0   #0d1f2e,  /* Buchkante/Rücken – simuliert Tiefe */
+    -14px 10px 0   #0d1f2e,
     -28px 20px 40px rgba(0,0,0,0.35),
     0 40px 60px rgba(0,0,0,0.18);
-
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  padding: var(--sp-4) var(--sp-3) var(--sp-3);
   position: relative;
   overflow: hidden;
+  display: block;
   transition: transform var(--ease-spring), box-shadow var(--ease);
 }
 
-/* Leichtes Aufrichten beim Hover */
-.book-wrapper:hover .book-cover {
+/* Leichtes Aufrichten und Anheben beim Hover */
+.book-wrapper:hover .book-img-wrap {
   transform: rotateY(-8deg) translateY(-4px);
   box-shadow:
     -10px 8px 0   #0d1f2e,
@@ -590,83 +636,42 @@ p:last-child { margin-bottom: 0; }
     0 50px 80px rgba(0,0,0,0.20);
 }
 
-/* Buchbinderstreifen (Rücken-Simulation) als Pseudo-Element */
-.book-cover::before {
+/* Buchbinderstreifen links (::before).
+   Gradient von dunkel nach transparent simuliert die
+   Wölbung des Bucheinbandes an der Bindeseite. */
+.book-img-wrap::before {
   content: '';
   position: absolute;
-  left: 0;
-  top: 0;
-  width: 16px;
-  height: 100%;
-  /* Gradient simuliert die gekrümmte Oberfläche des Bucheinbands */
-  background: linear-gradient(to right, rgba(0,0,0,0.25), rgba(0,0,0,0.08) 70%, transparent);
-}
-
-/* Dezenter Glanz-Effekt oben rechts – macht das Cover plastischer */
-.book-cover::after {
-  content: '';
-  position: absolute;
-  top: 0;
-  right: 0;
-  width: 50%;
-  height: 40%;
-  background: linear-gradient(135deg, rgba(255,255,255,0.12) 0%, transparent 60%);
+  left: 0; top: 0;
+  width: 16px; height: 100%;
+  background: linear-gradient(to right, rgba(0,0,0,0.28), rgba(0,0,0,0.08) 70%, transparent);
+  z-index: 1;
   pointer-events: none;
 }
 
-/* ── Inhalte auf dem Cover ── */
-.book-cover-top {
-  position: relative;   /* Über den Pseudo-Elementen */
+/* Glanz-Effekt oben rechts (::after).
+   Simuliert Lichtreflektion auf dem Einband. */
+.book-img-wrap::after {
+  content: '';
+  position: absolute;
+  top: 0; right: 0;
+  width: 50%; height: 40%;
+  background: linear-gradient(135deg, rgba(255,255,255,0.18) 0%, transparent 60%);
   z-index: 1;
+  pointer-events: none;
 }
 
-/* "NEU"-Badge oben rechts */
-.book-cover-badge {
-  display: inline-block;
-  background: #f39c12;
-  color: white;
-  font-size: 0.55rem;
-  font-weight: 800;
-  letter-spacing: 0.1em;
-  text-transform: uppercase;
-  padding: 3px 8px;
-  border-radius: var(--radius-full);
-  margin-bottom: var(--sp-3);
-}
-
-/* Buchtitel auf dem Cover */
-.book-cover-title {
-  font-size: 1.35rem;
-  font-weight: 900;
-  color: var(--color-white);
-  line-height: 1.15;
-  letter-spacing: -0.01em;
-}
-
-/* "Code"-Teil in Akzentfarbe */
-.book-cover-title .accent { color: #7eb8e8; }
-
-/* Buchuntertitel auf dem Cover */
-.book-cover-subtitle {
-  font-size: 0.6rem;
-  color: rgba(255,255,255,0.72);
-  line-height: 1.5;
-  margin-top: 10px;
-  font-weight: 400;
-}
-
-/* Autorenzeile unten auf dem Cover */
-.book-cover-authors {
-  position: relative;
-  z-index: 1;
-  font-size: 0.58rem;
-  color: rgba(255,255,255,0.65);
-  font-weight: 600;
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
-  padding-top: var(--sp-2);
-  /* Schmaler Trennstrich zum Titelbereich */
-  border-top: 1px solid rgba(255,255,255,0.15);
+/* Das Buchcover-Bild.
+   width: 100% → füllt den Wrapper.
+   aspect-ratio: 2/3 → reserviert Platz, bevor das Bild geladen ist
+                       (verhindert Layout-Shift = CLS).
+   object-fit: cover → Bild füllt den Bereich ohne Verzerrung. */
+.book-img {
+  width: 100%;
+  height: auto;
+  display: block;
+  aspect-ratio: 2 / 3;
+  object-fit: cover;
 }
 
 
@@ -685,47 +690,39 @@ p:last-child { margin-bottom: 0; }
 
 .benefit-item {
   display: flex;
-  gap: var(--sp-4);
-  align-items: flex-start;
-  padding: var(--sp-4) 0;
+  gap: var(--sp-3);
+  align-items: center;  /* Zentriert, da kein Beschreibungstext */
+  padding: var(--sp-2) 0;
   /* Trennlinie zwischen den Items */
   border-bottom: 1px solid var(--color-gray-line);
-  transition: background-color var(--ease);
 }
 
 .benefit-item:first-child { border-top: 1px solid var(--color-gray-line); }
 
-/* Großes Nummerierungs-Element links */
+/* Nummerierungskreis: kleiner als vorher, da kein Beschreibungstext */
 .benefit-number {
   flex-shrink: 0;
-  width: 40px;
-  height: 40px;
+  width: 36px;
+  height: 36px;
   border-radius: 50%;
   background-color: var(--color-accent);
   color: var(--color-white);
-  font-size: var(--text-sm);
+  font-size: var(--text-xs);
   font-weight: 800;
   display: flex;
   align-items: center;
   justify-content: center;
-  margin-top: 2px;  /* Leichte vertikale Ausrichtung zur Überschrift */
 }
 
 .benefit-body {}
 
+/* h3 ohne margin-bottom, da kein Beschreibungstext folgt */
 .benefit-body h3 {
   font-size: var(--text-base);
-  font-weight: 700;
-  margin-bottom: 4px;
+  font-weight: 600;
+  margin-bottom: 0;
   color: var(--color-blue);
   letter-spacing: -0.01em;
-}
-
-.benefit-body p {
-  font-size: var(--text-sm);
-  color: var(--color-text-muted);
-  margin: 0;
-  line-height: 1.65;
 }
 
 
@@ -817,7 +814,34 @@ p:last-child { margin-bottom: 0; }
   display: grid;
   grid-template-columns: 1fr;   /* Mobile: 1 Spalte */
   gap: var(--sp-3);
-  margin-bottom: var(--sp-8);
+  margin-bottom: var(--sp-6);
+}
+
+/* Innerhalb einer Panel-Karte: immer 2×2 (kompakt),
+   unabhängig von der äußeren Viewport-Breite */
+.panel-card .service-grid {
+  grid-template-columns: repeat(2, 1fr);
+  gap: var(--sp-2);
+  margin-bottom: var(--sp-4);
+}
+
+/* Service-Karten in Panel kompakter */
+.panel-card .service-card {
+  padding: var(--sp-3);
+}
+
+.panel-card .service-icon {
+  font-size: 1.25rem;
+  margin-bottom: var(--sp-1);
+}
+
+.panel-card .service-card h3 {
+  font-size: var(--text-sm);
+  margin-bottom: 4px;
+}
+
+.panel-card .service-card p {
+  font-size: var(--text-xs);
 }
 
 .service-card {
@@ -850,6 +874,13 @@ p:last-child { margin-bottom: 0; }
 .service-card p {
   font-size: var(--text-sm);
   margin: 0;
+}
+
+/* ── SCIL Panel innerhalb einer Panel-Karte: kein eigener Intro-Zweispalter ──
+   Der Badge entfällt, Text und Service-Grid füllen die Karte. */
+.panel-card .scil-intro {
+  grid-template-columns: 1fr;
+  margin-bottom: var(--sp-4);
 }
 
 /* ── SCIL CTA-Block am Sektionsende ── */
@@ -1167,6 +1198,33 @@ p:last-child { margin-bottom: 0; }
   box-shadow: var(--shadow-md);
 }
 
+/* ── Autoren in Panel-Karte: kompakter gestapelt ──
+   Die zwei Autoren-Karten sind vertikal ohne großen Gap. */
+.panel-card .authors-grid {
+  gap: var(--sp-4);
+}
+
+/* In Panel: Foto + Info nebeneinander (Mini-Horizontal-Layout) */
+.panel-card .author-card {
+  grid-template-columns: auto 1fr;
+  padding: var(--sp-3);
+  gap: var(--sp-3);
+  border: 1px solid var(--color-gray-line);
+  border-radius: var(--radius-lg);
+}
+
+.panel-card .author-photo {
+  width: 64px;
+  height: 64px;
+  font-size: 1.5rem;
+  border-width: 2px;
+  margin: 0;
+}
+
+.panel-card .author-info h3 {
+  font-size: var(--text-base);
+}
+
 /* Quadratisches Foto – Platzhalter */
 .author-photo {
   width: 120px;
@@ -1479,10 +1537,19 @@ p:last-child { margin-bottom: 0; }
     gap: var(--sp-12);
   }
 
-  /* Buchcover auf Desktop größer */
-  .book-cover {
+  /* Buchcover-Wrapper auf Desktop breiter */
+  .book-img-wrap {
     width: 270px;
-    height: 405px;
+  }
+
+  /* ── Sektionspaare: nebeneinander auf Desktop ── */
+  .section-pair {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  /* Variante: linke Spalte breiter (Vorteile breiter als Leseprobe-Card) */
+  .section-pair--wide-left {
+    grid-template-columns: 3fr 2fr;
   }
 
   /* ── SCIL Intro: Text | Badge nebeneinander ── */
@@ -1531,10 +1598,9 @@ p:last-child { margin-bottom: 0; }
 
   h1 { font-size: var(--text-4xl); }
 
-  /* Hero-Buchcover nochmals größer */
-  .book-cover {
+  /* Buchcover-Wrapper auf Wide-Desktop noch größer */
+  .book-img-wrap {
     width: 300px;
-    height: 450px;
   }
 }
 
