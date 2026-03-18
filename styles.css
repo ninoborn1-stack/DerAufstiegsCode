@@ -978,16 +978,22 @@ p:last-child { margin-bottom: 0; }
   color: rgba(255, 255, 255, 0.55);
 }
 
-/* ── Service-Grid (2×2 Kacheln in der SCIL-Card) ── */
+/* ── Service-Grid (2×2 Kacheln in der SCIL-Card) ──
+   Mobile (<480px): 1 Spalte
+   Tablet (480px+): 2 Spalten (per Media Query unten)
+   Desktop: bleibt 2 Spalten = 2×2 Grid */
 .service-grid {
   display: grid;
-  grid-template-columns: repeat(2, 1fr);
+  grid-template-columns: 1fr;   /* Mobile: 1 Spalte */
   gap: var(--sp-2);
 }
 .service-card {
   background: var(--color-gray-light);
   border-radius: var(--radius-md);
-  padding: var(--sp-2);
+  padding: var(--sp-2);         /* 16px auf Mobile */
+  /* Gleiche Höhe je Zeile (align-items:stretch wirkt per Grid automatisch) */
+  min-width: 0;
+  overflow-wrap: break-word;
 }
 .service-icon {
   font-size: 1.5rem;
@@ -1290,6 +1296,14 @@ p:last-child { margin-bottom: 0; }
     flex-direction: row;
     align-items: flex-start;
     justify-content: space-between;
+  }
+}
+
+
+/* ── 480px: Service-Grid 2 Spalten (Tablet) ───────────────────────────── */
+@media (min-width: 480px) {
+  .service-grid {
+    grid-template-columns: repeat(2, 1fr);
   }
 }
 
