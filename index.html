@@ -280,26 +280,13 @@
           </p>
         </div>
 
-        <!-- Rechte Seite: Formular + dekoratives Punktemuster -->
+        <!-- Rechte Seite: Button + dekoratives Punktemuster -->
         <div class="newsletter-form-wrap">
 
           <!-- Dekoratives CSS-Muster (Punkteraster): aria-hidden → kein Screen-Reader-Inhalt -->
           <div class="newsletter-pattern" aria-hidden="true"></div>
 
-          <!-- action="placeholder.html": kein Backend, Formular leitet auf Platzhalterseite.
-               method="get": E-Mail-Wert erscheint in der URL (nur für Demo) -->
-          <form class="newsletter-form" action="placeholder.html" method="get">
-            <!-- sr-only: Label für Screen Reader, visuell unsichtbar -->
-            <label for="email-input" class="sr-only">Deine E-Mail-Adresse</label>
-            <input type="email"
-                   id="email-input"
-                   name="email"
-                   placeholder="deine@email.de"
-                   required
-                   class="newsletter-input"
-                   aria-label="E-Mail-Adresse eingeben" />
-            <button type="submit" class="btn btn-white">⬇ Leseprobe herunterladen</button>
-          </form>
+          <a href="placeholder.html" class="btn btn-white">⬇ Leseprobe herunterladen</a>
 
         </div><!-- /newsletter-form-wrap -->
       </div>
