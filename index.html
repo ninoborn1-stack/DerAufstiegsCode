@@ -100,7 +100,7 @@
           <!-- Zwei Buttons nebeneinander: Kauf (primär) + Leseprobe (Ghost) -->
           <div class="btn-group">
             <a href="https://www.amazon.de/Aufstiegscode-Dein-Trainer-Führungspersönlichkeit-Sport/dp/3840379954/ref=sr_1_2?__mk_de_DE=ÅMÅŽÕÑ&crid=24IIXUSQRUC9Y&dib=eyJ2IjoiMSJ9.o81hoxBqTBhmwKN-G7bvWoroW7jHsmozhri8OMelc23GjHj071QN20LucGBJIEps.7kEc_fznj9-v9UH6r7QO4MUDcwOV1xP8s5_USvVUdnY&dib_tag=se&keywords=aufstiegscode&qid=1774526772&sprefix=aufstiegscode%2Caps%2C100&sr=8-2" class="btn btn-primary" target="_blank" rel="noopener">Jetzt kaufen</a>
-            <a href="#newsletter" class="btn btn-outline">Leseprobe</a>
+            <button type="button" class="btn btn-outline" id="leseprobe-trigger">Leseprobe</button>
           </div>
 
         </div><!-- /hero-content -->
@@ -630,6 +630,57 @@
     <a href="#cta"          class="scroll-dot" data-label="Kontakt"></a>
   </nav>
 
+  <!-- ================================================================
+    LESEPROBE MODAL
+  ================================================================ -->
+  <div class="lp-overlay" id="lp-overlay" role="dialog" aria-modal="true" aria-labelledby="lp-title">
+    <div class="lp-modal">
+
+      <!-- Schließen-Button -->
+      <button class="lp-close" id="lp-close" aria-label="Leseprobe schließen">&times;</button>
+
+      <!-- Buchcover-Streifen links -->
+      <div class="lp-spine"></div>
+
+      <!-- Inhalt -->
+      <div class="lp-content">
+        <p class="lp-chapter">Kapitel 1 · Warum Führung im Sport anders ist</p>
+        <h2 id="lp-title" class="lp-heading">Der erste Schritt beginnt im Kopf</h2>
+
+        <p>Es war ein Dienstagabend im November, als Michael zum ersten Mal wirklich zweifelte.
+          Nicht an seinem Team – an sich selbst. Dreizehn Jahre hatte er als Spieler alles gegeben,
+          hatte Niederlagen weggesteckt und Titel gefeiert. Doch jetzt, drei Monate nach seiner
+          Ernennung zum Cheftrainer, saß er in der Kabine und fragte sich: <em>Weiß ich überhaupt,
+          wie man führt?</em></p>
+
+        <p>Diese Frage kennen viele. Der Wechsel vom Athleten zum Trainer, vom Ausführenden zum
+          Entscheidungsträger, ist einer der größten Sprünge, den ein Mensch im Sport machen kann.
+          Und doch wird er selten vorbereitet. Man bekommt ein Trainerzeugnis – aber keine Anleitung,
+          wie man 25 völlig unterschiedliche Persönlichkeiten so anspricht, dass alle ihr Bestes geben.</p>
+
+        <p>Genau hier setzt der <strong>AufstiegsCode</strong> an. Nicht mit abstrakten Managementtheorien,
+          sondern mit echten Werkzeugen aus dem Spitzensport. Mit Geschichten wie der von Michael.
+          Und mit einem klaren System, das Dir hilft, Deinen eigenen Führungsstil zu erkennen –
+          und konsequent zu nutzen.</p>
+
+        <p class="lp-pullquote">„Führung ist keine Frage der Lautstärke. Es ist eine Frage der Klarheit."</p>
+
+        <p>In den folgenden Kapiteln wirst Du lernen, wie die erfolgreichsten Trainer und Sportmanager
+          kommunizieren – und warum ihr Erfolg kein Zufall ist. Du wirst Dich in Fallbeispielen
+          wiedererkennen, unbequeme Wahrheiten entdecken und am Ende jedes Kapitels konkrete Schritte
+          finden, die Du sofort umsetzen kannst.</p>
+
+        <p class="lp-meta">— Auszug aus dem AufstiegsCode, Kapitel 1 (Platzhalter-Text) —</p>
+
+        <div class="lp-actions">
+          <a href="https://www.amazon.de/Aufstiegscode-Dein-Trainer-Führungspersönlichkeit-Sport/dp/3840379954/ref=sr_1_2?__mk_de_DE=ÅMÅŽÕÑ&crid=24IIXUSQRUC9Y&dib=eyJ2IjoiMSJ9.o81hoxBqTBhmwKN-G7bvWoroW7jHsmozhri8OMelc23GjHj071QN20LucGBJIEps.7kEc_fznj9-v9UH6r7QO4MUDcwOV1xP8s5_USvVUdnY&dib_tag=se&keywords=aufstiegscode&qid=1774526772&sprefix=aufstiegscode%2Caps%2C100&sr=8-2"
+             class="btn btn-primary" target="_blank" rel="noopener">Jetzt das ganze Buch kaufen</a>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
   <script>
     (function () {
       var ids  = ['hero','buch','testimonials','newsletter','scil','autoren','events','cta'];
@@ -650,6 +701,33 @@
 
       window.addEventListener('scroll', update, { passive: true });
       update();
+    })();
+
+    // ── Leseprobe Modal ──
+    (function () {
+      var overlay  = document.getElementById('lp-overlay');
+      var trigger  = document.getElementById('leseprobe-trigger');
+      var closeBtn = document.getElementById('lp-close');
+
+      function open() {
+        overlay.classList.add('is-open');
+        document.body.style.overflow = 'hidden';
+        closeBtn.focus();
+      }
+      function close() {
+        overlay.classList.remove('is-open');
+        document.body.style.overflow = '';
+        trigger.focus();
+      }
+
+      trigger.addEventListener('click', open);
+      closeBtn.addEventListener('click', close);
+      overlay.addEventListener('click', function (e) {
+        if (e.target === overlay) close();
+      });
+      document.addEventListener('keydown', function (e) {
+        if (e.key === 'Escape' && overlay.classList.contains('is-open')) close();
+      });
     })();
   </script>
 
