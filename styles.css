@@ -340,7 +340,7 @@ p:last-child { margin-bottom: 0; }
 /* Sektionsvarianten (Hintergründe) */
 .section--gray-light  { background: var(--color-gray-light); }
 .section--light-blue  { background: var(--color-light-blue); }
-.section--blue-solid  { background: var(--color-blue); }
+.section--blue-solid  { background: var(--color-blue); position: relative; overflow: hidden; }
 
 /* Sektionskopf mit Abstand nach unten */
 .section-header {
@@ -870,31 +870,29 @@ p:last-child { margin-bottom: 0; }
    .newsletter-pattern: radial-gradient erzeugt Punkteraster (rein dekorativ).
    ========================================================================== */
 .newsletter-layout {
-  display: grid;
-  grid-template-columns: 1fr;
-  gap: var(--sp-6);
+  display: flex;
+  flex-direction: column;
   align-items: center;
-}
-
-/* Linke Seite: weißer Text auf blauem Hintergrund */
-.newsletter-text h2 {
-  color: white;
-  margin-bottom: var(--sp-2);
-}
-.newsletter-text p {
-  color: rgba(255, 255, 255, 0.85);
-}
-
-/* Rechte Seite: relativer Container für CSS-Muster + Formular */
-.newsletter-form-wrap {
+  text-align: center;
+  gap: var(--sp-5);
   position: relative;
+  z-index: 1;
 }
 
-/* Dekoratives CSS-Punkteraster im Hintergrund.
-   radial-gradient(circle, …) erzeugt kreisförmige Punkte im 20px-Raster. */
+.newsletter-layout h2 {
+  color: white;
+  margin: 0;
+}
+.newsletter-layout p {
+  color: rgba(255, 255, 255, 0.85);
+  margin: 0;
+  max-width: 480px;
+}
+
+/* Dekoratives CSS-Punkteraster im Hintergrund */
 .newsletter-pattern {
   position: absolute;
-  inset: -24px;
+  inset: 0;
   background-image: radial-gradient(circle, rgba(255, 255, 255, 0.18) 1px, transparent 1px);
   background-size: 20px 20px;
   pointer-events: none;
