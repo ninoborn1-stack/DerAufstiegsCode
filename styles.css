@@ -1626,3 +1626,20 @@ p:last-child { margin-bottom: 0; }
     font-size: var(--text-xl);
   }
 }
+
+/* Brevo-Modal: kein eigener Buchbinderstreifen-Padding nötig */
+.brevo-modal {
+  max-width: 600px;
+}
+.brevo-content {
+  padding: var(--sp-6) var(--sp-5);
+}
+/* Brevo-Container volle Breite im Modal */
+.brevo-content .sib-form,
+.brevo-content #sib-container {
+  max-width: 100% !important;
+  width: 100% !important;
+  box-shadow: none !important;
+  border: none !important;
+  background: transparent !important;
+}
