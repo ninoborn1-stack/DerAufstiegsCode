@@ -1109,6 +1109,14 @@ p:last-child { margin-bottom: 0; }
   justify-content: center;
   font-size: 3rem;
   flex-shrink: 0;
+  overflow: hidden;
+}
+.author-avatar img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 50%;
+  display: block;
 }
 
 /* Name in Akzentfarbe (#200FCA laut Design-System) */
