@@ -879,6 +879,13 @@ p:last-child { margin-bottom: 0; }
   display: flex;
   flex-direction: column;
 }
+.service-card .btn {
+  white-space: normal;
+  text-align: center;
+  line-height: 1.3;
+  padding-top: var(--sp-2);
+  padding-bottom: var(--sp-2);
+}
 
 /* ── Bundle Subtitle ── */
 .bundle-subtitle {
