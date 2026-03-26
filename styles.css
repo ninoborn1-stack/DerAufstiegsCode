@@ -874,19 +874,29 @@ p:last-child { margin-bottom: 0; }
   flex-direction: column;
   align-items: center;
   text-align: center;
-  gap: var(--sp-5);
+  gap: var(--sp-4);
   position: relative;
   z-index: 1;
+  padding: var(--sp-6) 0;
 }
 
 .newsletter-layout h2 {
   color: white;
+  font-size: var(--text-3xl);
   margin: 0;
+  line-height: 1.2;
 }
 .newsletter-layout p {
-  color: rgba(255, 255, 255, 0.85);
+  color: rgba(255, 255, 255, 0.80);
   margin: 0;
-  max-width: 480px;
+  max-width: 420px;
+  font-size: var(--text-base);
+  line-height: 1.6;
+}
+.newsletter-layout .btn {
+  margin-top: var(--sp-2);
+  padding-left: var(--sp-8);
+  padding-right: var(--sp-8);
 }
 
 /* Dekoratives CSS-Punkteraster im Hintergrund */
@@ -1409,10 +1419,7 @@ p:last-child { margin-bottom: 0; }
     grid-template-columns: repeat(3, 1fr);
   }
 
-  /* ── Newsletter: 2 Spalten ── */
-  .newsletter-layout {
-    grid-template-columns: 1fr 1fr;
-  }
+  /* Newsletter bleibt zentriert – kein Grid-Override nötig */
 }
 
 
