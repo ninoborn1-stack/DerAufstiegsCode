@@ -988,11 +988,17 @@ p:last-child { margin-bottom: 0; }
 }
 
 /* ── Bundle-spezifische Elemente ── */
-.bundle-icons {
-  display: flex;
-  align-items: center;
-  gap: var(--sp-2);
-  font-size: 2rem;
+.bundle-img-wrap {
+  width: 100%;
+  border-radius: var(--radius-md);
+  overflow: hidden;
+}
+.bundle-img {
+  width: 100%;
+  height: auto;
+  display: block;
+  border-radius: var(--radius-md);
+  object-fit: cover;
 }
 
 /* Bundle-Inhaltsliste mit automatischen weißen Checkmarks */
