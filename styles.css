@@ -836,11 +836,10 @@ p:last-child { margin-bottom: 0; }
 .scil-discount-note {
   font-size: var(--text-sm);
   color: var(--color-text-muted);
-  background: #f0f7ff;
-  border-radius: var(--radius-sm);
-  padding: var(--sp-2) var(--sp-3);
-  margin-bottom: var(--sp-3);
+  border-left: 3px solid var(--color-blue);
+  padding-left: var(--sp-3);
   line-height: 1.5;
+  margin: 0;
 }
 .service-card {
   display: flex;
@@ -1000,7 +999,8 @@ p:last-child { margin-bottom: 0; }
 .bundle-list {
   display: flex;
   flex-direction: column;
-  gap: var(--sp-1);
+  gap: var(--sp-2);
+  margin-bottom: var(--sp-2);
 }
 .bundle-list li {
   display: flex;
@@ -1053,29 +1053,35 @@ p:last-child { margin-bottom: 0; }
    Tablet (480px+): 2 Spalten (per Media Query unten)
    Desktop: bleibt 2 Spalten = 2×2 Grid */
 .service-grid {
-  display: grid;
-  grid-template-columns: 1fr;   /* Mobile: 1 Spalte */
-  gap: var(--sp-2);
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+  margin-top: var(--sp-2);
 }
 .service-card {
-  background: none;
-  border-radius: 0;
-  padding: var(--sp-2);
+  display: flex;
+  flex-direction: column;
+  gap: var(--sp-2);
+  padding: var(--sp-4) 0;
+  border-top: 1px solid var(--color-gray-line);
   min-width: 0;
   overflow-wrap: break-word;
 }
-.service-icon {
-  font-size: 1.5rem;
-  margin-bottom: 4px;
-}
 .service-card h3 {
   font-size: var(--text-base);
-  margin-bottom: 4px;
+  font-weight: 700;
   color: var(--color-blue-dark);
+  margin: 0;
 }
 .service-card p {
   font-size: var(--text-sm);
+  color: var(--color-text-muted);
   margin: 0;
+  line-height: 1.6;
+}
+.service-card .btn {
+  align-self: flex-start;
+  white-space: nowrap;
 }
 
 
@@ -1377,12 +1383,7 @@ p:last-child { margin-bottom: 0; }
 }
 
 
-/* ── 480px: Service-Grid 2 Spalten (Tablet) ───────────────────────────── */
-@media (min-width: 480px) {
-  .service-grid {
-    grid-template-columns: repeat(2, 1fr);
-  }
-}
+/* Service-Grid bleibt immer 1-spaltig für saubere Lesbarkeit */
 
 
 /* ── 768px: SCIL + Bundle zwei Spalten ────────────────────────────────── */
