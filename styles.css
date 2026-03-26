@@ -369,19 +369,15 @@ p:last-child { margin-bottom: 0; }
   box-shadow: 0 2px 8px rgba(0,0,0,0.08);
 }
 
-/* Innerer Flex-Container für Logo + Nav + CTA.
-   flex-wrap: wrap = auf Mobile bricht die Nav in eine neue Zeile. */
+/* Innerer Flex-Container: Logo links, CTA-Button rechts. */
 .header-inner {
   display: flex;
   align-items: center;
-  gap: var(--sp-2);
+  justify-content: space-between;
   max-width: var(--max-width);
   margin: 0 auto;
   padding: 0 var(--sp-3);
   min-height: var(--header-height);
-  flex-wrap: wrap;
-  /* position: relative = Positioning-Kontext für absolute Kinder (z.B. Mobile-Nav) */
-  position: relative;
 }
 
 /* ── Logo ── */
@@ -389,110 +385,81 @@ p:last-child { margin-bottom: 0; }
   display: flex;
   align-items: center;
   flex-shrink: 0;
-  /* Auf Mobile wächst das Logo, um den Hamburger nach rechts zu schieben */
-  flex: 1;
 }
 .site-logo-img {
-  /* 70px Desktop – in Media Query auf 55px Mobile reduziert */
-  height: 70px;
+  height: 60px;
   width: auto;
   display: block;
 }
 
-/* ── Hamburger-Toggle (CSS-only) ──
-   display: none verbirgt die Checkbox visuell.
-   Das verknüpfte <label for="nav-toggle"> bleibt klickbar:
-   Klick auf Label → Checkbox :checked ↔ :not(:checked). */
-.nav-toggle {
-  display: none;
-}
-
-/* ── Hamburger-Button (sichtbarer Button aus 3 Balken) ──
-   Auf Desktop ausgeblendet, auf Mobile angezeigt. */
-.hamburger {
-  display: none;
-  flex-direction: column;
-  justify-content: center;
-  gap: 5px;
-  width: 36px;
-  height: 36px;
-  cursor: pointer;
-  padding: 6px;
-  border-radius: var(--radius-sm);
-  transition: var(--transition);
-  /* flex-shrink: 0 = drückt sich nicht zusammen */
-  flex-shrink: 0;
-  /* align-self: center = vertikal mittig im header-inner */
-  align-self: center;
-}
-.hamburger:hover {
-  background: var(--color-gray-light);
-}
-
-/* Die 3 Hamburger-Balken */
-.hamburger-bar {
-  display: block;
-  width: 100%;
-  height: 2px;
-  background: var(--color-text);
-  border-radius: 2px;
-  transition: var(--transition);
-}
-
-/* ── Navigation ── */
-.site-nav {
-  /* Auf Desktop: flex-Zeile mit allen Links */
-  display: flex;
-  /* margin-left: auto = schiebt Nav nach rechts (Desktop) */
-  margin-left: auto;
-  flex: 0 0 auto;
-}
-
-/* Nav-Links horizontal */
-.nav-links {
-  display: flex;
-  align-items: center;
-  gap: 4px;
-}
-
-/* Einzelner Nav-Link */
-.nav-link {
-  display: flex;
-  align-items: center;
-  gap: 4px;
-  padding: 6px 12px;
-  font-size: var(--text-sm);
-  font-weight: 400;
-  color: var(--color-text-muted);
-  border-radius: var(--radius-sm);
-  /* Unterstrich-Effekt: 2px-Border am unteren Rand */
-  border-bottom: 2px solid transparent;
-  transition: var(--transition);
-}
-.nav-link:hover {
-  color: var(--color-blue);
-  background: var(--color-light-blue);
-}
-
-/* Aktiver Menüpunkt: blau + Unterstrich (Design-System) */
-.nav-link.is-active {
-  color: var(--color-blue);
-  border-bottom-color: var(--color-blue);
-  font-weight: 700;
-}
-
-/* Nummerierung (01, 02, …) im Nav */
-.nav-num {
-  font-size: var(--text-xs);
-  font-weight: 700;
-  color: var(--color-blue);
-  opacity: 0.55;
-}
-
-/* CTA-Button im Header */
+/* CTA-Button im Header – immer sichtbar */
 .nav-cta {
   flex-shrink: 0;
-  margin-left: var(--sp-2);
+}
+
+
+/* ==========================================================================
+   SCROLL DOTS – Positions-Indikator, rechts vertikal zentriert
+   ========================================================================== */
+.scroll-dots {
+  position: fixed;
+  right: 14px;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 800;
+  display: flex;
+  flex-direction: column;
+  gap: 11px;
+  align-items: center;
+}
+
+.scroll-dot {
+  display: block;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: rgba(0, 51, 102, 0.20);
+  border: 1.5px solid rgba(0, 51, 102, 0.35);
+  transition: background 0.25s ease, transform 0.25s ease, border-color 0.25s ease;
+  position: relative;
+  cursor: pointer;
+  outline-offset: 3px;
+}
+
+.scroll-dot:hover,
+.scroll-dot.is-active {
+  background: var(--color-blue);
+  border-color: var(--color-blue);
+  transform: scale(1.5);
+}
+
+/* Tooltip-Label beim Hover */
+.scroll-dot::before {
+  content: attr(data-label);
+  position: absolute;
+  right: 18px;
+  top: 50%;
+  transform: translateY(-50%);
+  background: var(--color-blue);
+  color: #fff;
+  padding: 3px 10px;
+  border-radius: var(--radius-sm);
+  font-size: 11px;
+  font-weight: 600;
+  white-space: nowrap;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.18s ease;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.18);
+}
+
+.scroll-dot:hover::before {
+  opacity: 1;
+}
+
+/* Auf sehr kleinen Displays ausblenden */
+@media (max-width: 480px) {
+  .scroll-dots { display: none; }
 }
 
 
@@ -1420,20 +1387,6 @@ p:last-child { margin-bottom: 0; }
 /* ── 900px: Desktop ────────────────────────────────────────────────────── */
 @media (min-width: 900px) {
 
-  /* ── Navigation: Hamburger ausblenden, Nav anzeigen ── */
-  .hamburger { display: none !important; }
-  .site-nav   {
-    display: flex !important;
-    /* Auf Desktop: Logo hat kein flex:1, Nav hat margin-left: auto */
-  }
-  .site-logo  { flex: 0 0 auto; }
-  .nav-cta    { display: inline-flex; }
-
-  /* Nav-Links auf Desktop horizontal */
-  .nav-links {
-    flex-direction: row;
-  }
-
   /* ── Hero: 2 Spalten ── */
   .hero-layout {
     grid-template-columns: 1fr 1fr;
@@ -1457,77 +1410,11 @@ p:last-child { margin-bottom: 0; }
 }
 
 
-/* ── Mobile: Hamburger-Menü (max-width: 899px) ────────────────────────── */
+/* ── Mobile (max-width: 899px) ────────────────────────────────────────── */
 @media (max-width: 899px) {
 
-  /* Logo nimmt verfügbaren Platz → Hamburger wandert nach rechts */
-  .site-logo { flex: 1; }
-
-  /* Logo auf Mobile kleiner */
-  .site-logo-img { height: 55px; }
-
-  /* Hamburger anzeigen */
-  .hamburger { display: flex; }
-
-  /* CTA-Button in der Navigationsleiste auf Mobile verstecken */
-  .nav-cta { display: none; }
-
-  /* Navigation standardmäßig versteckt.
-     Wird durch .nav-toggle:checked ~ .site-nav angezeigt. */
-  .site-nav {
-    /* display: none = kein Platzbedarf, aber Checkbox-Logik funktioniert weiterhin */
-    display: none;
-    /* Volle Breite: bricht auf neue Zeile dank flex-wrap auf .header-inner */
-    width: 100%;
-    flex: 0 0 100%;
-    order: 10;
-    padding: var(--sp-2) 0 var(--sp-3);
-    border-top: 1px solid var(--color-gray-line);
-    background: white;
-  }
-
-  /* Nav-Links auf Mobile vertikal */
-  .nav-links {
-    flex-direction: column;
-    align-items: stretch;
-    gap: 4px;
-    padding: 0 var(--sp-2);
-  }
-
-  .nav-link {
-    padding: var(--sp-2);
-    border-bottom: none;
-    border-radius: var(--radius-md);
-  }
-  .nav-link.is-active {
-    background: var(--color-light-blue);
-    border-bottom: none;
-  }
-
-  /* ══ DER KERNMECHANISMUS (CSS-only Hamburger) ══
-     .nav-toggle:checked  = Checkbox ist angehakt (Menü soll offen sein)
-     ~                    = Geschwister-Selektor (folgendes Geschwister-Element)
-     .site-nav            = die Navigation, die ein- und ausgeblendet wird
-     Beide Elemente sind Kinder von .header-inner → Geschwister-Beziehung. */
-  .nav-toggle:checked ~ .site-nav {
-    display: flex;
-    flex-direction: column;
-  }
-
-  /* Hamburger → X Animation beim Öffnen */
-  /* Balken 1: dreht nach oben-rechts */
-  .nav-toggle:checked ~ .hamburger .hamburger-bar:nth-child(1) {
-    transform: translateY(7px) rotate(45deg);
-  }
-  /* Balken 2: verschwindet */
-  .nav-toggle:checked ~ .hamburger .hamburger-bar:nth-child(2) {
-    opacity: 0;
-    transform: scaleX(0);
-  }
-  /* Balken 3: dreht nach unten-rechts */
-  .nav-toggle:checked ~ .hamburger .hamburger-bar:nth-child(3) {
-    transform: translateY(-7px) rotate(-45deg);
-  }
+  /* Logo auf Mobile etwas kleiner */
+  .site-logo-img { height: 50px; }
 
   /* Buttons auf Mobile: volle Breite */
   .btn-group {

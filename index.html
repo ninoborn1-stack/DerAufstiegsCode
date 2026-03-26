@@ -38,58 +38,12 @@
   <header class="site-header">
     <div class="header-inner">
 
-      <!-- Logo: Bild statt Text, Höhe 70px Desktop / 55px Mobile per CSS -->
+      <!-- Logo: sticky links oben -->
       <a href="#" class="site-logo" aria-label="AufstiegsCode – Zurück zur Startseite">
         <img src="images/Nav-bar-logo.png" alt="AufstiegsCode Logo" class="site-logo-img" />
       </a>
 
-      <!-- Hamburger-Toggle: unsichtbare Checkbox.
-           display:none entfernt sie visuell, aber das :checked-Event bleibt
-           über das verknüpfte <label for="nav-toggle"> auslösbar. -->
-      <input type="checkbox" id="nav-toggle" class="nav-toggle" aria-hidden="true" />
-
-      <!-- Das <label> fungiert als sichtbarer Hamburger-Button.
-           for="nav-toggle" = Klick auf Label → Checkbox checked/unchecked -->
-      <label for="nav-toggle" class="hamburger" aria-label="Menü öffnen/schließen">
-        <span class="hamburger-bar"></span>
-        <span class="hamburger-bar"></span>
-        <span class="hamburger-bar"></span>
-      </label>
-
-      <!-- Hauptnavigation – auf Mobile per CSS-Checkbox versteckt/angezeigt.
-           aria-label = Beschriftung für Screen Reader -->
-      <nav class="site-nav" aria-label="Hauptnavigation">
-        <ul class="nav-links" role="list">
-          <!-- Nummerierte Menüpunkte: .nav-num trägt die dekorative Zahl -->
-          <li>
-            <a href="placeholder.html" class="nav-link is-active">
-              <span class="nav-num" aria-hidden="true">01</span> Buch
-            </a>
-          </li>
-          <li>
-            <a href="#scil" class="nav-link">
-              <span class="nav-num" aria-hidden="true">02</span> SCIL Profile
-            </a>
-          </li>
-          <li>
-            <a href="#autoren" class="nav-link">
-              <span class="nav-num" aria-hidden="true">03</span> Autoren
-            </a>
-          </li>
-          <li>
-            <a href="#events" class="nav-link">
-              <span class="nav-num" aria-hidden="true">04</span> Events
-            </a>
-          </li>
-          <li>
-            <a href="placeholder.html" class="nav-link">
-              <span class="nav-num" aria-hidden="true">05</span> Kontakt
-            </a>
-          </li>
-        </ul>
-      </nav>
-
-      <!-- Header-CTA: kleiner Kauf-Button, auf Mobile ausgeblendet -->
+      <!-- Kauf-Button: sticky rechts oben, immer sichtbar -->
       <a href="placeholder.html" class="btn btn-primary btn-sm nav-cta">
         Jetzt kaufen
       </a>
@@ -111,7 +65,7 @@
       Hintergrund: #f8f9fa + vertikaler Blau-Balken links (::before Pseudo-Element)
       Mobile: Einspaltig, Text oben – Buch unten
     ================================================================ -->
-    <section class="hero" aria-labelledby="hero-title">
+    <section class="hero" id="hero" aria-labelledby="hero-title">
       <div class="container hero-layout">
 
         <!-- ── Text-Spalte (im DOM zuerst für SEO/Accessibility) ──
@@ -246,7 +200,7 @@
       Heller Hintergrund (#f0f7ff), 3 Cards nebeneinander auf Desktop.
       Großes kursives Zitat, dekoratives Anführungszeichen, 5 Sterne, Name.
     ================================================================ -->
-    <section class="section section--light-blue" aria-labelledby="testimonials-heading">
+    <section class="section section--light-blue" id="testimonials" aria-labelledby="testimonials-heading">
       <div class="container">
 
         <div class="section-header text-center">
@@ -600,7 +554,7 @@
       Letzter, starker Handlungsaufruf vor dem Footer.
       section--blue-solid: Voller blauer Hintergrund für visuelle Stärke.
     ================================================================ -->
-    <section class="section section--blue-solid cta-final" aria-labelledby="cta-heading">
+    <section class="section section--blue-solid cta-final" id="cta" aria-labelledby="cta-heading">
       <div class="container text-center">
         <h2 id="cta-heading" style="color: white;">Bereit für deinen nächsten Schritt?</h2>
         <p class="lead" style="color: rgba(255,255,255,0.85); margin-bottom: var(--sp-5);">
@@ -660,6 +614,44 @@
 
   </footer>
 
+
+
+  <!-- ================================================================
+    SCROLL DOTS – Positions-Indikator rechts (JS-gesteuert)
+  ================================================================ -->
+  <nav class="scroll-dots" aria-label="Seitennavigation">
+    <a href="#hero"         class="scroll-dot" data-label="Start"></a>
+    <a href="#buch"         class="scroll-dot" data-label="Das Buch"></a>
+    <a href="#testimonials" class="scroll-dot" data-label="Vorbilder"></a>
+    <a href="#newsletter"   class="scroll-dot" data-label="Leseprobe"></a>
+    <a href="#scil"         class="scroll-dot" data-label="Bundle &amp; SCIL"></a>
+    <a href="#autoren"      class="scroll-dot" data-label="Autoren"></a>
+    <a href="#events"       class="scroll-dot" data-label="Events"></a>
+    <a href="#cta"          class="scroll-dot" data-label="Kontakt"></a>
+  </nav>
+
+  <script>
+    (function () {
+      var ids  = ['hero','buch','testimonials','newsletter','scil','autoren','events','cta'];
+      var dots = document.querySelectorAll('.scroll-dot');
+
+      function update() {
+        var current = ids[0];
+        ids.forEach(function (id) {
+          var el = document.getElementById(id);
+          if (el && el.getBoundingClientRect().top <= window.innerHeight * 0.55) {
+            current = id;
+          }
+        });
+        dots.forEach(function (dot) {
+          dot.classList.toggle('is-active', dot.getAttribute('href') === '#' + current);
+        });
+      }
+
+      window.addEventListener('scroll', update, { passive: true });
+      update();
+    })();
+  </script>
 
 </body>
 </html>
