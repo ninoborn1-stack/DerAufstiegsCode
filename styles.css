@@ -1172,6 +1172,15 @@ p:last-child { margin-bottom: 0; }
   border-bottom-color: var(--color-blue);
 }
 
+.author-logos {
+  margin-top: var(--sp-3);
+  margin-bottom: var(--sp-2);
+}
+.author-company-logo {
+  max-width: 150px;
+  height: auto;
+}
+
 
 /* ==========================================================================
    15. EVENTS SECTION

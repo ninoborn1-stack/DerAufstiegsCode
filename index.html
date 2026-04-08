@@ -135,7 +135,7 @@
               <!-- Echtes Buchcover.
                    loading="eager" = sofort laden (Bild sichtbar beim Laden).
                    width/height = Seitenverhältnis 2:3 → verhindert Layout Shift. -->
-              <img src="images/Buchcover.png"
+              <img src="images/buchcoverhero.png"
                    alt=""
                    class="book-img"
                    width="220"
@@ -370,7 +370,7 @@
 
             <!-- Bundle Bild -->
             <div class="bundle-img-wrap">
-              <img src="images/Scil bundle.jpg" alt="SCIL Bundle" class="bundle-img" />
+              <img src="images/bild neu bundle.png" alt="SCIL Bundle" class="bundle-img" />
             </div>
 
             <h2>Bundle-Angebot</h2>
@@ -378,7 +378,7 @@
 
             <!-- Was ist enthalten – Checkmark-Liste per CSS -->
             <ul class="bundle-list" role="list">
-              <li>Buch AufstiegsCode</li>
+              <li>Buch AufstiegsCode zum deutschen Ladenpreis von 22 € (inkl 7% MwSt)</li>
               <li>Webbasierte Erhebung Deines persönlichen Kommunikations-Profils</li>
               <li>Automatisierte Auswertung Deiner Eingaben</li>
               <li>Zweifache grafische Darstellung Deines individuellen Interaktionsprofils (Polygon &amp; Balkendiagramm)</li>
@@ -389,11 +389,11 @@
 
             <!-- Preisblock -->
             <div class="bundle-price"
-                 aria-label="Bundle-Preis: 590 Euro statt 940 Euro">
-              <span class="price-old" aria-hidden="true">940 €</span>
-              <span class="price-new">590 €</span>
+                 aria-label="Bundle-Preis: 540 Euro statt 932 Euro">
+              <span class="price-old" aria-hidden="true">932 €</span>
+              <span class="price-new">540 € inkl. MwSt</span>
             </div>
-            <span class="price-vat">Gesamtwert 940 € – nur für Leser &amp; Besucher dieser Seite</span>
+            <span class="price-vat">Regulärer Gesamtpreis 932 € – 540 € nur für Leser und Besucher dieser Webseite</span>
 
             <a href="https://scil-profile.de/produkt/aufstiegscode-bundle/" class="btn btn-white card-cta" target="_blank" rel="noopener">
               Bundle jetzt sichern
@@ -446,6 +446,10 @@
               Fachbücher und eines Romans.
             </p>
 
+            <div class="author-logos">
+              <img src="images/BuF_Logo_250_150.png" alt="Bornhäußer &amp; Friends Logo" class="author-company-logo" />
+            </div>
+
             <a href="https://bornhaeusser-friends.com"
                target="_blank"
                rel="noopener noreferrer"
@@ -458,20 +462,27 @@
           <article class="author-block">
 
             <div class="author-avatar">
-              <img src="images/dirk.jpeg" alt="Dirk Scheffer" />
+              <img src="images/dirkbild.jpeg" alt="Dirk Scheffer" />
             </div>
 
             <h3 class="author-name">Dirk Scheffer</h3>
-            <span class="author-role">Führungsexperte &amp; Coach</span>
+            <span class="author-role">Unternehmer, Autor &amp; Coach</span>
 
             <p class="author-bio">
-              Dirk Scheffer ist Autor, Unternehmer und Coach im Sport und
-              Business sowie SCIL-Profilmaster. Mit seinen Marken accuo und
-              Rasenreich entwickelte er preisgekrönte Methoden und begleitet
-              Menschen auf ihrem Weg in die nächste Liga. Er zählt zu den
-              TOP Trainern Europas – ausgezeichnet mit acht Europäischen
-              Trainingspreisen des BDVT e.V.
+              Dirk Scheffer ist Unternehmer, Autor und Coach im Sport und Business
+              sowie SCIL-Profile® Master. Seit über 40 Jahren begleitet er Menschen
+              und Organisationen in ihrer Entwicklung zu mehr Klarheit, Wirkung und
+              Leistung. Die Aus- und Weiterbildung von Trainern in Sport und Wirtschaft
+              liegt ihm dabei besonders am Herzen. Er entwickelte die accuo
+              Systemarchitektur für Wirksamkeit™ und die MentoringCoaching™ Methode
+              sowie Trainingsansätze für mehr Handlungsschnelligkeit. Als achtfacher
+              Preisträger des Europäischen Trainingspreises steht er für messbare
+              Ergebnisse und nachhaltigen Erfolg.
             </p>
+
+            <div class="author-logos">
+              <img src="images/rasenreichlogo.png" alt="Rasenreich Logo" class="author-company-logo" />
+            </div>
 
             <a href="https://rasenreich.de"
                target="_blank"
@@ -499,39 +510,107 @@
           <h2 id="events-heading">Kommende Events</h2>
         </div>
 
-        <!-- Event-Karte: Datum-Block links, Info rechts (auf Desktop) -->
-        <div class="event-card">
+        <div class="event-card" style="flex-direction: column; align-items: center; text-align: center;">
 
-          <!-- Prominenter Kalender-Block: visuell auffällig, enthält Monat/Tag/Jahr -->
-          <div class="event-date-block" aria-hidden="true">
-            <div class="event-month">Juli</div>
-            <div class="event-day">27–29</div>
-            <div class="event-year">2026</div>
-          </div>
+          <img src="images/Piktogramm_Termineintrag.png" alt="Termin-Icon" style="width: 64px; height: 64px; margin-bottom: 1rem;" />
 
-          <!-- Event-Details -->
-          <div class="event-info">
-            <h3 class="event-title">ITK Mainz 2026</h3>
+          <h3 class="event-title">Die Autoren Live erleben</h3>
 
-            <!-- Standort mit Pin-Emoji -->
-            <p class="event-location">
-              <span aria-hidden="true">📍</span>
-              <!-- &nbsp; = geschütztes Leerzeichen → kein Umbruch zwischen Emoji und Text -->
-              Rheingoldhalle Mainz, 27.–29.&nbsp;Juli&nbsp;2026
-            </p>
+          <p class="event-description">
+            Erlebe Andreas Bornhäußer und Dirk Scheffer
+            live oder live-online; in Webinaren,
+            Präsenz-Autorenlesungen sowie auf Messen und Kongressen.
+            Melde Dich hier und jetzt kostenlos an.
+          </p>
 
-            <p class="event-description">
-              Andreas Bornhäußer und Dirk Scheffer präsentieren den AufstiegsCode
-              auf dem internationalen Trainerkongress. Vortrag, Buchsignierung und
-              Workshop – sichert euch jetzt euren Platz.
-            </p>
-
-            <a href="placeholder.html" class="btn btn-primary">Jetzt anmelden</a>
-          </div>
+          <button type="button" class="btn btn-primary" id="gaesteliste-trigger">Gästeliste-Eintrag</button>
 
         </div><!-- /event-card -->
       </div>
     </section><!-- /events -->
+
+    <!-- ================================================================
+      GÄSTELISTE BREVO FORM MODAL
+    ================================================================ -->
+    <div class="lp-overlay" id="gaesteliste-overlay" role="dialog" aria-modal="true" aria-label="AufstiegsCode Gästeliste">
+      <div class="lp-modal brevo-modal">
+        <button class="lp-close" id="gaesteliste-close" aria-label="Formular schließen">&times;</button>
+        <div class="lp-spine"></div>
+        <div class="lp-content brevo-content">
+          <div class="sib-form" style="text-align:center; background-color:transparent;">
+            <div class="sib-form-container">
+              <div class="sib-form-message-panel" style="font-size:16px;text-align:left;font-family:Helvetica,sans-serif;color:#661d1d;background-color:#ffeded;border-radius:3px;border-color:#ff4949;max-width:540px;display:none;" id="gaeste-error-message">
+                <div class="sib-form-message-panel__text sib-form-message-panel__text--center">
+                  <span class="sib-form-message-panel__inner-text">Deine Anmeldung konnte nicht gespeichert werden. Bitte versuche es erneut.</span>
+                </div>
+              </div>
+              <div></div>
+              <div class="sib-form-message-panel" style="font-size:16px;text-align:left;font-family:Helvetica,sans-serif;color:#085229;background-color:#e7faf0;border-radius:3px;border-color:#13ce66;max-width:540px;display:none;" id="gaeste-success-message">
+                <div class="sib-form-message-panel__text sib-form-message-panel__text--center">
+                  <span class="sib-form-message-panel__inner-text">Deine Anmeldung war erfolgreich.</span>
+                </div>
+              </div>
+              <div></div>
+              <div class="sib-container--large sib-container--vertical" style="text-align:center;background-color:rgba(255,255,255,1);max-width:540px;border-radius:3px;border-width:1px;border-color:#C0CCD9;border-style:solid;direction:ltr">
+                <form method="POST" action="https://991afc8c.sibforms.com/serve/MUIFAA0Mnn3V6J822dPRRl0oq3OHcGSbQQX_g_3V4VBuHTFPoLFRd6gYjIwflk53h6tlj6iKNe0CCmmbawQSrSvfrnZzjzwTHXGJcZGlpR9Z10u4TGYgd4WQLMeVw1nfbtahZT4kId8U0ptmGpw33otSbKUS_aMJ3DRnb0cEnLkQJnOmBap05PSWPtyvo_qZ8SQLbNzSt_ueMeqM" data-type="subscription" id="gaeste-form">
+                  <div style="padding:8px 0;">
+                    <div class="sib-form-block" style="font-size:32px;text-align:left;font-weight:700;font-family:Helvetica,sans-serif;color:#3C4858;background-color:transparent;">
+                      <p>AufstiegsCode Gästeliste</p>
+                    </div>
+                  </div>
+                  <div style="padding:8px 0;">
+                    <div class="sib-form-block" style="font-size:16px;text-align:left;font-family:Helvetica,sans-serif;color:#3C4858;background-color:transparent;">
+                      <div class="sib-text-form-block">
+                        <p>Damit Du zu den nächsten LiveEvents mit den Autoren Andreas Bornhäußer und Dirk Scheffer eingeladen wirst, trag Dich bitte hier kurz ein. Vielen Dank. Wir informieren Dich, sobald was Neues ansteht.</p>
+                      </div>
+                    </div>
+                  </div>
+                  <div style="padding:8px 0;">
+                    <div class="sib-input sib-form-block">
+                      <div class="form__entry entry_block">
+                        <div class="form__label-row">
+                          <label class="entry__label" style="font-weight:700;text-align:left;font-size:16px;font-family:Helvetica,sans-serif;color:#3c4858;" for="GAESTE_EMAIL" data-required="*">Hier bitte Deine E-Mail-Adresse</label>
+                          <div class="entry__field">
+                            <input class="input" type="email" id="GAESTE_EMAIL" name="EMAIL" autocomplete="off" placeholder="EMAIL" data-required="true" required />
+                          </div>
+                        </div>
+                        <label class="entry__error entry__error--primary" style="font-size:16px;text-align:left;font-family:Helvetica,sans-serif;color:#661d1d;background-color:#ffeded;border-radius:3px;border-color:#ff4949;"></label>
+                      </div>
+                    </div>
+                  </div>
+                  <div style="padding:8px 0;">
+                    <div class="sib-optin sib-form-block">
+                      <div class="form__entry entry_mcq">
+                        <div class="form__label-row">
+                          <div class="entry__choice">
+                            <label>
+                              <input type="checkbox" class="input_replaced" value="1" id="GAESTE_OPT_IN" name="OPT_IN" />
+                              <span class="checkbox checkbox_tick_positive"></span>
+                              <span style="font-size:14px;text-align:left;font-family:Helvetica,sans-serif;color:#3C4858;background-color:transparent;"><p>Ja, ich möchte zu den Live Events mit den AufstiegsCode-Autoren Andreas Bornhäußer und Dirk Scheffer eingeladen werden. Mit meinem JA akzeptiere ich die Datenschutzerklärung.</p></span>
+                            </label>
+                          </div>
+                        </div>
+                        <label class="entry__error entry__error--primary" style="font-size:16px;text-align:left;font-family:Helvetica,sans-serif;color:#661d1d;background-color:#ffeded;border-radius:3px;border-color:#ff4949;"></label>
+                        <label class="entry__specification" style="font-size:12px;text-align:left;font-family:Helvetica,sans-serif;color:#8390A4;">Du kannst Deine Anmeldung jederzeit über den Link in unseren Mails an Dich abbestellen.</label>
+                      </div>
+                    </div>
+                  </div>
+                  <div style="padding:8px 0;">
+                    <div class="sib-form-block" style="text-align:left;">
+                      <button class="sib-form-block__button sib-form-block__button-with-loader" style="font-size:16px;font-weight:700;font-family:Helvetica,sans-serif;color:#FFFFFF;background-color:#0b8ac3;border-radius:3px;border-width:0px;" form="gaeste-form" type="submit">
+                        ANMELDEN
+                      </button>
+                    </div>
+                  </div>
+                  <input type="text" name="email_address_check" value="" class="input--hidden">
+                  <input type="hidden" name="locale" value="de">
+                </form>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
 
 
     <!-- ================================================================
@@ -541,15 +620,15 @@
     ================================================================ -->
     <section class="section section--blue-solid cta-final" id="cta" aria-labelledby="cta-heading">
       <div class="container text-center">
-        <h2 id="cta-heading" style="color: white;">Bereit für deinen nächsten Schritt?</h2>
+        <h2 id="cta-heading" style="color: white;">Bereit für den nächsten Schritt?</h2>
         <p class="lead" style="color: rgba(255,255,255,0.85); margin-bottom: var(--sp-5);">
-          Hol dir jetzt den AufstiegsCode und beginne deinen Weg
+          Sicher Dir Deinen AufstiegsCode und beginne Deinen Weg
           zur Führungspersönlichkeit im Sport.
         </p>
         <div class="btn-group" style="justify-content: center;">
-          <a href="https://scil-profile.de" class="btn btn-outline-white" target="_blank" rel="noopener">SCIL Profile</a>
-          <a href="https://www.amazon.de/Aufstiegscode-Dein-Trainer-Führungspersönlichkeit-Sport/dp/3840379954/ref=sr_1_2?__mk_de_DE=ÅMÅŽÕÑ&crid=24IIXUSQRUC9Y&dib=eyJ2IjoiMSJ9.o81hoxBqTBhmwKN-G7bvWoroW7jHsmozhri8OMelc23GjHj071QN20LucGBJIEps.7kEc_fznj9-v9UH6r7QO4MUDcwOV1xP8s5_USvVUdnY&dib_tag=se&keywords=aufstiegscode&qid=1774526772&sprefix=aufstiegscode%2Caps%2C100&sr=8-2" class="btn btn-white" target="_blank" rel="noopener">Buch kaufen</a>
-          <a href="https://rasenreich.de" class="btn btn-outline-white" target="_blank" rel="noopener">Rasenreich</a>
+          <a href="#bundle" class="btn btn-outline-white">SCIL Profile</a>
+          <button type="button" class="btn btn-white" id="leseprobe-trigger-cta">Leseprobe</button>
+          <a href="https://www.amazon.de/Aufstiegscode-Dein-Trainer-Führungspersönlichkeit-Sport/dp/3840379954/ref=sr_1_2?__mk_de_DE=ÅMÅŽÕÑ&crid=24IIXUSQRUC9Y&dib=eyJ2IjoiMSJ9.o81hoxBqTBhmwKN-G7bvWoroW7jHsmozhri8OMelc23GjHj071QN20LucGBJIEps.7kEc_fznj9-v9UH6r7QO4MUDcwOV1xP8s5_USvVUdnY&dib_tag=se&keywords=aufstiegscode&qid=1774526772&sprefix=aufstiegscode%2Caps%2C100&sr=8-2" class="btn btn-outline-white" target="_blank" rel="noopener">AufstiegsCode</a>
         </div>
       </div>
     </section>
@@ -575,17 +654,17 @@
         <a href="#" class="footer-logo">
           Aufstiegs<span>Code</span>
         </a>
-        <p>Das Buch für Trainer, die zur Führungspersönlichkeit werden wollen.</p>
+        <p>AufstiegsCode – für Deinen Weg an die Spitze als Führungspersönlichkeit im Sport</p>
       </div>
 
       <!-- Footer-Links: Impressum, Datenschutz etc. -->
       <nav class="footer-nav" aria-label="Footer-Navigation">
         <ul class="footer-links" role="list">
           <!-- Impressum: Pflichtangabe nach §5 TMG -->
-          <li><a href="https://scil-profile.de/ueber-uns/impressum/" target="_blank" rel="noopener">Impressum</a></li>
+          <li><a href="https://scil-profile.de/ueber-uns/impressum/">Impressum</a></li>
           <!-- Datenschutz: Pflicht nach DSGVO -->
-          <li><a href="https://scil-profile.de/ueber-uns/datenschutzerklaerung/" target="_blank" rel="noopener">Datenschutz</a></li>
-          <li><a href="https://scil-profile.de/ueber-uns/agb/" target="_blank" rel="noopener">AGB</a></li>
+          <li><a href="https://scil-profile.de/ueber-uns/datenschutzerklaerung/">Datenschutz</a></li>
+          <li><a href="https://scil-profile.de/ueber-uns/agb/">AGB</a></li>
           <li><a href="placeholder.html">Kontakt</a></li>
         </ul>
       </nav>
@@ -619,52 +698,36 @@
     LESEPROBE MODAL
   ================================================================ -->
   <div class="lp-overlay" id="lp-overlay" role="dialog" aria-modal="true" aria-labelledby="lp-title">
-    <div class="lp-modal">
+    <div class="lp-modal" style="max-width: 95vw; width: 1100px; height: 90vh; display: flex; flex-direction: column; padding: 0; overflow: hidden;">
 
       <!-- Schließen-Button -->
-      <button class="lp-close" id="lp-close" aria-label="Leseprobe schließen">&times;</button>
+      <button class="lp-close" id="lp-close" aria-label="Leseprobe schließen" style="position: absolute; top: 0.5rem; right: 0.75rem; z-index: 10;">&times;</button>
 
-      <!-- Buchcover-Streifen links -->
-      <div class="lp-spine"></div>
+      <h2 id="lp-title" class="sr-only">Leseprobe AufstiegsCode</h2>
 
-      <!-- Inhalt -->
-      <div class="lp-content">
-        <p class="lp-chapter">Kapitel 1 · Warum Führung im Sport anders ist</p>
-        <h2 id="lp-title" class="lp-heading">Der erste Schritt beginnt im Kopf</h2>
+      <!-- PDF Canvas -->
+      <div id="pdf-viewer" style="flex: 1; display: flex; align-items: center; justify-content: center; background: #525659; overflow: auto; position: relative;">
+        <canvas id="pdf-canvas"></canvas>
+      </div>
 
-        <p>Es war ein Dienstagabend im November, als Michael zum ersten Mal wirklich zweifelte.
-          Nicht an seinem Team – an sich selbst. Dreizehn Jahre hatte er als Spieler alles gegeben,
-          hatte Niederlagen weggesteckt und Titel gefeiert. Doch jetzt, drei Monate nach seiner
-          Ernennung zum Cheftrainer, saß er in der Kabine und fragte sich: <em>Weiß ich überhaupt,
-          wie man führt?</em></p>
+      <!-- Navigation -->
+      <div style="display: flex; align-items: center; justify-content: space-between; padding: 0.75rem 1.5rem; background: #f8f9fa; border-top: 1px solid #dee2e6; flex-shrink: 0;">
+        <button type="button" id="pdf-prev" class="btn btn-outline" style="min-width: 44px;">&#8592;</button>
+        <span id="pdf-page-info" style="font-size: 0.95rem; color: #4b5563;">Seite 1 / 1</span>
+        <button type="button" id="pdf-next" class="btn btn-outline" style="min-width: 44px;">&#8594;</button>
+      </div>
 
-        <p>Diese Frage kennen viele. Der Wechsel vom Athleten zum Trainer, vom Ausführenden zum
-          Entscheidungsträger, ist einer der größten Sprünge, den ein Mensch im Sport machen kann.
-          Und doch wird er selten vorbereitet. Man bekommt ein Trainerzeugnis – aber keine Anleitung,
-          wie man 25 völlig unterschiedliche Persönlichkeiten so anspricht, dass alle ihr Bestes geben.</p>
-
-        <p>Genau hier setzt der <strong>AufstiegsCode</strong> an. Nicht mit abstrakten Managementtheorien,
-          sondern mit echten Werkzeugen aus dem Spitzensport. Mit Geschichten wie der von Michael.
-          Und mit einem klaren System, das Dir hilft, Deinen eigenen Führungsstil zu erkennen –
-          und konsequent zu nutzen.</p>
-
-        <p class="lp-pullquote">„Führung ist keine Frage der Lautstärke. Es ist eine Frage der Klarheit."</p>
-
-        <p>In den folgenden Kapiteln wirst Du lernen, wie die erfolgreichsten Trainer und Sportmanager
-          kommunizieren – und warum ihr Erfolg kein Zufall ist. Du wirst Dich in Fallbeispielen
-          wiedererkennen, unbequeme Wahrheiten entdecken und am Ende jedes Kapitels konkrete Schritte
-          finden, die Du sofort umsetzen kannst.</p>
-
-        <p class="lp-meta">— Auszug aus dem AufstiegsCode, Kapitel 1 (Platzhalter-Text) —</p>
-
-        <div class="lp-actions">
-          <a href="https://www.amazon.de/Aufstiegscode-Dein-Trainer-Führungspersönlichkeit-Sport/dp/3840379954/ref=sr_1_2?__mk_de_DE=ÅMÅŽÕÑ&crid=24IIXUSQRUC9Y&dib=eyJ2IjoiMSJ9.o81hoxBqTBhmwKN-G7bvWoroW7jHsmozhri8OMelc23GjHj071QN20LucGBJIEps.7kEc_fznj9-v9UH6r7QO4MUDcwOV1xP8s5_USvVUdnY&dib_tag=se&keywords=aufstiegscode&qid=1774526772&sprefix=aufstiegscode%2Caps%2C100&sr=8-2"
-             class="btn btn-primary" target="_blank" rel="noopener">Jetzt das ganze Buch kaufen</a>
-        </div>
+      <!-- Buch kaufen -->
+      <div style="padding: 0.75rem 1.5rem; background: #fff; border-top: 1px solid #dee2e6; text-align: center; flex-shrink: 0;">
+        <a href="https://www.amazon.de/Aufstiegscode-Dein-Trainer-Führungspersönlichkeit-Sport/dp/3840379954/ref=sr_1_2?__mk_de_DE=ÅMÅŽÕÑ&crid=24IIXUSQRUC9Y&dib=eyJ2IjoiMSJ9.o81hoxBqTBhmwKN-G7bvWoroW7jHsmozhri8OMelc23GjHj071QN20LucGBJIEps.7kEc_fznj9-v9UH6r7QO4MUDcwOV1xP8s5_USvVUdnY&dib_tag=se&keywords=aufstiegscode&qid=1774526772&sprefix=aufstiegscode%2Caps%2C100&sr=8-2"
+           class="btn btn-primary" target="_blank" rel="noopener">Jetzt das ganze Buch kaufen</a>
       </div>
 
     </div>
   </div>
+
+  <!-- PDF.js Library -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
 
   <script>
     (function () {
@@ -688,11 +751,100 @@
       update();
     })();
 
-    // ── Leseprobe Modal ──
+    // ── PDF Viewer + Leseprobe Modal ──
     (function () {
-      var overlay  = document.getElementById('lp-overlay');
-      var trigger  = document.getElementById('leseprobe-trigger');
-      var closeBtn = document.getElementById('lp-close');
+      var overlay   = document.getElementById('lp-overlay');
+      var trigger   = document.getElementById('leseprobe-trigger');
+      var triggerCta = document.getElementById('leseprobe-trigger-cta');
+      var closeBtn  = document.getElementById('lp-close');
+      var canvas    = document.getElementById('pdf-canvas');
+      var ctx       = canvas.getContext('2d');
+      var prevBtn   = document.getElementById('pdf-prev');
+      var nextBtn   = document.getElementById('pdf-next');
+      var pageInfo  = document.getElementById('pdf-page-info');
+
+      var pdfDoc    = null;
+      var pageNum   = 1;
+      var rendering = false;
+      var pdfLoaded = false;
+
+      pdfjsLib.GlobalWorkerOptions.workerSrc = 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js';
+
+      function renderPage(num) {
+        rendering = true;
+        pdfDoc.getPage(num).then(function (page) {
+          var viewer = document.getElementById('pdf-viewer');
+          var availH = viewer.clientHeight - 20;
+          var availW = viewer.clientWidth - 20;
+          var unscaledViewport = page.getViewport({ scale: 1 });
+          var scaleH = availH / unscaledViewport.height;
+          var scaleW = availW / unscaledViewport.width;
+          var scale  = Math.min(scaleH, scaleW, 2.5);
+          var viewport = page.getViewport({ scale: scale });
+
+          canvas.height = viewport.height;
+          canvas.width  = viewport.width;
+
+          page.render({ canvasContext: ctx, viewport: viewport }).promise.then(function () {
+            rendering = false;
+          });
+        });
+        pageInfo.textContent = 'Seite ' + num + ' / ' + pdfDoc.numPages;
+        prevBtn.disabled = (num <= 1);
+        nextBtn.disabled = (num >= pdfDoc.numPages);
+      }
+
+      function loadPdf() {
+        if (pdfLoaded) { renderPage(pageNum); return; }
+        pdfjsLib.getDocument('Probeseiten_Heroeteil.pdf').promise.then(function (pdf) {
+          pdfDoc = pdf;
+          pdfLoaded = true;
+          renderPage(pageNum);
+        });
+      }
+
+      function open() {
+        overlay.classList.add('is-open');
+        document.body.style.overflow = 'hidden';
+        closeBtn.focus();
+        loadPdf();
+      }
+      function close() {
+        overlay.classList.remove('is-open');
+        document.body.style.overflow = '';
+      }
+
+      prevBtn.addEventListener('click', function () {
+        if (pageNum <= 1 || rendering) return;
+        pageNum--;
+        renderPage(pageNum);
+      });
+      nextBtn.addEventListener('click', function () {
+        if (!pdfDoc || pageNum >= pdfDoc.numPages || rendering) return;
+        pageNum++;
+        renderPage(pageNum);
+      });
+
+      trigger.addEventListener('click', open);
+      if (triggerCta) triggerCta.addEventListener('click', open);
+      closeBtn.addEventListener('click', close);
+      overlay.addEventListener('click', function (e) {
+        if (e.target === overlay) close();
+      });
+      document.addEventListener('keydown', function (e) {
+        if (!overlay.classList.contains('is-open')) return;
+        if (e.key === 'Escape') close();
+        if (e.key === 'ArrowLeft' || e.key === 'ArrowUp') { prevBtn.click(); e.preventDefault(); }
+        if (e.key === 'ArrowRight' || e.key === 'ArrowDown') { nextBtn.click(); e.preventDefault(); }
+      });
+    })();
+
+    // ── Gästeliste Modal ──
+    (function () {
+      var overlay  = document.getElementById('gaesteliste-overlay');
+      var trigger  = document.getElementById('gaesteliste-trigger');
+      var closeBtn = document.getElementById('gaesteliste-close');
+      if (!overlay || !trigger) return;
 
       function open() {
         overlay.classList.add('is-open');
@@ -702,7 +854,6 @@
       function close() {
         overlay.classList.remove('is-open');
         document.body.style.overflow = '';
-        trigger.focus();
       }
 
       trigger.addEventListener('click', open);
