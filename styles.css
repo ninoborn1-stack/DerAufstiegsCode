@@ -1266,6 +1266,65 @@ p:last-child { margin-bottom: 0; }
 
 
 /* ==========================================================================
+   KONTAKT SECTION
+   ========================================================================== */
+.kontakt-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: var(--sp-6);
+  max-width: 900px;
+  margin: 0 auto;
+}
+@media (max-width: 640px) {
+  .kontakt-grid { grid-template-columns: 1fr; }
+}
+.kontakt-card {
+  background: #fff;
+  border-radius: var(--radius);
+  padding: var(--sp-5);
+  box-shadow: 0 2px 12px rgba(0,0,0,0.06);
+}
+.kontakt-name {
+  font-size: var(--text-lg);
+  color: var(--color-blue);
+  margin-bottom: 0.25rem;
+}
+.kontakt-company {
+  font-size: var(--text-sm);
+  font-weight: 600;
+  color: #4b5563;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  margin-bottom: var(--sp-4);
+  padding-bottom: var(--sp-3);
+  border-bottom: 1px solid #e5e7eb;
+}
+.kontakt-details p {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.6rem;
+  margin-bottom: 0.75rem;
+  font-size: var(--text-base);
+  line-height: 1.6;
+  color: #374151;
+}
+.kontakt-icon {
+  flex-shrink: 0;
+  width: 1.2em;
+  text-align: center;
+}
+.kontakt-details a {
+  color: var(--color-blue);
+  text-decoration: none;
+  border-bottom: 1px solid transparent;
+  transition: var(--transition);
+}
+.kontakt-details a:hover {
+  border-bottom-color: var(--color-blue);
+}
+
+
+/* ==========================================================================
    17. FOOTER
    Dunkelblauer Hintergrund (#0d2f45).
    Logo links, Linkliste rechts. Einfach und klar.
