@@ -200,7 +200,7 @@
         </ul><!-- /check-list -->
 
         <div class="text-center" style="margin-top: var(--sp-6);">
-          <a href="https://scil-profile.de/aufstiegscode-lesprobe/" class="btn btn-primary" target="_blank" rel="noopener">⬇ Leseprobe herunterladen</a>
+          <button type="button" class="btn btn-primary" id="brevo-trigger-2">⬇ Leseprobe herunterladen</button>
         </div>
 
       </div>
@@ -289,7 +289,7 @@
           Hol dir die ersten Kapitel des AufstiegsCodes –
           kostenlos und direkt.
         </p>
-        <a href="https://scil-profile.de/aufstiegscode-lesprobe/" class="btn btn-white" target="_blank" rel="noopener">⬇ Leseprobe herunterladen</a>
+        <button type="button" class="btn btn-white" id="brevo-trigger">⬇ Leseprobe herunterladen</button>
 
       </div>
     </section><!-- /newsletter -->
@@ -870,6 +870,7 @@
     document.addEventListener('DOMContentLoaded', function () {
       var overlay  = document.getElementById('brevo-overlay');
       var trigger  = document.getElementById('brevo-trigger');
+      var trigger2 = document.getElementById('brevo-trigger-2');
       var closeBtn = document.getElementById('brevo-close');
       if (!overlay || !trigger) return;
 
@@ -881,10 +882,10 @@
       function closeBrevo() {
         overlay.classList.remove('is-open');
         document.body.style.overflow = '';
-        trigger.focus();
       }
 
       trigger.addEventListener('click', openBrevo);
+      if (trigger2) trigger2.addEventListener('click', openBrevo);
       closeBtn.addEventListener('click', closeBrevo);
       overlay.addEventListener('click', function (e) {
         if (e.target === overlay) closeBrevo();
